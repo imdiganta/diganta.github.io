@@ -50,18 +50,56 @@
   <title>Document</title>
 </head>
 <style>
+section.my-main-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: 100rem;
+}
+div#nav-block-001 {
+    background-color: white;
+    width: 20%;
+}
+
+
+
+#nav-block-001 > nav > ul{
+  padding: 8px;
+  margin: 0;
+}
+
+
+#nav-block-001 > nav > ul > li{
+  color: #000;
+  list-style: none;
+  font-size: 12px;
+  margin: 0;
+  padding: 5px;
+  font-weight: bold;
+}
+#nav-block-001 > nav > ul > li:hover{
+  background-color: rgba(132, 0, 255, 0.192);
+  border-radius: 5px;
+  color: blueviolet;
+}
 
 </style>
 <body>
 <section class="my-main-section">
-  <nav class="sidenave-for-main-section">
-    <ul>
-      <li>Home</li>
-      <li>Blog</li>
-      <li>Project's</li>
-      <li>Skill</li>
-    </ul>
-  </nav>
+  <div class="nav-block" id="nav-block-001">
+    <nav class="sidenave-for-main-section">
+      <ul>
+        <li>Home</li>
+        <li>Blog</li>
+        <li>Project's</li>
+        <li>Skill</li>
+      </ul>
+    </nav>
+  </div>
+  <div class="display-block" id="display-block-001">
+
+  </div>
 </section>
 </body>
 </html>
