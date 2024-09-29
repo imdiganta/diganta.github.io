@@ -44,6 +44,7 @@ body>section>.profile {
     border-radius: 10px;
     border: 1px solid #0765a136;
     flex-direction: row;
+    width: fit-content;
 }
 body>section>.soc7 {
     display: flex;
@@ -110,6 +111,25 @@ section.youling {
     border-radius: 20px;
     justify-content: space-around;
     flex-direction: column;
+}
+section.main-sec {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 800px;
+}
+@media only screen and (max-width: 640px) {
+    section.main-sec {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 700px;
+        padding: 30px;
+    }
 }
 .foot-txt{
     font-size: 10px;
@@ -202,4 +222,38 @@ a.typewrite {
     text-decoration: none;
     color: #054268;
     font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 1000px) {
+}
+
+@media only screen and (max-height: 640px) {
+    section.main-sec {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 400px;
+        padding: 30px;
+    }
 }
