@@ -25,7 +25,7 @@ body>section>.profile {
     flex-direction: column;
     margin: 20px;
     background-color: #ffffff;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     text-align: center;
     padding: 10px;
@@ -44,7 +44,7 @@ body>section>.profile {
     border-radius: 10px;
     border: 1px solid #0765a136;
     flex-direction: row;
-    width: fit-content;
+    width: unset;
 }
 body>section>.soc7 {
     display: flex;
