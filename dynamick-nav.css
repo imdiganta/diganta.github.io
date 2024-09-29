@@ -1,0 +1,195 @@
+div#nav-block-001 {
+    background-color: white;
+    width: 200px;
+}
+
+
+ul{
+  display: none;
+}
+
+
+
+#nav-block-001 > nav > ul{
+  padding: 8px;
+  margin: 0;
+  display: block;
+}
+#nav-block-001 > nav > ul > li{
+  color: #000;
+  list-style: none;
+  font-size: 12px;
+  margin: 0;
+  padding: 5px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li:hover{
+  background-color: rgba(132, 0, 255, 0.07);
+  color: rgb(82, 22, 139);
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#nav-block-001 > nav > ul > li > ul ,ul{
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li, li{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li:hover,li:hover{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#nav-block-001 > nav > ul > li > ul > li > ul , ul{
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li , li{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li:hover,li:hover{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul , ul{
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li, li{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li:hover,li:hover{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li > ul, ul{
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li > ul > li, li{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li > ul > li:hover,li:hover{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li > ul > li > ul, ul{
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+  border-radius: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li, li{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+}
+#nav-block-001 > nav > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li:hover,li:hover{
+  margin: 0;
+  list-style: none;
+  padding: 5px;
+  background-color: rgba(132, 0, 255, 0.07);
+}
