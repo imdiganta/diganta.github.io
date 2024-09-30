@@ -188,7 +188,8 @@ textarea {
         }
 
         function formatCode(text) {
-            return text.replace(/```([\s\S]*?)```/g, "\n\n<pre><code>"+text+"</code></pre>\n\n");
+            return text;
+            // return text.replace(/```([\s\S]*?)```/g, "\n\n<pre><code>"+text+"</code></pre>\n\n");
         }
 
         function addMessage(text, sender) {
