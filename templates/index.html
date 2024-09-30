@@ -115,7 +115,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 80vh;
+    height: 95vh;
     overflow-y: auto;
 }
 textarea {
@@ -184,11 +184,15 @@ textarea {
             }
         }
 
+        function formatCode(text) {
+            return text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+        }
+
         function addMessage(text, sender) {
             const messageContainer = document.getElementById('message-container');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
-            messageDiv.innerText = text;
+            messageDiv.innerHTML = formatCode(text); // Use innerHTML to parse HTML
             messageContainer.appendChild(messageDiv);
             messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
         }
@@ -197,7 +201,7 @@ textarea {
             const messageContainer = document.getElementById('message-container');
             const lastMessage = messageContainer.lastElementChild;
             if (lastMessage && lastMessage.classList.contains('bot-message')) {
-                lastMessage.innerText += ' ' + text; // Append text to the last bot message
+                lastMessage.innerHTML += ' ' + formatCode(text); // Append text to the last bot message
                 messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
             }
         }
