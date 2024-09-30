@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Specify document mode for different versions of Internet Explorer -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> -->
+  
+    <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" /> -->
+    <!-- <link rel="stylesheet" href="..\assert\bulma\bulma.sass" /> -->
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+    <!-- <link rel="stylesheet" href="..\assert\datatable\datatables.css" /> -->
+    <!-- <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" /> -->
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+    <!-- <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" /> -->
+    <!-- <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+    <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+    <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+    <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+    <script src="..\assert\datatable\datatables.js"></script>
+    <script src="..\assert\datatable\datatables.min.js"></script>
+    <script src="..\assert\ckeditor\ckeditor.js"></script> -->
+
+  
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&amp;family=Roboto&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    
+    <script src="..\script.js"></script>
+    <link rel="stylesheet" href="..\style.css">
+    <title>DIGANTA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+    max-width: 100%;
+    margin: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}   
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #fff9c4;
+            align-self: flex-start;
+        }
+        .loading {
+            color: gray;
+            font-style: italic;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            // Display user message
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            addLoadingMessage();
+
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let result = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    // Append new content to bot message or create new one
+                    const newText = decoder.decode(value, { stream: true });
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(newText);
+                    } else {
+                        addMessage(newText, 'bot'); // Display new bot message
+                    }
+                }
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerText = text;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerText += ' ' + text; // Append text to the last bot message
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            }
+        }
+
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    </script>
+</head>
+<body class="xvb4b4 x6n32m9 x1nr1p0w x1ehdrup">
+        <section class="main-sec">
+            <div class="chat-container">
+                <div id="message-container" class="message-container">
+                    <!-- Chat messages will appear here -->
+                </div>
+                <textarea id="user-input" placeholder="Type your message..."></textarea><br>
+                <button onclick="fetchStream()">Speak</button>
+            </div>
+        </section>
+        <section class="youling">
+            <div style="font-size: 10px; text-align: center; color:#728997;">Made By DigantaCreaterStudio</div>
+            <div class="manue">
+                <div class="sub-box">
+                    <div class="foot-txt">Facebook</div>
+                    <div class="foot-txt">Youtube</div>
+                    <div class="foot-txt">Instagram</div>
+                    <div class="foot-txt">Whatsapp</div>
+                    <div class="foot-txt">Twitter</div>
+                    <div class="foot-txt">Linkedin</div>
+                    <div class="foot-txt">Bloger</div>
+                    <div class="foot-txt">Discord</div>
+                    <div class="foot-txt">Artstation</div>
+                    <div class="foot-txt">Git</div>
+                    <div class="foot-txt">Github</div>
+                </div>
+                <div class="sub-box">
+                    <div class="foot-txt">Google</div>
+                    <div class="foot-txt">Amazon</div>
+                    <div class="foot-txt">Telegram</div>
+                    <div class="foot-txt">Playstore</div>
+                    <div class="foot-txt">Short URL</div>
+                    <div class="foot-txt">Bard</div>
+                    <div class="foot-txt">Openai</div>
+                    <div class="foot-txt">GeeksforGeeks</div>
+                    <div class="foot-txt">Bootstrap</div>
+                    <div class="foot-txt">Streamlabs</div>
+                    <div class="foot-txt">W3schools</div>
+                </div>
+                <div class="sub-box">
+                    <div class="foot-txt">Html</div>
+                    <div class="foot-txt">Css</div>
+                    <div class="foot-txt">Javascript</div>
+                    <div class="foot-txt">Php</div>
+                    <div class="foot-txt">Python</div>
+                    <div class="foot-txt">Xml</div>
+                    <div class="foot-txt">Java</div>
+                    <div class="foot-txt">Android Studio</div>
+                    <div class="foot-txt">Sqli</div>
+                    <div class="foot-txt">Scss</div>
+                    <div class="foot-txt">Tailwind CSS</div>
+                </div>
+            </div>
+            <div class="hund">
+                <img style="width: 60px;" src="..\60\google.png" alt="">
+                <div style="color: #728997; font-size: 10px;">ALL RIGHT RESEVED CC 2024</div>
+                <div style="display: flex;align-items: center;flex-direction: row;">
+                    <a style="color: #728997; font-size: 6px; text-decoration: none;" href="privacypolicy.html">Privacypolicy</a>
+                    <samp style="color: #728997;font-size: 6px;margin: 0;padding: 0;">|</samp>
+                    <a style="color: #728997; font-size: 6px; text-decoration: none;" href="termsandconditions.html">Terms and Conditions</a>
+                </div>
+                <!-- <img style="width: 30px;" src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Google_Bard_logo.svg" alt=""> -->
+                <!-- <img style="width: 30px;" src="https://upload.wikimedia.org/wikipedia/commons/d/da/Google_Drive_logo.png" alt=""> -->
+            </div>
+        </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    
+    <style type="text/css">.typewrite > .wrap { border-right: 0.08em solid #fff}</style></body>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #fff9c4;
+            align-self: flex-start;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            // Display user message
+            addMessage(userInput, 'user');
+
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let result = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                result += decoder.decode(value, { stream: true });
+                addMessage(result, 'bot'); // Display bot message as it arrives
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerText = text;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    </script>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Text to Speech Chat</h1>
+        <div id="message-container" class="message-container" style="max-height: 400px; overflow-y: auto;">
+
+        </div>
+        <textarea id="user-input" placeholder="Type your message..."></textarea><br>
+        <button onclick="fetchStream()">Speak</button>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <script>
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let result = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                result += decoder.decode(value, { stream: true });
+                document.getElementById('response').innerText = result;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Text to Speech</h1>
+    <textarea id="user-input" rows="4" cols="50"></textarea><br>
+    <button onclick="fetchStream()">Speak</button>
+    <h2>Response:</h2>
+    <pre id="response"></pre>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-message {
+            margin: 5px 0;
+        }
+
+        .user {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot {
+            text-align: left;
+            color: green;
+        }
+
+        .loading {
+            color: orange;
+            font-style: italic;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            background-color: #dc3545; /* Red */
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+        <button class="clear-btn" id="clear-btn">Clear Chat</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        sendBtn.addEventListener('click', () => {
+            sendMessage(userInput.value);
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage(userInput.value);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            chatBox.innerHTML = ''; // Clear chat history
+        });
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+        async function sendMessage(message) {
+            if (!message) return;
+
+            appendMessage(message, 'user');
+            userInput.value = '';
+
+            appendMessage("Loading...", 'loading');
+
+            try {
+                const response = await fetch('http://127.0.0.1:7690/v1/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: message,
+                        max_tokens: 200,
+                        temperature: 1,
+                        top_p: 0.9,
+                        seed: 10,
+                        stream: true,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let done = false;
+                let accumulatedText = ""; // To accumulate text chunks
+
+                // Clear loading message before reading response
+                chatBox.lastChild && chatBox.removeChild(chatBox.lastChild);
+
+                while (!done) {
+                    const { done: streamDone, value } = await reader.read();
+                    done = streamDone;
+
+                    if (value) {
+                        accumulatedText += decoder.decode(value, { stream: true });
+
+                        // Split accumulated text into lines to check for complete JSON objects
+                        const lines = accumulatedText.split('\n');
+                        for (let i = 0; i < lines.length; i++) {
+                            const line = lines[i].trim();
+                            if (line) {
+                                try {
+                                    const jsonData = JSON.parse(line);
+                                    const responseText = jsonData.choices?.[0]?.text;
+                                    if (responseText) {
+                                        appendMessage(responseText, 'bot'); // Append the response as a bot message
+                                    }
+                                } catch (e) {
+                                    console.error("Error parsing JSON:", e);
+                                }
+                            }
+                        }
+
+                        // Retain the last incomplete line for the next iteration
+                        if (lines[lines.length - 1].trim() !== '') {
+                            accumulatedText = lines[lines.length - 1];
+                        } else {
+                            accumulatedText = ''; // Reset if the last line was complete
+                        }
+                    }
+                }
+            } catch (error) {
+                appendMessage("Error: Unable to get response.", 'bot');
+                console.error("Fetch error: ", error);
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-message {
+            margin: 5px 0;
+        }
+
+        .user {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot {
+            text-align: left;
+            color: green;
+        }
+
+        .loading {
+            color: orange;
+            font-style: italic;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            background-color: #dc3545; /* Red */
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+        <button class="clear-btn" id="clear-btn">Clear Chat</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        sendBtn.addEventListener('click', () => {
+            sendMessage(userInput.value);
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage(userInput.value);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            chatBox.innerHTML = ''; // Clear chat history
+        });
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+        async function sendMessage(message) {
+            if (!message) return;
+
+            appendMessage(message, 'user');
+            userInput.value = '';
+
+            appendMessage("Loading...", 'loading');
+
+            try {
+                const response = await fetch('http://127.0.0.1:7690/v1/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: message,
+                        max_tokens: 200,
+                        temperature: 1,
+                        top_p: 0.9,
+                        seed: 10,
+                        stream: true,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let done = false;
+
+                // Clear loading message before reading response
+                chatBox.lastChild && chatBox.removeChild(chatBox.lastChild);
+
+                while (!done) {
+                    const { done: streamDone, value } = await reader.read();
+                    done = streamDone;
+                    const text = decoder.decode(value, { stream: true });
+                    appendMessage(text, 'bot',); // Append the response as bot message
+                }
+            } catch (error) {
+                appendMessage("Error: Unable to get response.", 'bot');
+                console.error("Fetch error: ", error);
+            }
+        }
+    </script>
+</body>
+</html> -->
