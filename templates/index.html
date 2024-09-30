@@ -141,96 +141,117 @@ textarea {
             background-color: #0056b3;
         }
     </style>
-    <script>
-        async function fetchStream() {
-            const userInput = document.getElementById('user-input').value;
-            if (!userInput.trim()) return; // Prevent empty messages
-            
-            // Display user message
-            addMessage(userInput, 'user');
-            document.getElementById('user-input').value = ''; // Clear input field
-            addLoadingMessage();
-
-            try {
-                const response = await fetch('/stream', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({ 'user_input': userInput })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+<script>
+    async function clearChatHistory() {
+        try {
+            const response = await fetch('/clear', {  // Correct endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
+            });
 
-                const reader = response.body.getReader();
-                const decoder = reader;// new TextDecoder('utf-8');
-                let result = '';
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    // Append new content to bot message or create new one
-                    const newText = decoder.decode(value, { stream: true });
-                    if (isLastMessageBot()) {
-                        appendToLastBotMessage(newText);
-                    } else {
-                        addMessage(newText, 'bot'); // Display new bot message
-                    }
-                }
-            } catch (error) {
-                addMessage('Error: ' + error.message, 'bot');
-            } finally {
-                removeLoadingMessage();
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        }
 
-        function addMessage(text, sender) {
+            // Clear the message container
             const messageContainer = document.getElementById('message-container');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
-            messageDiv.innerText = text;
-            messageContainer.appendChild(messageDiv);
+            messageContainer.innerHTML = '';  // Clear all messages
+
+            addMessage('Chat history cleared.', 'bot'); // Optional: Show feedback
+        } catch (error) {
+            addMessage('Error: ' + error.message, 'bot');
+        }
+    }
+
+    async function fetchStream() {
+        const userInput = document.getElementById('user-input').value;
+        if (!userInput.trim()) return; // Prevent empty messages
+        
+        addMessage(userInput, 'user');
+        document.getElementById('user-input').value = ''; // Clear input field
+        addLoadingMessage();
+
+        try {
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const newText = decoder.decode(value, { stream: true });
+                if (isLastMessageBot()) {
+                    appendToLastBotMessage(newText);
+                } else {
+                    addMessage(newText, 'bot');
+                }
+            }
+        } catch (error) {
+            addMessage('Error: ' + error.message, 'bot');
+        } finally {
+            removeLoadingMessage();
+        }
+    }
+
+    function addMessage(text, sender) {
+        const messageContainer = document.getElementById('message-container');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+        messageDiv.innerText = text;
+        messageContainer.appendChild(messageDiv);
+        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+    }
+
+    function appendToLastBotMessage(text) {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        if (lastMessage && lastMessage.classList.contains('bot-message')) {
+            lastMessage.innerText += ' ' + text; // Append text to the last bot message
             messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
         }
+    }
 
-        function appendToLastBotMessage(text) {
-            const messageContainer = document.getElementById('message-container');
-            const lastMessage = messageContainer.lastElementChild;
-            if (lastMessage && lastMessage.classList.contains('bot-message')) {
-                lastMessage.innerText += ' ' + text; // Append text to the last bot message
-                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
-            }
-        }
+    function isLastMessageBot() {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        return lastMessage && lastMessage.classList.contains('bot-message');
+    }
 
-        function isLastMessageBot() {
-            const messageContainer = document.getElementById('message-container');
-            const lastMessage = messageContainer.lastElementChild;
-            return lastMessage && lastMessage.classList.contains('bot-message');
-        }
+    function addLoadingMessage() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message loading';
+        loadingDiv.innerText = 'Bot is typing...';
+        document.getElementById('message-container').appendChild(loadingDiv);
+    }
 
-        function addLoadingMessage() {
-            const loadingDiv = document.createElement('div');
-            loadingDiv.className = 'message loading';
-            loadingDiv.innerText = 'Bot is typing...';
-            document.getElementById('message-container').appendChild(loadingDiv);
+    function removeLoadingMessage() {
+        const loadingMessages = document.getElementsByClassName('loading');
+        while (loadingMessages.length > 0) {
+            loadingMessages[0].remove();
         }
-
-        function removeLoadingMessage() {
-            const loadingMessages = document.getElementsByClassName('loading');
-            while (loadingMessages.length > 0) {
-                loadingMessages[0].remove();
-            }
-        }
-    </script>
+    }
+</script>
 </head>
 <body class="xvb4b4 x6n32m9 x1nr1p0w x1ehdrup">
     <div id="message-container" class="message-container">
         <!-- Chat messages will appear here -->
     </div>
     <div class="chat-container">
+        <button style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-primary" onclick="clearChatHistory()">Clear</button>
         <textarea class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
         <button style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-primary" onclick="fetchStream()">Send</button>
     </div>
