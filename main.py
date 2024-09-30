@@ -50,7 +50,10 @@ def index():
 @app.route('/stream', methods=['POST'])
 def stream():
     user_input = request.form['user_input']
-    return Response(get_stream_response(user_input), mimetype='text/event-stream')
+    if(user_input=="hi"):
+        return "hallow how can i assist tuday"
+    else:
+        return Response(get_stream_response(user_input), mimetype='text/event-stream')
 
 if __name__ == '__main__':
     app.run(debug=True)
