@@ -52,6 +52,8 @@ def stream():
     user_input = request.form['user_input']
     if(user_input=="hi"):
         return "hallow how can i assist tuday"
+    elif(user_input=="hallow"):
+        return "hallow how can i assist tuday" 
     else:
         return Response(get_stream_response(user_input), mimetype='text/event-stream')
 
