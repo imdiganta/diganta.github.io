@@ -38,6 +38,8 @@
 
   
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src='highlight\highlight.js' crossorigin='anonymous'></script>
+    <script src='highlight\highlight.min.js' crossorigin='anonymous'></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -185,7 +187,7 @@ textarea {
         }
 
         function formatCode(text) {
-            return text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+            return text.replace(/```([\s\S]*?)```/g, '<pre><code>'+text+'</code></pre>');
         }
 
         function addMessage(text, sender) {
