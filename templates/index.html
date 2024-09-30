@@ -187,16 +187,11 @@ textarea {
             }
         }
 
-        function formatCode(text) {
-            return text;
-            // return text.replace(/```([\s\S]*?)```/g, "\n\n<pre><code>"+text+"</code></pre>\n\n");
-        }
-
         function addMessage(text, sender) {
             const messageContainer = document.getElementById('message-container');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
-            messageDiv.innerHTML = formatCode(text); // Use innerHTML to parse HTML
+            messageDiv.innerText = text;
             messageContainer.appendChild(messageDiv);
             messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
         }
@@ -205,7 +200,7 @@ textarea {
             const messageContainer = document.getElementById('message-container');
             const lastMessage = messageContainer.lastElementChild;
             if (lastMessage && lastMessage.classList.contains('bot-message')) {
-                lastMessage.innerHTML += ' ' + formatCode(text); // Append text to the last bot message
+                lastMessage.innerText += ' ' + text; // Append text to the last bot message
                 messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
             }
         }
