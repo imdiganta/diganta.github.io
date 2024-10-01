@@ -140,6 +140,33 @@ textarea {
         button:hover {
             background-color: #0056b3;
         }
+
+
+
+        .btn-check:focus+.btn-primary, .btn-primary:focus {
+    color: #fff;
+    box-shadow: 0 0 0 .25rem rgba(49,132,253,.5);
+}
+.btn-check:focus+.btn-success, .btn-success:focus {
+    color: #fff;
+    box-shadow: 0 0 0 .25rem rgba(60,153,110,.5);
+}
+.btn-check:active+.btn-primary:focus, 
+.btn-check:checked+.btn-primary:focus, 
+.btn-primary.active:focus, 
+.btn-primary:active:focus, 
+.show>.btn-primary.dropdown-toggle:focus {
+    background-color: rgb(39, 102, 198) !important;
+    box-shadow: 0 0 0 .25rem rgba(49,132,253,.5);
+}
+.btn-check:active+.btn-success:focus, 
+.btn-check:checked+.btn-success:focus, 
+.btn-success.active:focus, 
+.btn-success:active:focus, 
+.show>.btn-success.dropdown-toggle:focus {
+    background-color: rgb(39, 153, 110) !important;
+    box-shadow: 0 0 0 .25rem rgba(60,153,110,.5);
+}
     </style>
 <script>
     async function clearChatHistory() {
@@ -171,6 +198,8 @@ textarea {
         
         addMessage(userInput, 'user');
         document.getElementById('user-input').value = ''; // Clear input field
+        document.getElementById("myDiv1").style.display = "block";
+        document.getElementById("myDiv2").style.display = "none";
         addLoadingMessage();
 
         try {
@@ -244,6 +273,17 @@ textarea {
             loadingMessages[0].remove();
         }
     }
+    function displayDiv(inputField) {
+      const divElement1 = document.getElementById("myDiv1");
+      const divElement2 = document.getElementById("myDiv2");
+      if (inputField.value != "") {
+       divElement1.style.display = "none";
+       divElement2.style.display = "block";
+      } else {
+       divElement1.style.display = "block";
+       divElement2.style.display = "none";
+      }
+    }
 </script>
 </head>
 <body class="xvb4b4 x6n32m9 x1nr1p0w x1ehdrup">
@@ -251,9 +291,9 @@ textarea {
         <!-- Chat messages will appear here -->
     </div>
     <div class="chat-container">
-        <button style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-primary" onclick="clearChatHistory()">Clear</button>
-        <textarea class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
-        <button style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-primary" onclick="fetchStream()">Send</button>
+        <textarea oninput="displayDiv(this)" class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
+        <button id="myDiv1" style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;display: none;" type="button" class="btn btn-primary" onclick="clearChatHistory()">Clear</button>
+        <button id="myDiv2" style="width: 120px; background-color: #22af58;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-success" onclick="fetchStream()">Send</button>
     </div>
 </body>
 </html>
