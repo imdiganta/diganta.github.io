@@ -118,14 +118,14 @@ threading.Thread(target=tts_worker, daemon=True).start()
 def get_stream_response():
     data = {
         "messages": history,
-        "mode": "chat",
+        # "mode": "chat",
+        "mode": "instruct",
         "character": "sudi",
-        # "mode": "instruct",
         # "instruction_template": "Alpaca",
-        "max_tokens": 515,
-        "temperature": 1,
-        "top_p": 0.9,
-        "seed": 10,
+        "max_tokens": 105,
+        # "temperature": 1,
+        # "top_p": 0.9,
+        # "seed": 10,
         "stream": True,
     }
 
