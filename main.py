@@ -121,11 +121,11 @@ def get_stream_response():
         # "mode": "chat",
         "mode": "instruct",
         "character": "sudi",
-        # "instruction_template": "Alpaca",
-        "max_tokens": 105,
-        # "temperature": 1,
-        # "top_p": 0.9,
-        # "seed": 10,
+        "instruction_template": "Alpaca",
+        "max_tokens": 200,
+        "temperature": 1,
+        "top_p": 0.9,
+        "seed": 10,
         "stream": True,
     }
 
