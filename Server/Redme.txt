@@ -1,0 +1,85 @@
+1.Apache
+	1.1 Configuration Test
+		>%~dp0bin\httpd -t
+	1.2 Install Apache as Serivce
+		>%~dp0bin\httpd -k install -n Apache24
+	1.3 Start Apache24 Serive 
+		>net start Apache24
+	1.4 Stop Apache Service
+		>net stop Apache24
+	1.5 Remove Apache Service
+		>%~dp0bin\httpd -k uninstall -n Apache24
+	1.6 Config Apache Run PHP FastCGI
+		httpd.conf file
+		Add:
+			##############################
+			# Fast CGI module Settings####
+			##############################
+			LoadModule fcgid_module modules/mod_fcgid.so
+			AddHandler fcgid-script .php
+			FcgidWrapper "C:/Server/php/php-cgi.exe" .php 
+	1.7 Config PHP
+	Add to php.ini
+		extension_dir=C:\Server\php\ext
+	Config Timezone
+	[Date]
+	; Defines the default timezone used by the date functions
+	; http://php.net/date.timezone
+	date.timezone = "Asia/Ho_Chi_Minh"
+
+	; http://php.net/date.default-latitude
+	date.default_latitude = 10.762622
+
+	; http://php.net/date.default-longitude
+	date.default_longitude = 106.660172
+
+	; http://php.net/date.sunrise-zenith
+	date.sunrise_zenith = 90.583333
+
+	; http://php.net/date.sunset-zenith
+	date.sunset_zenith = 90.583333
+	Plug some extensions
+	# extension_dir = "C:/Server/php/ext"
+	extension_dir = "D:\Server\Server\Server\php\ext"
+	Enable some extensions
+	extension=php_mysqli.dll
+	extension=curl
+	extension=mbstring
+	extension=mysqli => MySQL 
+	extension=openssl
+	extension=pdo_mysql
+	
+2.MySQL
+	2.1 Initializing database
+	>%~dp0bin\mysqld --defaults-file=C:\Server\mysql\my.ini --initialize-insecure
+	2.2 Instal MySQL Service
+	>%~dp0bin\mysqld --install MySQL8 --defaults-file=C:\Server\mysql\my.ini
+	2.3 Start MySQL8 Service
+	>net start MySQL8
+	2.4 Login MySQL database
+	>%~dp0bin\mysql -u root -p
+	>Enter password is blank 
+	2.5 Change Password MySQL
+	>use mysql;
+	>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+D:\Server\Server\Server\Apache24\bin\httpd -t
+D:\Server\Server\Server\Apache24\bin\httpd -k install -n Apache24 -t
+net start Apache24
+net stop Apache24
+D:\Server\Server\Server\Apache24\bin\httpd -k uninstall -n Apache24
+D:\Server\Server\Server\mysql\bin\mysqld --defaults-file=D:\Server\Server\Server\mysql\my.ini --initialize-insecure
+D:\Server\Server\Server\mysql\bin\mysqld --install MySQL8 --defaults-file=D:\Server\Server\Server\mysql\my.ini
+D:\Server\Server\Server\mysql\bin\mysqld -k install -n MySQL8 --defaults-file=D:\Server\Server\Server\mysql\my.ini
+"D:\Server\Server\Server\mysql\bin\mysqld" --defaults-file="D:\Server\Server\Server\mysql\my.ini" --standalone --explicit_defaults_for_timestamp
+
+net start MySQL8
+net stop MySQL8
+D:\Server\Server\Server\mysql\bin\mysqld -k uninstall -n MySQL8
+D:\Server\Server\Server\mysql\bin\mysqld -k uninstall -n MySQL8 --defaults-file=D:\Server\Server\Server\mysql\my.ini
+D:\Server\Server\Server\mysql\bin\mysql -u root -p
+sc delete MySQL8
+sc delete Apache24
+
+
+D:\Server\httpd\Apache24\bin\httpd -t

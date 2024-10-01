@@ -1,0 +1,21 @@
+#my.ini
+[auto]
+server-uuid=3fbb8d59-75e2-11ef-9ac0-38f3ab6831ef
+[client]
+port=3306
+socket=/temp/mysql.sock
+
+[mysql]
+default-character-set=utf8
+
+[mysqld]
+port=3306
+socket=/temp/mysql.sock
+key_buffer_size = 16M
+max_allowed_packet=100M
+basedir = "c:/Users/DIGANTA/source/repos/WinFormsApp12/bin/Debug/net8.0-windows/mysql-5.7.17-winx64"
+
+#Path to the database root
+datadir = "C:/Users/DIGANTA/source/repos/WinFormsApp12/bin/Debug/net8.0-windows/mydb"
+[mysqldump]
+quick

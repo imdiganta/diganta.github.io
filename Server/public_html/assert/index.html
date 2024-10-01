@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- header PART FON USEGE -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Foundation-Sites-CSS/js/app.js"></script>
+    <script src="Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+    <script src="Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+    <script src="Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+    <script src="Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+    <script src="mdb/js/mdb.es.min.js"></script>
+    <script src="mdb/js/mdb.umd.min.js"></script>
+    <script src="bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="datatable\jquery.dataTables.min.js"></script>
+    <script src="datatable\datatables.js"></script>
+    <script src="datatable\datatables.min.js"></script>
+    <script src="ckeditor\ckeditor.js"></script>
+    <link rel="stylesheet" href="bulma\css\bulma.min.css">
+    <link rel="stylesheet" href="bulma\bulma.sass">
+    <link rel="stylesheet" href="Foundation-Sites-CSS\css\foundation.css">
+    <link rel="stylesheet" href="Foundation-Sites-CSS\css\foundation.min.css">
+    <link rel="stylesheet" href="Skeleton-2.0.4\css\normalize.css">
+    <link rel="stylesheet" href="Skeleton-2.0.4\css\skeleton.css">
+    <link rel="stylesheet" href="datatable\datatables.css">
+    <link rel="stylesheet" href="datatable\datatables.min.css">
+    <link rel="stylesheet" href="mdb\css\mdb.dark.rtl.min.css">
+    <link rel="stylesheet" href="mdb\css\mdb.min.css">
+    <link rel="stylesheet" href="mdb\css\mdb.rtl.min.css">
+    <link rel="stylesheet" href="mdb\css\mdb.dark.min.css">
+    <link rel="stylesheet" href="bootstrap-5.0.2\dist\css\bootstrap.min.css">
+
+    <!-- LINK FOR OUTSIDE  -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    <title>Document</title>
+
+</head>
+<body>
+    <textarea name="editor1" id="editor1">
+        <h1>Paragraphs Demo</h1>
+        <p class="introduction">The Paragraphs module in Drupal provides editors with a component driven architecture for building pages. Morpht has been developing Paragraph approaches to site building since 2015. This case study captures some of the content from a Drupal 7 "Paragraphs Demo" site which was built to showcase what could be done with Paragraphs.</p>
+    </textarea>
+</body>
+<script>
+    window.onload = function() {
+        CKEDITOR.replace( 'editor1', {
+            language: 'fr',
+            uiColor: '#fffffffa',
+            // filebrowserWindowWidth: '640',
+            height: '850'
+        });
+    };
+</script>
+
+</html>
