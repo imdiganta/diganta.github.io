@@ -1,0 +1,961 @@
+<!-- <script>
+async function clearChatHistory() {
+    const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    if (response.ok) {
+        document.getElementById('message-container').innerHTML = '';
+    }
+}
+
+async function fetchStream() {
+const userInput = document.getElementById('user-input').value;
+if (!userInput.trim()) return; // Prevent empty messages
+
+addMessage(userInput, 'user');
+document.getElementById('user-input').value = ''; // Clear input field
+document.getElementById("myDiv1").style.display = "block";
+document.getElementById("myDiv2").style.display = "none";
+addLoadingMessage();
+
+try {
+    const response = await fetch('/stream', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({ 'user_input': userInput })
+    });
+
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const newText = decoder.decode(value, { stream: true });
+        if (isLastMessageBot()) {
+            appendToLastBotMessage(newText);
+            document.getElementById('message-container').innerHTML = formatCode(document.getElementById('message-container').innerHTML);
+        } else {
+            addMessage(newText, 'bot');
+            document.getElementById('message-container').innerHTML = formatCode(document.getElementById('message-container').innerHTML);
+        }
+    }
+} catch (error) {
+    addMessage('Error: ' + error.message, 'bot');
+} finally {
+    removeLoadingMessage();
+}
+}
+
+function addMessage(text, sender) {
+    const messageContainer = document.getElementById('message-container');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+
+    // Check if the text should be displayed as code
+    if (text.startsWith("```") && text.endsWith("```")) {
+        const codeContent = text.slice(3, -3).trim(); // Remove the ``` markers
+        messageDiv.innerHTML = `<pre><code>${codeContent}</code></pre>`;
+    } else {
+        messageDiv.innerText = text;
+    }
+
+    messageContainer.appendChild(messageDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+}
+
+function appendToLastBotMessage(text) {
+const messageContainer = document.getElementById('message-container');
+const lastMessage = messageContainer.lastElementChild;
+if (lastMessage && lastMessage.classList.contains('bot-message')) {
+    lastMessage.innerText += ' ' + text; // Append text to the last bot message
+    messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+}
+}
+
+function isLastMessageBot() {
+const messageContainer = document.getElementById('message-container');
+const lastMessage = messageContainer.lastElementChild;
+return lastMessage && lastMessage.classList.contains('bot-message');
+}
+function addLoadingMessage() {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'message loading';
+    loadingDiv.innerText = 'Bot is typing...';
+    document.getElementById('message-container').appendChild(loadingDiv);
+}
+
+function removeLoadingMessage() {
+    const loadingMessages = document.getElementsByClassName('loading');
+    while (loadingMessages.length > 0) {
+        loadingMessages[0].remove();
+    }
+}
+
+function wrapInCode() {
+    const inputField = document.getElementById('user-input');
+    const currentText = inputField.value;
+    inputField.value = currentText + (currentText ? "\n```\n\n```" : "```\n\n```");
+    inputField.focus(); // Bring focus back to the input field
+}
+function displayDiv(inputField) {
+const divElement1 = document.getElementById("myDiv1");
+const divElement2 = document.getElementById("myDiv2");
+if (inputField.value != "") {
+divElement1.style.display = "none";
+divElement2.style.display = "block";
+} else {
+divElement1.style.display = "block";
+divElement2.style.display = "none";
+}
+}
+function formatCode(text) {
+    return text.replace(/```([\s\S]*?)```/g, "\n\n<br><pre id='codesnap' class='all-pre'><code>"+text+"</code></pre>\n\n");
+}
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+async function clearChatHistory() {
+    const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    if (response.ok) {
+        document.getElementById('message-container').innerHTML = '';
+    }
+}
+
+async function fetchStream() {
+    const userInput = document.getElementById('user-input').value;
+    if (!userInput.trim()) return; // Prevent empty messages
+    
+    addMessage(userInput, 'user');
+    document.getElementById('user-input').value = ''; // Clear input field
+    document.getElementById("myDiv1").style.display = "block";
+    document.getElementById("myDiv2").style.display = "none";
+    addLoadingMessage();
+
+    try {
+        const response = await fetch('/stream', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ 'user_input': userInput })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        let completeResponse = '';
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const newText = decoder.decode(value, { stream: true });
+            completeResponse += newText;
+
+            if (isLastMessageBot()) {
+                appendToLastBotMessage(newText);
+            } else {
+                addMessage(newText, 'bot');
+            }
+        }
+        
+        // Format the entire message container after streaming
+        document.getElementById('message-container').innerHTML = formatCode(completeResponse);
+    } catch (error) {
+        addMessage('Error: ' + error.message, 'bot');
+    } finally {
+        removeLoadingMessage();
+    }
+}
+
+function addMessage(text, sender) {
+    const messageContainer = document.getElementById('message-container');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+    
+    // Check if the text should be displayed as code
+    if (text.startsWith("```") && text.endsWith("```")) {
+        const codeContent = text.slice(3, -3).trim(); // Remove the ``` markers
+        messageDiv.innerHTML = `<pre><code>${codeContent}</code></pre>`;
+    } else {
+        messageDiv.innerText = text;
+    }
+    
+    messageContainer.appendChild(messageDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+}
+
+function appendToLastBotMessage(text) {
+    const messageContainer = document.getElementById('message-container');
+    const lastMessage = messageContainer.lastElementChild;
+    if (lastMessage && lastMessage.classList.contains('bot-message')) {
+        lastMessage.innerText += ' ' + text; // Append text to the last bot message
+        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+    }
+}
+
+function isLastMessageBot() {
+    const messageContainer = document.getElementById('message-container');
+    const lastMessage = messageContainer.lastElementChild;
+    return lastMessage && lastMessage.classList.contains('bot-message');
+}
+
+function addLoadingMessage() {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'message loading';
+    loadingDiv.innerText = 'Bot is typing...';
+    document.getElementById('message-container').appendChild(loadingDiv);
+}
+
+function removeLoadingMessage() {
+    const loadingMessages = document.getElementsByClassName('loading');
+    while (loadingMessages.length > 0) {
+        loadingMessages[0].remove();
+    }
+}
+
+function wrapInCode() {
+    const inputField = document.getElementById('user-input');
+    const currentText = inputField.value;
+    inputField.value = currentText + (currentText ? "\n```\n\n```" : "```\n\n```");
+    inputField.focus(); // Bring focus back to the input field
+}
+
+function displayDiv(inputField) {
+    const divElement1 = document.getElementById("myDiv1");
+    const divElement2 = document.getElementById("myDiv2");
+    if (inputField.value !== "") {
+        divElement1.style.display = "none";
+        divElement2.style.display = "block";
+    } else {
+        divElement1.style.display = "block";
+        divElement2.style.display = "none";
+    }
+}
+
+function formatCode(text) {
+    // This function is used for formatting code snippets in the message container
+    return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
+}
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+async function clearChatHistory() {
+    const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    if (response.ok) {
+        document.getElementById('message-container').innerHTML = '';
+    }
+}
+
+async function fetchStream() {
+    const userInput = document.getElementById('user-input').value;
+    if (!userInput.trim()) return; // Prevent empty messages
+    
+    addMessage(userInput, 'user');
+    document.getElementById('user-input').value = ''; // Clear input field
+    document.getElementById("myDiv1").style.display = "block";
+    document.getElementById("myDiv2").style.display = "none";
+    addLoadingMessage();
+
+    try {
+        const response = await fetch('/stream', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ 'user_input': userInput })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let completeResponse = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const newText = decoder.decode(value, { stream: true });
+            completeResponse += newText;
+
+            // Process the new text to handle code formatting
+            const formattedText = formatCode(newText);
+            addMessage(formattedText, 'bot');
+        }
+
+    } catch (error) {
+        addMessage('Error: ' + error.message, 'bot');
+    } finally {
+        removeLoadingMessage();
+    }
+}
+
+function addMessage(text, sender) {
+    const messageContainer = document.getElementById('message-container');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+
+    messageDiv.innerHTML = text; // Use innerHTML to allow formatted code
+
+    messageContainer.appendChild(messageDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+}
+
+function addLoadingMessage() {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'message loading';
+    loadingDiv.innerText = 'Bot is typing...';
+    document.getElementById('message-container').appendChild(loadingDiv);
+}
+
+function removeLoadingMessage() {
+    const loadingMessages = document.getElementsByClassName('loading');
+    while (loadingMessages.length > 0) {
+        loadingMessages[0].remove();
+    }
+}
+
+function formatCode(text) {
+    // Replace code blocks with <pre><code> tags
+    return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
+}
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+async function clearChatHistory() {
+    const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    if (response.ok) {
+        document.getElementById('message-container').innerHTML = '';
+    }
+}
+
+async function fetchStream() {
+    const userInput = document.getElementById('user-input').value;
+    if (!userInput.trim()) return; // Prevent empty messages
+    
+    addMessage(userInput, 'user');
+    document.getElementById('user-input').value = ''; // Clear input field
+    document.getElementById("myDiv1").style.display = "block";
+    document.getElementById("myDiv2").style.display = "none";
+    addLoadingMessage();
+
+    try {
+        const response = await fetch('/stream', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ 'user_input': userInput })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let completeResponse = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const newText = decoder.decode(value, { stream: true });
+            completeResponse += newText;
+
+            // Format the text for code snippets
+            const formattedText = formatCode(newText);
+            addMessage(formattedText, 'bot');
+        }
+
+    } catch (error) {
+        addMessage('Error: ' + error.message, 'bot');
+    } finally {
+        removeLoadingMessage();
+    }
+}
+
+function addMessage(text, sender) {
+    const messageContainer = document.getElementById('message-container');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+
+    // Insert formatted text (HTML)
+    messageDiv.innerHTML = text; 
+
+    messageContainer.appendChild(messageDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+}
+
+function addLoadingMessage() {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'message loading';
+    loadingDiv.innerText = 'Bot is typing...';
+    document.getElementById('message-container').appendChild(loadingDiv);
+}
+
+function removeLoadingMessage() {
+    const loadingMessages = document.getElementsByClassName('loading');
+    while (loadingMessages.length > 0) {
+        loadingMessages[0].remove();
+    }
+}
+
+function formatCode(text) {
+    // Replace code blocks with <pre><code> tags, escaping HTML to avoid XSS
+    return text.replace(/```([\s\S]*?)```/g, (match, p1) => {
+        return `<pre><code>${escapeHtml(p1.trim())}</code></pre>`;
+    });
+}
+
+function escapeHtml(html) {
+    // Escape HTML characters to prevent XSS attacks
+    const div = document.createElement('div');
+    div.innerText = html;
+    return div.innerHTML;
+}
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+async function clearChatHistory() {
+    const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+    if (response.ok) {
+        document.getElementById('message-container').innerHTML = '';
+    }
+}
+
+async function fetchStream() {
+    const userInput = document.getElementById('user-input').value;
+    if (!userInput.trim()) return; // Prevent empty messages
+    
+    addMessage(userInput, 'user');
+    document.getElementById('user-input').value = ''; // Clear input field
+    document.getElementById("myDiv1").style.display = "block";
+    document.getElementById("myDiv2").style.display = "none";
+    addLoadingMessage();
+
+    try {
+        const response = await fetch('/stream', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ 'user_input': userInput })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const newText = decoder.decode(value, { stream: true });
+            const formattedText = formatCode(newText);
+
+            if (isLastMessageBot()) {
+                appendToLastBotMessage(formattedText);
+            } else {
+                addMessage(formattedText, 'bot');
+            }
+        }
+
+    } catch (error) {
+        addMessage('Error: ' + error.message, 'bot');
+    } finally {
+        removeLoadingMessage();
+    }
+}
+
+function addMessage(text, sender) {
+    const messageContainer = document.getElementById('message-container');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+
+    // Use innerHTML to allow formatted code
+    messageDiv.innerHTML = text; 
+
+    messageContainer.appendChild(messageDiv);
+    messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+}
+
+function appendToLastBotMessage(text) {
+    const messageContainer = document.getElementById('message-container');
+    const lastMessage = messageContainer.lastElementChild;
+    if (lastMessage && lastMessage.classList.contains('bot-message')) {
+        lastMessage.innerHTML += ' ' + text; // Append text to the last bot message using innerHTML for formatting
+        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+    }
+}
+
+function isLastMessageBot() {
+    const messageContainer = document.getElementById('message-container');
+    const lastMessage = messageContainer.lastElementChild;
+    return lastMessage && lastMessage.classList.contains('bot-message');
+}
+
+function addLoadingMessage() {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'message loading';
+    loadingDiv.innerText = 'Bot is typing...';
+    document.getElementById('message-container').appendChild(loadingDiv);
+}
+
+function removeLoadingMessage() {
+    const loadingMessages = document.getElementsByClassName('loading');
+    while (loadingMessages.length > 0) {
+        loadingMessages[0].remove();
+    }
+}
+
+function formatCode(text) {
+    // Replace code blocks with <pre><code> tags, escaping HTML to avoid XSS
+    return text.replace(/```([\s\S]*?)```/g, (match, p1) => {
+        return `<pre><code>${escapeHtml(p1.trim())}</code></pre>`;
+    });
+}
+
+function escapeHtml(html) {
+    // Escape HTML characters to prevent XSS attacks
+    const div = document.createElement('div');
+    div.innerText = html;
+    return div.innerHTML;
+}
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+    async function clearChatHistory() {
+        const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+        if (response.ok) {
+            document.getElementById('message-container').innerHTML = '';
+        }
+    }
+
+    async function fetchStream() {
+        const userInput = document.getElementById('user-input').value;
+        if (!userInput.trim()) return; // Prevent empty messages
+        
+        addMessage(userInput, 'user');
+        document.getElementById('user-input').value = ''; // Clear input field
+        document.getElementById("myDiv1").style.display = "block";
+        document.getElementById("myDiv2").style.display = "none";
+        addLoadingMessage();
+
+        try {
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                var fio ="";  
+                const newText = decoder.decode(value, { stream: true });
+                // const formattedText = formatCode(newText);
+                // fio += newText;
+                if (isLastMessageBot()) {
+                    appendToLastBotMessage(newText);
+                } else {
+                    addMessage(formatCode(newText), 'bot');
+                }
+            }
+
+        } catch (error) {
+            addMessage('Error: ' + error.message, 'bot');
+        } finally {
+            removeLoadingMessage();
+        }
+    }
+
+    function addMessage(text, sender) {
+        const messageContainer = document.getElementById('message-container');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+
+        // Use innerHTML to allow formatted code and handle new lines with CSS
+        messageDiv.innerHTML = text; 
+
+        messageContainer.appendChild(messageDiv);
+        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+    }
+
+    function appendToLastBotMessage(text) {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        if (lastMessage && lastMessage.classList.contains('bot-message')) {
+            lastMessage.innerHTML += '' + text.replace(/\n/g, '<br>'); // Append text to the last bot message with new lines
+            lastMessage.innerHTML = formatCode(lastMessage.innerHTML);
+            // document.querySelectorAll('pre code').forEach(el => {hljs.highlightElement(el);});
+            hljs.highlightAll();
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            // lastMessage.innerHTML = lastMessage.innerHTML.replace(/<br>/g, '\n'); // Replace <br> with new lines
+        }
+    }
+
+    function isLastMessageBot() {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        return lastMessage && lastMessage.classList.contains('bot-message');
+    }
+
+    function addLoadingMessage() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message loading';
+        loadingDiv.innerText = 'Bot is typing...';
+        document.getElementById('message-container').appendChild(loadingDiv);
+    }
+
+    function removeLoadingMessage() {
+        const loadingMessages = document.getElementsByClassName('loading');
+        while (loadingMessages.length > 0) {
+            loadingMessages[0].remove();
+        }
+    }
+
+function escapeHtml(str) {
+const element = document.createElement('div');
+element.innerText = str;
+return element.innerHTML;
+}
+// Dummy escapeHtml function to sanitize HTML input
+function escapeHtml(unsafe) {
+return unsafe;
+}
+function formatCode(text) {
+// Patterns for various markdown elements
+const blockCodePattern = /```(\w+)?\s*([\s\S]*?)```/g; // Triple backticks with optional language
+const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+const orderedListPattern = /^\s*(\d+)\.\s+(.+?):/gm; // Ordered lists with colon
+const customListPattern = /^\s*=>\s+(.+)$/gm; // Custom lists
+const blockquotePattern = /^(> .+?)(?:\s+\{cite:(.+?)\})?(?:\s+-\s+(.+))?$/gm; // Blockquotes with citation
+const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold or Underline
+const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+const strikethroughPattern = /~~([\s\S]*?)~~|--([\s\S]*?)--/g; // Strikethrough (multi-line support)
+const inlineBlockPattern = /\{block:([^\}]+)\}(.*?)\{\/block\}/g; // Inline block elements
+const highlightPattern = /\{highlight:([^\}]+)\}(.*?)\{\/highlight\}/g; // Highlight with color
+const definitionListPattern = /^([^\n:]+):\s*(.*)$/gm; // Definition lists
+const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+const imagePattern = /!\[([^\]]*)\]\(([^)]+)(?: "([^"]*)")?\)/g; // Images with optional title
+const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^~{3,})/gm; // Horizontal rules
+const taskListPattern = /^\s*([-*+]\s+\[(x| )\]\s+.+)$/gm; // Task lists with custom markers
+const footnotePattern = /\[\^(\d+)\]:\s*(.+)/g; // Footnotes with definitions
+const footnoteReferencePattern = /\[\^(\d+)\]/g; // Footnote references
+const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+const escapedCharPattern = /\\([`*_{}[\]()#+\-!.>])/g; // Escaped characters
+const superscriptPattern = /\^(\w+)/g; // Superscript
+const subscriptPattern = /_(\w+)/g; // Subscript
+const inlineHtmlPattern = /<([^>]+)>/g; // Inline HTML
+const paragraphBreakPattern = /(\n\s*\n)/g; // Paragraph breaks
+const mathExpressionPattern = /\$(.+?)\$/g; // Math expressions
+
+// Replace block code with language support
+text = text.replace(blockCodePattern, (match, language, p1) => {
+    const formattedBlock = escapeHtml(p1.replace(/<br>/g, '\n').trim());
+    const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+    return `<pre${langClass}><span class="language">${escapeHtml(language || 'Code')}</span><code class="formatted-code">${formattedBlock}</code></pre>`;
+});
+
+// Replace inline code
+text = text.replace(inlineCodePattern, (match, p1) => {
+    const formattedInline = escapeHtml(p1.replace(/<br>/g, '').trim());
+    return `<code class="inline-code">${formattedInline}</code>`;
+});
+
+// Replace inline block elements
+text = text.replace(inlineBlockPattern, (match, className, content) => {
+    return `<div class="${escapeHtml(className)}">${escapeHtml(content.trim())}</div>`;
+});
+
+// Replace highlighted text with color
+text = text.replace(highlightPattern, (match, color, content) => {
+    return `<mark style="background-color:${escapeHtml(color)};">${escapeHtml(content.trim())}</mark>`;
+});
+
+// Replace custom lists
+text = text.replace(customListPattern, (match, content) => {
+    return `<li>${escapeHtml(content.trim())}</li>`;
+});
+
+// Replace ordered lists
+text = text.replace(orderedListPattern, (match, number, content) => {
+    return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+});
+
+// Replace unordered lists
+text = text.replace(unorderedListPattern, (match) => {
+    return `<li>${escapeHtml(match.trim())}</li>`;
+});
+
+// Wrap ordered list items in <ol>
+text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+// Wrap unordered list items in <ul>
+text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+// Replace blockquotes with optional citation
+text = text.replace(blockquotePattern, (match, quote, citation, author) => {
+    const content = escapeHtml(quote.replace(/^> /, '').trim());
+    const citationText = citation ? ` <cite>${escapeHtml(citation)}</cite>` : '';
+    return `<blockquote>${content}${citationText}${author ? `<footer>${escapeHtml(author.trim())}</footer>` : ''}</blockquote>`;
+});
+
+// Replace bold text
+text = text.replace(emphasisPattern, (match, p1, p2) => {
+    return `<strong>${escapeHtml(p2.trim())}</strong>`;
+});
+
+// Replace italics text
+text = text.replace(italicsPattern, (match, p1, p2) => {
+    return `<em>${escapeHtml(p2.trim())}</em>`;
+});
+
+// Replace strikethrough text
+text = text.replace(strikethroughPattern, (match, p1, p2) => {
+    return `<del>${escapeHtml(p1 || p2).trim()}</del>`;
+});
+
+// Replace math expressions
+text = text.replace(mathExpressionPattern, (match, expression) => {
+    return `<span class="math">${escapeHtml(expression.trim())}</span>`;
+});
+
+// Replace definition lists
+text = text.replace(definitionListPattern, (match, term, definition) => {
+    return `<dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd>`;
+});
+
+// Replace links
+text = text.replace(linkPattern, (match, text, url) => {
+    return `<a href="${escapeHtml(url)}">${escapeHtml(text.trim())}</a>`;
+});
+
+// Replace images with optional title
+text = text.replace(imagePattern, (match, altText, url, title) => {
+    return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}"${title ? ` title="${escapeHtml(title)}"` : ''} />`;
+});
+
+// Replace horizontal rules
+text = text.replace(horizontalRulePattern, '<hr />');
+
+// Replace task lists
+text = text.replace(taskListPattern, (match, listItem, checked) => {
+    const status = checked === 'x' ? 'checked' : '';
+    return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+});
+
+// Wrap task list items in <ul>
+text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+// Replace footnotes
+text = text.replace(footnotePattern, (match, footnoteId, definition) => {
+    return `<sup id="footnote-${footnoteId}">[${escapeHtml(footnoteId)}]</sup><span class="footnote-definition">${escapeHtml(definition.trim())}</span>`;
+});
+
+// Replace footnote references
+text = text.replace(footnoteReferencePattern, (match, footnoteId) => {
+    return `<a href="#footnote-${footnoteId}">${escapeHtml(match)}</a>`;
+});
+
+// Replace tables
+text = text.replace(tablePattern, (match) => {
+    const rows = match.split('\n').filter(row => row.trim());
+    
+    // Split the first row for headers
+    const headerRow = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+    
+    // Check for a separator row (typically with hyphens)
+    const separatorRow = rows[1].split('|').slice(1, -1);
+    const hasSeparator = separatorRow.every(cell => cell.trim().match(/-+/)); // check if the row has only dashes
+    
+    // Process body rows
+    const body = hasSeparator ? rows.slice(2).map(row => {
+        const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+        return `<tr>${cells}</tr>`;
+    }).join('') : '';
+
+    return `<table><thead><tr>${headerRow}</tr></thead><tbody>${body}</tbody></table>`;
+});
+
+// Handle escaped characters
+text = text.replace(escapedCharPattern, (match, char) => {
+    return escapeHtml(char);
+});
+
+// Handle superscript
+text = text.replace(superscriptPattern, (match, text) => {
+    return `<sup>${escapeHtml(text)}</sup>`;
+});
+
+// Handle subscript
+text = text.replace(subscriptPattern, (match, text) => {
+    return `<sub>${escapeHtml(text)}</sub>`;
+});
+
+// Allow inline HTML
+text = text.replace(inlineHtmlPattern, (match) => {
+    return match; // Directly include inline HTML
+});
+
+// Replace paragraph breaks with <p>
+text = text.replace(paragraphBreakPattern, '<p></p>');
+
+return text;
+}
+
+    function displayDiv(inputField) {
+  const divElement1 = document.getElementById("myDiv1");
+  const divElement2 = document.getElementById("myDiv2");
+  if (inputField.value != "") {
+   divElement1.style.display = "none";
+   divElement2.style.display = "block";
+  } else {
+   divElement1.style.display = "block";
+   divElement2.style.display = "none";
+  }
+}
+</script> -->

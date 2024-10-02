@@ -1,0 +1,2859 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=11">
+        <meta http-equiv="X-UA-Compatible" content="IE=10">
+        <meta http-equiv="X-UA-Compatible" content="IE=9"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+      
+        <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+        <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" />
+        <link rel="stylesheet" href="..\assert\bulma\bulma.sass" />
+        <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+        <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+        <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+        <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+        <link rel="stylesheet" href="..\assert\datatable\datatables.css" />
+        <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" />
+        <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+        <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" />
+        <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+        <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+        <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+        <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+        <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+        <script src="..\assert\datatable\datatables.js"></script>
+        <script src="..\assert\datatable\datatables.min.js"></script>
+        <script src="..\assert\ckeditor\ckeditor.js"></script>
+
+      
+        
+        
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&amp;family=Roboto&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
+        
+        <script src="..\script.js"></script>
+        <link rel="stylesheet" href="..\style.css">
+ 
+ 
+ 
+ 
+ 
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+
+
+        <script src='highlight\highlight.js' crossorigin='anonymous'></script>
+        <script src='highlight\highlight.min.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="highlight\styles\vs.min.css">
+        <link rel="stylesheet" href="highlight\styles\a11y-dark.min.css">
+        <link rel="stylesheet" href="highlight\styles\tokyo-night-dark.min.css">
+        <link rel="stylesheet" href="highlight\styles\dark.min.css">
+        <link rel="stylesheet" href="highlight\styles\tomorrow-night-blue.min.css">
+        <link rel="stylesheet" href="highlight\styles\stackoverflow-dark.min.css">
+
+
+
+        <script src="{{ url_for('static', filename='highlight/highlight.js') }}"></script>
+        <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/vs.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/a11y-dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/tokyo-night-dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/stackoverflow-dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/tomorrow-night-blue.min.css') }}">
+
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+        <title>DIGANTA</title>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+            // first, find all the div.code blocks
+            document.querySelectorAll('div.code').forEach(el => {
+                // then highlight each
+                hljs.highlightElement(el);
+            });
+            // document.getElementById("close").addEventListener("click", function () {document.getElementById("lisener")});
+
+        
+        </script>
+        <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Roboto&family=Space+Grotesk:wght@500&display=swap');
+    .xvb4b4 {
+        background-image: radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.024) 0,rgba(160,51,255,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.04) 0,rgba(160,51,255,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.064) 0,rgba(160,51,255,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.024) 0,rgba(24,119,242,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.04) 0,rgba(24,119,242,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.064) 0,rgba(24,119,242,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.024) 0,rgba(255,108,92,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.04) 0,rgba(255,108,92,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.064) 0,rgba(255,108,92,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.024) 0,rgba(245,206,51,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.04) 0,rgba(245,206,51,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.064) 0,rgba(245,206,51,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.024) 0,rgba(37,211,102,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.04) 0,rgba(37,211,102,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.064) 0,rgba(37,211,102,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.024) 0,rgba(24,119,242,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.04) 0,rgba(24,119,242,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.064) 0,rgba(24,119,242,0) 100%);
+    }
+    .x6n32m9 {
+        background-size: 156.45vw 99.03vw,156.45vw 99.03vw,156.45vw 99.03vw,226.86vw 145.44vw,226.86vw 145.44vw,226.86vw 145.44vw,171.96vw 110.31vw,171.96vw 110.31vw,171.96vw 110.31vw,130.29vw 83.58vw,130.29vw 83.58vw,130.29vw 83.58vw,198vw 126.9vw,198vw 126.9vw,198vw 126.9vw,300vw 192vw,300vw 192vw,300vw 192vw;
+    }
+    .x1ehdrup {
+        background-position: 37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1);
+    }
+    .x1nr1p0w {
+        background-attachment: fixed;
+    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            position: initial;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+    align-self: flex-start;
+    background-color: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #0765a136;
+    width: 100%;
+}
+        .loading {
+            color: gray;
+            font-style: italic;
+        }
+        .message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 85vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+        textarea {
+            width: 100%;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            max-width: 100%;
+            display: block;
+            margin-top: 10px 0px;
+            overflow: auto;
+            font-size: .875em;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: 12px;
+            padding: 10px;
+            overflow: hidden;
+            overflow-x: scroll;
+        }
+        pre ,code.hljs {
+    display: block;
+    overflow-x: scroll;
+    width: 1000px;
+    padding: 1em;
+    background-color: black;
+}
+.language{
+    background-color: rgb(44, 44, 44);
+    border-radius: 5px;
+    width: 100%;
+    padding: 5px 10px;
+    color: rgb(152, 152, 152);
+    font-size: 15px;
+}
+    </style>
+</head>
+<body class="xvb4b4 x6n32m9 x1ehdrup x1nr1p0w">
+    <div id="message-container" class="message-container"></div>
+    <div class="chat-container">
+        <textarea oninput="displayDiv(this)" class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
+        <button id="myDiv1" style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;display: none;" type="button" class="btn btn-primary" onclick="clearChatHistory()">Clear</button>
+        <button id="myDiv2" style="width: 120px; background-color: #22af58;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-success" onclick="fetchStream()">Send</button>
+    </div>
+
+    <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+    
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            document.getElementById("myDiv1").style.display = "block";
+            document.getElementById("myDiv2").style.display = "none";
+            addLoadingMessage();
+    
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+    
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+    
+                    var fio ="";  
+                    const newText = decoder.decode(value, { stream: true });
+                    // const formattedText = formatCode(newText);
+                    // fio += newText;
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(newText);
+                    } else {
+                        addMessage(formatCode(newText), 'bot');
+                    }
+                }
+
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+    
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            // messageDiv.className = 'message ' + 
+            // (sender === 'user' ? 'user-message' : 
+            // (sender === 'bot' ? 'bot-message' : 
+            // (sender === 'system' ? 'system-message' : 'unknown-message')));
+    
+            // Use innerHTML to allow formatted code and handle new lines with CSS
+            messageDiv.innerHTML = text; 
+    
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerHTML += '' + text.replace(/\n/g, '<br>'); // Append text to the last bot message with new lines
+                lastMessage.innerHTML = formatCode(lastMessage.innerHTML);
+                // document.querySelectorAll('pre code').forEach(el => {hljs.highlightElement(el);});
+                hljs.highlightAll();
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+                // lastMessage.innerHTML = lastMessage.innerHTML.replace(/<br>/g, '\n'); // Replace <br> with new lines
+            }
+        }
+    
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+    
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+    
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+
+        function escapeHtml(str) {
+            const element = document.createElement('div');
+            element.innerText = str;
+            return element.innerHTML;
+        }
+        // Dummy escapeHtml function to sanitize HTML input
+        function escapeHtml(unsafe) {
+            return unsafe;
+        }
+        function formatCode(text) {
+            // Patterns for various markdown elements
+            const blockCodePattern = /```(\w+)?\s*([\s\S]*?)```/g; // Triple backticks with optional language
+            const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+            const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+            const orderedListPattern = /^\s*(\d+)\.\s+(.+?):/gm; // Ordered lists with colon
+            const customListPattern = /^\s*=>\s+(.+)$/gm; // Custom lists
+            const blockquotePattern = /^(> .+?)(?:\s+\{cite:(.+?)\})?(?:\s+-\s+(.+))?$/gm; // Blockquotes with citation
+            const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold or Underline
+            const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+            const strikethroughPattern = /~~([\s\S]*?)~~|--([\s\S]*?)--/g; // Strikethrough (multi-line support)
+            const inlineBlockPattern = /\{block:([^\}]+)\}(.*?)\{\/block\}/g; // Inline block elements
+            const highlightPattern = /\{highlight:([^\}]+)\}(.*?)\{\/highlight\}/g; // Highlight with color
+            const definitionListPattern = /^([^\n:]+):\s*(.*)$/gm; // Definition lists
+            const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+            const imagePattern = /!\[([^\]]*)\]\(([^)]+)(?: "([^"]*)")?\)/g; // Images with optional title
+            const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^~{3,})/gm; // Horizontal rules
+            const taskListPattern = /^\s*([-*+]\s+\[(x| )\]\s+.+)$/gm; // Task lists with custom markers
+            const footnotePattern = /\[\^(\d+)\]:\s*(.+)/g; // Footnotes with definitions
+            const footnoteReferencePattern = /\[\^(\d+)\]/g; // Footnote references
+            const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+            const escapedCharPattern = /\\([`*_{}[\]()#+\-!.>])/g; // Escaped characters
+            const superscriptPattern = /\^(\w+)/g; // Superscript
+            const subscriptPattern = /_(\w+)/g; // Subscript
+            const inlineHtmlPattern = /<([^>]+)>/g; // Inline HTML
+            const paragraphBreakPattern = /(\n\s*\n)/g; // Paragraph breaks
+            const mathExpressionPattern = /\$(.+?)\$/g; // Math expressions
+        
+            // Replace inline code
+            text = text.replace(inlineCodePattern, (match, p1) => {
+                const formattedInline = escapeHtml(p1.replace(/<br>/g, '').trim());
+                return `<code class="inline-code">${formattedInline}</code>`;
+            });
+
+            // Replace block code with language support
+            text = text.replace(blockCodePattern, (match, language, p1) => {
+                const formattedBlock = escapeHtml(p1.replace(/<br>/g, '\n').trim());
+                const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+                return `<pre${langClass}><span class="language">${escapeHtml(language || 'Code')}</span><code class="formatted-code">${formattedBlock}</code></pre>`;
+            });
+        
+            // Replace inline block elements
+            text = text.replace(inlineBlockPattern, (match, className, content) => {
+                return `<div class="${escapeHtml(className)}">${escapeHtml(content.trim())}</div>`;
+            });
+        
+            // Replace highlighted text with color
+            text = text.replace(highlightPattern, (match, color, content) => {
+                return `<mark style="background-color:${escapeHtml(color)};">${escapeHtml(content.trim())}</mark>`;
+            });
+        
+            // Replace custom lists
+            text = text.replace(customListPattern, (match, content) => {
+                return `<li>${escapeHtml(content.trim())}</li>`;
+            });
+        
+            // Replace ordered lists
+            text = text.replace(orderedListPattern, (match, number, content) => {
+                return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+            });
+        
+            // Replace unordered lists
+            text = text.replace(unorderedListPattern, (match) => {
+                return `<li>${escapeHtml(match.trim())}</li>`;
+            });
+        
+            // Wrap ordered list items in <ol>
+            text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+            
+            // Wrap unordered list items in <ul>
+            text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+            
+            // Replace blockquotes with optional citation
+            text = text.replace(blockquotePattern, (match, quote, citation, author) => {
+                const content = escapeHtml(quote.replace(/^> /, '').trim());
+                const citationText = citation ? ` <cite>${escapeHtml(citation)}</cite>` : '';
+                return `<blockquote>${content}${citationText}${author ? `<footer>${escapeHtml(author.trim())}</footer>` : ''}</blockquote>`;
+            });
+        
+            // Replace bold text
+            text = text.replace(emphasisPattern, (match, p1, p2) => {
+                return `<strong>${escapeHtml(p2.trim())}</strong>`;
+            });
+        
+            // Replace italics text
+            text = text.replace(italicsPattern, (match, p1, p2) => {
+                return `<em>${escapeHtml(p2.trim())}</em>`;
+            });
+        
+            // Replace strikethrough text
+            text = text.replace(strikethroughPattern, (match, p1, p2) => {
+                return `<del>${escapeHtml(p1 || p2).trim()}</del>`;
+            });
+        
+            // Replace math expressions
+            text = text.replace(mathExpressionPattern, (match, expression) => {
+                return `<span class="math">${escapeHtml(expression.trim())}</span>`;
+            });
+        
+            // Replace definition lists
+            text = text.replace(definitionListPattern, (match, term, definition) => {
+                return `<dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd>`;
+            });
+        
+            // Replace links
+            text = text.replace(linkPattern, (match, text, url) => {
+                return `<a href="${escapeHtml(url)}">${escapeHtml(text.trim())}</a>`;
+            });
+        
+            // Replace images with optional title
+            text = text.replace(imagePattern, (match, altText, url, title) => {
+                return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}"${title ? ` title="${escapeHtml(title)}"` : ''} />`;
+            });
+        
+            // Replace horizontal rules
+            text = text.replace(horizontalRulePattern, '<hr />');
+        
+            // Replace task lists
+            text = text.replace(taskListPattern, (match, listItem, checked) => {
+                const status = checked === 'x' ? 'checked' : '';
+                return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+            });
+        
+            // Wrap task list items in <ul>
+            text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+            
+            // Replace footnotes
+            text = text.replace(footnotePattern, (match, footnoteId, definition) => {
+                return `<sup id="footnote-${footnoteId}">[${escapeHtml(footnoteId)}]</sup><span class="footnote-definition">${escapeHtml(definition.trim())}</span>`;
+            });
+        
+            // Replace footnote references
+            text = text.replace(footnoteReferencePattern, (match, footnoteId) => {
+                return `<a href="#footnote-${footnoteId}">${escapeHtml(match)}</a>`;
+            });
+        
+            // Replace tables
+            text = text.replace(tablePattern, (match) => {
+                const rows = match.split('\n').filter(row => row.trim());
+
+                // Split the first row for headers
+                const headerRow = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+
+                // Check for a separator row (typically with hyphens)
+                const separatorRow = rows[1].split('|').slice(1, -1);
+                const hasSeparator = separatorRow.every(cell => cell.trim().match(/-+/)); // check if the row has only dashes
+
+                // Process body rows
+                const body = hasSeparator ? rows.slice(2).map(row => {
+                    const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+                    return `<tr>${cells}</tr>`;
+                }).join('') : '';
+            
+                return `<table><thead><tr>${headerRow}</tr></thead><tbody>${body}</tbody></table>`;
+            });
+        
+            // Handle escaped characters
+            text = text.replace(escapedCharPattern, (match, char) => {
+                return escapeHtml(char);
+            });
+        
+            // Handle superscript
+            text = text.replace(superscriptPattern, (match, text) => {
+                return `<sup>${escapeHtml(text)}</sup>`;
+            });
+        
+            // Handle subscript
+            text = text.replace(subscriptPattern, (match, text) => {
+                return `<sub>${escapeHtml(text)}</sub>`;
+            });
+        
+            // Allow inline HTML
+            text = text.replace(inlineHtmlPattern, (match) => {
+                return match; // Directly include inline HTML
+            });
+        
+            // Replace paragraph breaks with <p>
+            text = text.replace(paragraphBreakPattern, '<p></p>');
+            
+            return text;
+        }
+
+        function displayDiv(inputField) {
+            const divElement1 = document.getElementById("myDiv1");
+            const divElement2 = document.getElementById("myDiv2");
+            if (inputField.value != "") {
+             divElement1.style.display = "none";
+             divElement2.style.display = "block";
+            } else {
+             divElement1.style.display = "block";
+             divElement2.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="..\script.js"></script>
+    <link rel="stylesheet" href="..\style.css">
+    <title>DIGANTA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            position: initial;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #0765a136;
+        }
+        .loading {
+            color: gray;
+            font-style: italic;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 85vh;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="message-container" class="message-container"></div>
+    <div class="chat-container">
+        <textarea id="user-input" placeholder="Type your message..."></textarea><br>
+        <button id="myDiv1" style="width: 120px; display: none;" type="button" onclick="clearChatHistory()">Clear</button>
+        <button id="myDiv2" style="width: 120px;" type="button" onclick="fetchStream()">Send</button>
+        <button type="button" onclick="wrapInCode()">Code</button>
+    </div>
+    <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return;
+
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = '';
+            addLoadingMessage();
+
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+            
+                if (!response.ok) throw new Error('Network response was not ok');
+            
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+            
+                let completeText = ''; // Initialize a variable to accumulate messages
+            
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                
+                    const newText = decoder.decode(value, { stream: true });
+                    completeText += newText; // Append new text to completeText
+                }
+            
+                // After reading all text, add the complete message as a single bot-message
+                addMessage(completeText, 'bot');
+            
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+        
+            // Check if the text should be displayed as code
+            if (text.startsWith("```") && text.endsWith("```")) {
+                const codeContent = text.slice(3, -3).trim(); // Remove the ``` markers
+                messageDiv.innerHTML = `<pre><code>${codeContent}</code></pre>`;
+            } else {
+                messageDiv.innerText = text;
+            }
+        
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+
+
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+
+        function wrapInCode() {
+            const inputField = document.getElementById('user-input');
+            const currentText = inputField.value;
+            inputField.value = currentText + (currentText ? "\n```\n\n```" : "```\n\n```");
+            inputField.focus(); // Bring focus back to the input field
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGANTA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #0765a136;
+        }
+        .loading {
+            color: gray;
+            font-style: italic;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 80vh;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 45px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        const wordReplacement = {
+            '```': '<h1>',
+            'bye': 'goodbye',
+            'thanks': 'thank you',
+            // Add more replacements as needed
+        };
+
+        function replaceWords(text) {
+            for (const [key, value] of Object.entries(wordReplacement)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Replace whole words, case insensitive
+                text = text.replace(regex, value);
+            }
+            return text;
+        }
+
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            // Display user message
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            addLoadingMessage();
+
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let result = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    // Decode the new text from the bot
+                    const newText = decoder.decode(value, { stream: true });
+                    const replacedText = replaceWords(newText); // Replace words in bot's message
+
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(replacedText);
+                    } else {
+                        addMessage(replacedText, 'bot'); // Display new bot message
+                    }
+                }
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerText = text;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerText += ' ' + text; // Append text to the last bot message
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            }
+        }
+
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="message-container" class="message-container">
+
+    </div>
+    <div class="chat-container">
+        <textarea class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
+        <button style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-primary" onclick="fetchStream()">Send</button>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGANTA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #0765a136;
+        }
+        .loading {
+            color: gray;
+            font-style: italic;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 80vh;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 45px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        const wordReplacement = {
+            'hello': '<h1>',
+            'bye': '<h1>',
+            'thanks': 'thank <h1>',
+            '```': '<h1>',
+            // Add more replacements as needed
+        };
+
+        function replaceWords(text) {
+            for (const [key, value] of Object.entries(wordReplacement)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Replace whole words, case insensitive
+                text = text.replace(regex, value);
+            }
+            return text;
+        }
+
+        async function fetchStream() {
+            let userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            // Replace words in user input
+            userInput = replaceWords(userInput);
+            
+            // Display user message
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            addLoadingMessage();
+
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let result = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    // Append new content to bot message or create new one
+                    const newText = decoder.decode(value, { stream: true });
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(newText);
+                    } else {
+                        addMessage(newText, 'bot'); // Display new bot message
+                    }
+                }
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerText = text;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerText += ' ' + text; // Append text to the last bot message
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            }
+        }
+
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="message-container" class="message-container">
+
+    </div>
+    <div class="chat-container">
+        <textarea class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
+        <button style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-primary" onclick="fetchStream()">Send</button>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #fff9c4;
+            align-self: flex-start;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            // Display user message
+            addMessage(userInput, 'user');
+
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let result = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                result += decoder.decode(value, { stream: true });
+                addMessage(result, 'bot'); // Display bot message as it arrives
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.innerText = text;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    </script>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Text to Speech Chat</h1>
+        <div id="message-container" class="message-container" style="max-height: 400px; overflow-y: auto;">
+
+        </div>
+        <textarea id="user-input" placeholder="Type your message..."></textarea><br>
+        <button onclick="fetchStream()">Speak</button>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <script>
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let result = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                result += decoder.decode(value, { stream: true });
+                document.getElementById('response').innerText = result;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Text to Speech</h1>
+    <textarea id="user-input" rows="4" cols="50"></textarea><br>
+    <button onclick="fetchStream()">Speak</button>
+    <h2>Response:</h2>
+    <pre id="response"></pre>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-message {
+            margin: 5px 0;
+        }
+
+        .user {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot {
+            text-align: left;
+            color: green;
+        }
+
+        .loading {
+            color: orange;
+            font-style: italic;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            background-color: #dc3545; /* Red */
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+        <button class="clear-btn" id="clear-btn">Clear Chat</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        sendBtn.addEventListener('click', () => {
+            sendMessage(userInput.value);
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage(userInput.value);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            chatBox.innerHTML = ''; // Clear chat history
+        });
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+        async function sendMessage(message) {
+            if (!message) return;
+
+            appendMessage(message, 'user');
+            userInput.value = '';
+
+            appendMessage("Loading...", 'loading');
+
+            try {
+                const response = await fetch('http://127.0.0.1:7690/v1/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: message,
+                        max_tokens: 200,
+                        temperature: 1,
+                        top_p: 0.9,
+                        seed: 10,
+                        stream: true,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let done = false;
+                let accumulatedText = ""; // To accumulate text chunks
+
+                // Clear loading message before reading response
+                chatBox.lastChild && chatBox.removeChild(chatBox.lastChild);
+
+                while (!done) {
+                    const { done: streamDone, value } = await reader.read();
+                    done = streamDone;
+
+                    if (value) {
+                        accumulatedText += decoder.decode(value, { stream: true });
+
+                        // Split accumulated text into lines to check for complete JSON objects
+                        const lines = accumulatedText.split('\n');
+                        for (let i = 0; i < lines.length; i++) {
+                            const line = lines[i].trim();
+                            if (line) {
+                                try {
+                                    const jsonData = JSON.parse(line);
+                                    const responseText = jsonData.choices?.[0]?.text;
+                                    if (responseText) {
+                                        appendMessage(responseText, 'bot'); // Append the response as a bot message
+                                    }
+                                } catch (e) {
+                                    console.error("Error parsing JSON:", e);
+                                }
+                            }
+                        }
+
+                        // Retain the last incomplete line for the next iteration
+                        if (lines[lines.length - 1].trim() !== '') {
+                            accumulatedText = lines[lines.length - 1];
+                        } else {
+                            accumulatedText = ''; // Reset if the last line was complete
+                        }
+                    }
+                }
+            } catch (error) {
+                appendMessage("Error: Unable to get response.", 'bot');
+                console.error("Fetch error: ", error);
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-message {
+            margin: 5px 0;
+        }
+
+        .user {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot {
+            text-align: left;
+            color: green;
+        }
+
+        .loading {
+            color: orange;
+            font-style: italic;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            background-color: #dc3545; /* Red */
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+        <button class="clear-btn" id="clear-btn">Clear Chat</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        sendBtn.addEventListener('click', () => {
+            sendMessage(userInput.value);
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage(userInput.value);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            chatBox.innerHTML = ''; // Clear chat history
+        });
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+        async function sendMessage(message) {
+            if (!message) return;
+
+            appendMessage(message, 'user');
+            userInput.value = '';
+
+            appendMessage("Loading...", 'loading');
+
+            try {
+                const response = await fetch('http://127.0.0.1:7690/v1/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: message,
+                        max_tokens: 200,
+                        temperature: 1,
+                        top_p: 0.9,
+                        seed: 10,
+                        stream: true,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let done = false;
+
+                // Clear loading message before reading response
+                chatBox.lastChild && chatBox.removeChild(chatBox.lastChild);
+
+                while (!done) {
+                    const { done: streamDone, value } = await reader.read();
+                    done = streamDone;
+                    const text = decoder.decode(value, { stream: true });
+                    appendMessage(text, 'bot',); // Append the response as bot message
+                }
+            } catch (error) {
+                appendMessage("Error: Unable to get response.", 'bot');
+                console.error("Fetch error: ", error);
+            }
+        }
+    </script>
+</body>
+</html> -->
