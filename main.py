@@ -5,6 +5,7 @@ import sseclient  # pip install sseclient-py
 import pyttsx3  # pip install pyttsx3
 import threading
 import queue
+import re
 
 app = Flask(__name__)
 
@@ -19,6 +20,86 @@ engine = pyttsx3.init()
 
 # Initialize an empty list to keep track of the conversation history
 history = []
+# Create a queue for TTS requests
+tts_queue = queue.Queue()
+
+def tts_worker():
+    while True:
+        text = tts_queue.get()
+        if text is None:  # Exit the thread if None is received
+            break
+        engine.say(text)
+        engine.runAndWait()
+        tts_queue.task_done()
+
+# Start the TTS worker thread
+threading.Thread(target=tts_worker, daemon=True).start()
+
+def format_code_start(text,count):
+    if(count==1):
+        return re.sub(r'```', r"<br><pre id='codesnap' class='all-pre'><code>", text)
+    elif(count==2):
+        return re.sub(r'```', r"</code></pre>", text)
+def get_stream_response():
+    data = {
+        "messages": history,
+        "mode": "instruct",
+        "character": "sudi",
+        "instruction_template": "Alpaca",
+        "max_tokens": 1000,
+        "temperature": 1,
+        "top_p": 0.9,
+        "seed": 10,
+        "stream": True,
+    }
+
+    try:
+        stream_response = requests.post(url, headers=headers, json=data, verify=False, stream=True)
+        stream_response.raise_for_status()
+        client = sseclient.SSEClient(stream_response)
+
+        complete_text = ""
+        for event in client.events():
+            payload = json.loads(event.data)
+            if 'choices' in payload and len(payload['choices']) > 0:
+                response_text = payload['choices'][0]['delta'].get('content', '')
+                if response_text:
+                    complete_text += response_text
+                    yield response_text # Stream the formatted text response
+
+        # Queue the complete response for TTS
+        if complete_text:
+            tts_queue.put(complete_text)
+    except requests.exceptions.RequestException as e:
+        yield f"An error occurred: {e}"
+
+@app.route('/')
+def index():
+    global history
+    history = []  # Clear the conversation history
+    return render_template('index.html')
+
+@app.route('/stream', methods=['POST'])
+def stream():
+    user_input = request.form['user_input']
+    
+    history.append({"role": "user", "content": user_input})
+    
+    if user_input.lower() in ["hi", "hallow"]:
+        response_text = "Hallow, how can I assist today?"
+        history.append({"role": "assistant", "content": response_text})
+        return Response(response_text, mimetype='text/event-stream')
+    else:
+        return Response(get_stream_response(), mimetype='text/event-stream')
+
+@app.route('/clear', methods=['POST'])
+def clear_history():
+    global history
+    history = []  # Clear the conversation history
+    return Response("Conversation history cleared.", mimetype='text/event-stream')
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 
@@ -33,17 +114,810 @@ history = []
 
 
 
-# # Function to handle TTS in a separate thread
-# def speak_text(text):
-#     engine.say(text)
-#     engine.runAndWait()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from flask import Flask, render_template, Response, request
+# import json
+# import requests
+# import sseclient  # pip install sseclient-py
+# import pyttsx3  # pip install pyttsx3
+# import threading
+# import queue
+
+# app = Flask(__name__)
+
+# # API endpoint
+# url = "http://127.0.0.1:7690/v1/chat/completions"
+# headers = {
+#     "Content-Type": "application/json"
+# }
+
+# # Initialize text-to-speech engine
+# engine = pyttsx3.init()
+
+# # Initialize an empty list to keep track of the conversation history
+# history = []
+# # Create a queue for TTS requests
+# tts_queue = queue.Queue()
+
+# def tts_worker():
+#     while True:
+#         text = tts_queue.get()
+#         if text is None:  # Exit the thread if None is received
+#             break
+#         engine.say(text)
+#         engine.runAndWait()
+#         tts_queue.task_done()
+
+# # Start the TTS worker thread
+# threading.Thread(target=tts_worker, daemon=True).start()
 
 # def get_stream_response():
 #     data = {
 #         "messages": history,
 #         "mode": "instruct",
+#         "character": "sudi",
 #         "instruction_template": "Alpaca",
-#         "max_tokens": 515,
+#         "max_tokens": 200,
+#         "temperature": 1,
+#         "top_p": 0.9,
+#         "seed": 10,
+#         "stream": True,
+#     }
+
+#     try:
+#         stream_response = requests.post(url, headers=headers, json=data, verify=False, stream=True)
+#         stream_response.raise_for_status()
+#         client = sseclient.SSEClient(stream_response)
+
+#         complete_text = ""
+#         for event in client.events():
+#             payload = json.loads(event.data)
+#             if 'choices' in payload and len(payload['choices']) > 0:
+#                 response_text = payload['choices'][0]['delta'].get('content', '')
+#                 if response_text:
+#                     complete_text += response_text
+#                     yield response_text  # Stream the text response
+
+#         # Queue the complete response for TTS
+#         if complete_text:
+#             tts_queue.put(complete_text)
+#     except requests.exceptions.RequestException as e:
+#         yield f"An error occurred: {e}"
+
+# @app.route('/')
+# def index():
+#     global history
+#     history = []  # Clear the conversation history
+#     return render_template('index.html')
+
+# @app.route('/stream', methods=['POST'])
+# def stream():
+#     user_input = request.form['user_input']
+    
+#     history.append({"role": "user", "content": user_input})
+    
+#     if user_input.lower() in ["hi", "hallow"]:
+#         response_text = "Hallow, how can I assist today?"
+#         history.append({"role": "assistant", "content": response_text})
+#         return Response(response_text, mimetype='text/event-stream')
+#     else:
+#         return Response(get_stream_response(), mimetype='text/event-stream')
+
+# @app.route('/clear', methods=['POST'])
+# def clear_history():
+#     global history
+#     history = []  # Clear the conversation history
+#     return Response("Conversation history cleared.", mimetype='text/event-stream')
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from flask import Flask, render_template, Response, request
+# import json
+# import requests
+# import sseclient  # pip install sseclient-py
+# import pyttsx3  # pip install pyttsx3
+# import threading
+# import queue
+
+# app = Flask(__name__)
+
+# # API endpoint
+# url = "http://127.0.0.1:7690/v1/chat/completions"
+# headers = {
+#     "Content-Type": "application/json"
+# }
+
+# # Initialize text-to-speech engine
+# engine = pyttsx3.init()
+
+# # Initialize an empty list to keep track of the conversation history
+# history = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # # Function to handle TTS in a separate thread
+# # def speak_text(text):
+# #     engine.say(text)
+# #     engine.runAndWait()
+
+# # def get_stream_response():
+# #     data = {
+# #         "messages": history,
+# #         "mode": "instruct",
+# #         "instruction_template": "Alpaca",
+# #         "max_tokens": 515,
+# #         "temperature": 1,
+# #         "top_p": 0.9,
+# #         "seed": 10,
+# #         "stream": True,
+# #     }
+
+# #     try:
+# #         stream_response = requests.post(url, headers=headers, json=data, verify=False, stream=True)
+# #         stream_response.raise_for_status()
+# #         client = sseclient.SSEClient(stream_response)
+
+# #         complete_text = ""
+# #         for event in client.events():
+# #             payload = json.loads(event.data)
+# #             print("Payload:", payload)  # Debugging line
+            
+# #             if 'choices' in payload and len(payload['choices']) > 0:
+# #                 response_text = payload['choices'][0]['delta'].get('content', '')
+# #                 if response_text:
+# #                     complete_text += response_text
+# #                     yield response_text  # Stream the text response
+
+# #         # Speak the complete response only once, after streaming
+# #         if complete_text:
+# #             threading.Thread(target=speak_text, args=(complete_text,)).start()
+# #     except requests.exceptions.RequestException as e:
+# #         yield f"An error occurred: {e}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # Create a queue for TTS requests
+# tts_queue = queue.Queue()
+
+# def tts_worker():
+#     while True:
+#         text = tts_queue.get()
+#         if text is None:  # Exit the thread if None is received
+#             break
+#         engine.say(text)
+#         engine.runAndWait()
+#         tts_queue.task_done()
+
+# # Start the TTS worker thread
+# threading.Thread(target=tts_worker, daemon=True).start()
+
+# def get_stream_response():
+#     data = {
+#         "messages": history,
+#         # "mode": "chat",
+#         "mode": "instruct",
+#         "character": "sudi",
+#         "instruction_template": "Alpaca",
+#         "max_tokens": 200,
 #         "temperature": 1,
 #         "top_p": 0.9,
 #         "seed": 10,
@@ -66,9 +940,9 @@ history = []
 #                     complete_text += response_text
 #                     yield response_text  # Stream the text response
 
-#         # Speak the complete response only once, after streaming
+#         # Queue the complete response for TTS
 #         if complete_text:
-#             threading.Thread(target=speak_text, args=(complete_text,)).start()
+#             tts_queue.put(complete_text)
 #     except requests.exceptions.RequestException as e:
 #         yield f"An error occurred: {e}"
 
@@ -100,110 +974,34 @@ history = []
 
 
 
-# Create a queue for TTS requests
-tts_queue = queue.Queue()
-
-def tts_worker():
-    while True:
-        text = tts_queue.get()
-        if text is None:  # Exit the thread if None is received
-            break
-        engine.say(text)
-        engine.runAndWait()
-        tts_queue.task_done()
-
-# Start the TTS worker thread
-threading.Thread(target=tts_worker, daemon=True).start()
-
-def get_stream_response():
-    data = {
-        "messages": history,
-        # "mode": "chat",
-        "mode": "instruct",
-        "character": "sudi",
-        "instruction_template": "Alpaca",
-        "max_tokens": 200,
-        "temperature": 1,
-        "top_p": 0.9,
-        "seed": 10,
-        "stream": True,
-    }
-
-    try:
-        stream_response = requests.post(url, headers=headers, json=data, verify=False, stream=True)
-        stream_response.raise_for_status()
-        client = sseclient.SSEClient(stream_response)
-
-        complete_text = ""
-        for event in client.events():
-            payload = json.loads(event.data)
-            print("Payload:", payload)  # Debugging line
-            
-            if 'choices' in payload and len(payload['choices']) > 0:
-                response_text = payload['choices'][0]['delta'].get('content', '')
-                if response_text:
-                    complete_text += response_text
-                    yield response_text  # Stream the text response
-
-        # Queue the complete response for TTS
-        if complete_text:
-            tts_queue.put(complete_text)
-    except requests.exceptions.RequestException as e:
-        yield f"An error occurred: {e}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/stream', methods=['POST'])
-def stream():
-    user_input = request.form['user_input']
+# @app.route('/')
+# def index():
+#     global history
+#     history = []  # Clear the conversation history
+#     return render_template('index.html')
     
-    history.append({"role": "user", "content": user_input})
+
+# @app.route('/stream', methods=['POST'])
+# def stream():
+#     user_input = request.form['user_input']
     
-    if user_input.lower() in ["hi", "hallow"]:
-        response_text = "Hallow, how can I assist today?"
-        history.append({"role": "assistant", "content": response_text})
-        return Response(response_text, mimetype='text/event-stream')
-    else:
-        return Response(get_stream_response(), mimetype='text/event-stream')
+#     history.append({"role": "user", "content": user_input})
+    
+#     if user_input.lower() in ["hi", "hallow"]:
+#         response_text = "Hallow, how can I assist today?"
+#         history.append({"role": "assistant", "content": response_text})
+#         return Response(response_text, mimetype='text/event-stream')
+#     else:
+#         return Response(get_stream_response(), mimetype='text/event-stream')
 
-@app.route('/clear', methods=['POST'])
-def clear_history():
-    global history
-    history = []  # Clear the conversation history
-    return Response("Conversation history cleared.", mimetype='text/event-stream')
+# @app.route('/clear', methods=['POST'])
+# def clear_history():
+#     global history
+#     history = []  # Clear the conversation history
+#     return Response("Conversation history cleared.", mimetype='text/event-stream')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 
 

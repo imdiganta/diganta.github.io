@@ -1,74 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Specify document mode for different versions of Internet Explorer -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="X-UA-Compatible" content="IE=11">
-    <meta http-equiv="X-UA-Compatible" content="IE=10">
-    <meta http-equiv="X-UA-Compatible" content="IE=9"> 
-    <meta http-equiv="X-UA-Compatible" content="IE=8"> 
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> -->
-  
-    <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
-    <!-- <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" /> -->
-    <!-- <link rel="stylesheet" href="..\assert\bulma\bulma.sass" /> -->
-    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
-    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
-    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
-    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
-    <!-- <link rel="stylesheet" href="..\assert\datatable\datatables.css" /> -->
-    <!-- <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" /> -->
-    <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
-    <!-- <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" /> -->
-    <!-- <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
-    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
-    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
-    <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
-    <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
-    <script src="..\assert\mdb/js/mdb.es.min.js"></script>
-    <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
-    <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
-    <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
-    <script src="..\assert\datatable\datatables.js"></script>
-    <script src="..\assert\datatable\datatables.min.js"></script>
-    <script src="..\assert\ckeditor\ckeditor.js"></script> -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Specify document mode for different versions of Internet Explorer -->
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=11">
+        <meta http-equiv="X-UA-Compatible" content="IE=10">
+        <meta http-equiv="X-UA-Compatible" content="IE=9"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> -->
+      
+        <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+        <!-- <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" /> -->
+        <!-- <link rel="stylesheet" href="..\assert\bulma\bulma.sass" /> -->
+        <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+        <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+        <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+        <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+        <!-- <link rel="stylesheet" href="..\assert\datatable\datatables.css" /> -->
+        <!-- <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" /> -->
+        <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+        <!-- <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" /> -->
+        <!-- <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+        <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+        <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+        <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+        <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+        <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+        <script src="..\assert\datatable\datatables.js"></script>
+        <script src="..\assert\datatable\datatables.min.js"></script>
+        <script src="..\assert\ckeditor\ckeditor.js"></script> -->
 
-  
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <script src='highlight\highlight.js' crossorigin='anonymous'></script>
-    <script src='highlight\highlight.min.js' crossorigin='anonymous'></script>
+      
+        
+        
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&amp;family=Roboto&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        
+        
+        <script src="..\script.js"></script>
+        <link rel="stylesheet" href="..\style.css">
 
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&amp;family=Roboto&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+        <script src='highlight\highlight.js' crossorigin='anonymous'></script>
+        <script src='highlight\highlight.min.js' crossorigin='anonymous'></script>
+        <link rel="stylesheet" href="highlight\styles\vs.min.css">
+        <link rel="stylesheet" href="highlight\styles\a11y-dark.min.css">
+        <link rel="stylesheet" href="highlight\styles\tokyo-night-dark.min.css">
+        <link rel="stylesheet" href="highlight\styles\dark.min.css">
+        <link rel="stylesheet" href="highlight\styles\tomorrow-night-blue.min.css">
+        <link rel="stylesheet" href="highlight\styles\stackoverflow-dark.min.css">
+
+
+
+        <script src="{{ url_for('static', filename='highlight/highlight.js') }}"></script>
+        <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/vs.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/a11y-dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/tokyo-night-dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/dark.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/tomorrow-night-blue.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/stackoverflow-dark.min.css') }}">
+
+
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script> -->
+        <title>DIGANTA</title>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+            // first, find all the div.code blocks
+            document.querySelectorAll('div.code').forEach(el => {
+                // then highlight each
+                hljs.highlightElement(el);
+            });
+            // document.getElementById("close").addEventListener("click", function () {document.getElementById("lisener")});
+
+        
+        </script>
+        <style>
     
     
-    <script src="..\script.js"></script>
-    <link rel="stylesheet" href="..\style.css">
-    <title>DIGANTA</title>
-    <style>
-
-
-
-
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Roboto&family=Space+Grotesk:wght@500&display=swap');
-.xvb4b4 {
-    background-image: radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.024) 0,rgba(160,51,255,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.04) 0,rgba(160,51,255,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.064) 0,rgba(160,51,255,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.024) 0,rgba(24,119,242,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.04) 0,rgba(24,119,242,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.064) 0,rgba(24,119,242,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.024) 0,rgba(255,108,92,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.04) 0,rgba(255,108,92,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.064) 0,rgba(255,108,92,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.024) 0,rgba(245,206,51,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.04) 0,rgba(245,206,51,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.064) 0,rgba(245,206,51,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.024) 0,rgba(37,211,102,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.04) 0,rgba(37,211,102,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.064) 0,rgba(37,211,102,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.024) 0,rgba(24,119,242,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.04) 0,rgba(24,119,242,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.064) 0,rgba(24,119,242,0) 100%);
-}
-.x6n32m9 {
-    background-size: 156.45vw 99.03vw,156.45vw 99.03vw,156.45vw 99.03vw,226.86vw 145.44vw,226.86vw 145.44vw,226.86vw 145.44vw,171.96vw 110.31vw,171.96vw 110.31vw,171.96vw 110.31vw,130.29vw 83.58vw,130.29vw 83.58vw,130.29vw 83.58vw,198vw 126.9vw,198vw 126.9vw,198vw 126.9vw,300vw 192vw,300vw 192vw,300vw 192vw;
-}
-.x1ehdrup {
-    background-position: 37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1);
-}
-.x1nr1p0w {
-    background-attachment: fixed;
-}
+    
+    
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Roboto&family=Space+Grotesk:wght@500&display=swap');
+    .xvb4b4 {
+        background-image: radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.024) 0,rgba(160,51,255,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.04) 0,rgba(160,51,255,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(160,51,255,.064) 0,rgba(160,51,255,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.024) 0,rgba(24,119,242,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.04) 0,rgba(24,119,242,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.064) 0,rgba(24,119,242,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.024) 0,rgba(255,108,92,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.04) 0,rgba(255,108,92,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(255,108,92,.064) 0,rgba(255,108,92,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.024) 0,rgba(245,206,51,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.04) 0,rgba(245,206,51,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(245,206,51,.064) 0,rgba(245,206,51,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.024) 0,rgba(37,211,102,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.04) 0,rgba(37,211,102,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(37,211,102,.064) 0,rgba(37,211,102,0) 100%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.024) 0,rgba(24,119,242,0) 50%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.04) 0,rgba(24,119,242,0) 75%),radial-gradient(50% 50% at 50% 50%,rgba(24,119,242,.064) 0,rgba(24,119,242,0) 100%);
+    }
+    .x6n32m9 {
+        background-size: 156.45vw 99.03vw,156.45vw 99.03vw,156.45vw 99.03vw,226.86vw 145.44vw,226.86vw 145.44vw,226.86vw 145.44vw,171.96vw 110.31vw,171.96vw 110.31vw,171.96vw 110.31vw,130.29vw 83.58vw,130.29vw 83.58vw,130.29vw 83.58vw,198vw 126.9vw,198vw 126.9vw,198vw 126.9vw,300vw 192vw,300vw 192vw,300vw 192vw;
+    }
+    .x1ehdrup {
+        background-position: 37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),37.97vw calc(((300vw - 100vh)/2 - 85.77vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),-100vw calc(((300vw - 100vh)/2 - 154.56vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),13.34vw calc(((300vw - 100vh)/2 - 53.88vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),10.64vw calc(((300vw - 100vh)/2 - 17.19vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-49vw calc(((300vw - 100vh)/2 - 41.1vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1),-100vw calc(((300vw - 100vh)/2 - 78vw) * -1);
+    }
+    .x1nr1p0w {
+        background-attachment: fixed;
+    }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -76,16 +122,16 @@
             padding: 20px;
         }
         .chat-container {
-    max-width: 100%;
-    margin: auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    gap: 10px;
-    position: initial;
-}
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            position: initial;
+        }
         .message {
             margin: 10px 0;
             padding: 10px;
@@ -96,20 +142,14 @@
             align-self: flex-end;
             text-align: right;
         }
-
         .bot-message {
-            align-self: flex-start;
-            background-color: #fafafa;
-            align-items: center;
-            justify-content: flex-start;
-            align-content: center;
-            flex-wrap: nowrap;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #0765a136;
-            flex-direction: row;
-            /* width: -webkit-fill-available; */
-        }
+    align-self: flex-start;
+    background-color: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #0765a136;
+    width: 100%;
+}
         .loading {
             color: gray;
             font-style: italic;
@@ -119,16 +159,17 @@
     flex-direction: column;
     gap: 10px;
     height: 85vh;
-    overflow-y: auto;
+    overflow: scroll;
+    overflow-x: hidden;
 }
-textarea {
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    resize: none;
-}
+        textarea {
+            width: 100%;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
         button {
             padding: 10px 15px;
             border: none;
@@ -140,59 +181,46 @@ textarea {
         button:hover {
             background-color: #0056b3;
         }
-
-
-
-        .btn-check:focus+.btn-primary, .btn-primary:focus {
-    color: #fff;
-    box-shadow: 0 0 0 .25rem rgba(49,132,253,.5);
-}
-.btn-check:focus+.btn-success, .btn-success:focus {
-    color: #fff;
-    box-shadow: 0 0 0 .25rem rgba(60,153,110,.5);
-}
-.btn-check:active+.btn-primary:focus, 
-.btn-check:checked+.btn-primary:focus, 
-.btn-primary.active:focus, 
-.btn-primary:active:focus, 
-.show>.btn-primary.dropdown-toggle:focus {
-    background-color: rgb(39, 102, 198) !important;
-    box-shadow: 0 0 0 .25rem rgba(49,132,253,.5);
-}
-.btn-check:active+.btn-success:focus, 
-.btn-check:checked+.btn-success:focus, 
-.btn-success.active:focus, 
-.btn-success:active:focus, 
-.show>.btn-success.dropdown-toggle:focus {
-    background-color: rgb(39, 153, 110) !important;
-    box-shadow: 0 0 0 .25rem rgba(60,153,110,.5);
+        pre {
+            max-width: 100%;
+            display: block;
+            margin-top: 10px 0px;
+            overflow: auto;
+            font-size: .875em;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: 12px;
+            padding: 10px;
+            overflow: hidden;
+            overflow-x: scroll;
+        }
+        pre ,code.hljs {
+    display: block;
+    overflow-x: scroll;
+    width: 1000px;
+    padding: 1em;
+    background-color: black;
 }
     </style>
-<script>
-    async function clearChatHistory() {
-        try {
-            const response = await fetch('/clear', {  // Correct endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+</head>
+<body class="xvb4b4 x6n32m9 x1ehdrup x1nr1p0w">
+    <div id="message-container" class="message-container"></div>
+    <div class="chat-container">
+        <textarea oninput="displayDiv(this)" id="user-input" placeholder="Type your message..."></textarea><br>
+        <button id="myDiv1" style="width: 120px; display: none;" type="button" onclick="clearChatHistory();">Clear</button>
+        <button id="myDiv2" style="width: 120px;" type="button" onclick="fetchStream()">Send</button>
+        <button type="button" onclick="wrapInCode()">Code</button>
+    </div>
+    <!-- <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
             }
-
-            // Clear the message container
-            const messageContainer = document.getElementById('message-container');
-            messageContainer.innerHTML = '';  // Clear all messages
-
-            // addMessage('Chat history cleared.', 'bot'); // Optional: Show feedback
-        } catch (error) {
-            addMessage('Error: ' + error.message, 'bot');
         }
-    }
 
-    async function fetchStream() {
+        async function fetchStream() {
         const userInput = document.getElementById('user-input').value;
         if (!userInput.trim()) return; // Prevent empty messages
         
@@ -225,8 +253,10 @@ textarea {
                 const newText = decoder.decode(value, { stream: true });
                 if (isLastMessageBot()) {
                     appendToLastBotMessage(newText);
+                    document.getElementById('message-container').innerHTML = formatCode(document.getElementById('message-container').innerHTML);
                 } else {
                     addMessage(newText, 'bot');
+                    document.getElementById('message-container').innerHTML = formatCode(document.getElementById('message-container').innerHTML);
                 }
             }
         } catch (error) {
@@ -236,16 +266,24 @@ textarea {
         }
     }
 
-    function addMessage(text, sender) {
-        const messageContainer = document.getElementById('message-container');
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
-        messageDiv.innerText = text;
-        messageContainer.appendChild(messageDiv);
-        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
-    }
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+        
+            // Check if the text should be displayed as code
+            if (text.startsWith("```") && text.endsWith("```")) {
+                const codeContent = text.slice(3, -3).trim(); // Remove the ``` markers
+                messageDiv.innerHTML = `<pre><code>${codeContent}</code></pre>`;
+            } else {
+                messageDiv.innerText = text;
+            }
+        
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
 
-    function appendToLastBotMessage(text) {
+        function appendToLastBotMessage(text) {
         const messageContainer = document.getElementById('message-container');
         const lastMessage = messageContainer.lastElementChild;
         if (lastMessage && lastMessage.classList.contains('bot-message')) {
@@ -259,21 +297,27 @@ textarea {
         const lastMessage = messageContainer.lastElementChild;
         return lastMessage && lastMessage.classList.contains('bot-message');
     }
-
-    function addLoadingMessage() {
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'message loading';
-        loadingDiv.innerText = 'Bot is typing...';
-        document.getElementById('message-container').appendChild(loadingDiv);
-    }
-
-    function removeLoadingMessage() {
-        const loadingMessages = document.getElementsByClassName('loading');
-        while (loadingMessages.length > 0) {
-            loadingMessages[0].remove();
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
         }
-    }
-    function displayDiv(inputField) {
+
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+
+        function wrapInCode() {
+            const inputField = document.getElementById('user-input');
+            const currentText = inputField.value;
+            inputField.value = currentText + (currentText ? "\n```\n\n```" : "```\n\n```");
+            inputField.focus(); // Bring focus back to the input field
+        }
+        function displayDiv(inputField) {
       const divElement1 = document.getElementById("myDiv1");
       const divElement2 = document.getElementById("myDiv2");
       if (inputField.value != "") {
@@ -284,19 +328,4060 @@ textarea {
        divElement2.style.display = "none";
       }
     }
-</script>
-</head>
-<body class="xvb4b4 x6n32m9 x1nr1p0w x1ehdrup">
-    <div id="message-container" class="message-container">
-        <!-- Chat messages will appear here -->
-    </div>
-    <div class="chat-container">
-        <textarea oninput="displayDiv(this)" class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
-        <button id="myDiv1" style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;display: none;" type="button" class="btn btn-primary" onclick="clearChatHistory()">Clear</button>
-        <button id="myDiv2" style="width: 120px; background-color: #22af58;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-success" onclick="fetchStream()">Send</button>
-    </div>
+    function formatCode(text) {
+            return text.replace(/```([\s\S]*?)```/g, "\n\n<br><pre id='codesnap' class='all-pre'><code>"+text+"</code></pre>\n\n");
+        }
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+    
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            document.getElementById("myDiv1").style.display = "block";
+            document.getElementById("myDiv2").style.display = "none";
+            addLoadingMessage();
+    
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+    
+                let completeResponse = '';
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+    
+                    const newText = decoder.decode(value, { stream: true });
+                    completeResponse += newText;
+    
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(newText);
+                    } else {
+                        addMessage(newText, 'bot');
+                    }
+                }
+                
+                // Format the entire message container after streaming
+                document.getElementById('message-container').innerHTML = formatCode(completeResponse);
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+    
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+            
+            // Check if the text should be displayed as code
+            if (text.startsWith("```") && text.endsWith("```")) {
+                const codeContent = text.slice(3, -3).trim(); // Remove the ``` markers
+                messageDiv.innerHTML = `<pre><code>${codeContent}</code></pre>`;
+            } else {
+                messageDiv.innerText = text;
+            }
+            
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerText += ' ' + text; // Append text to the last bot message
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            }
+        }
+    
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+    
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+    
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    
+        function wrapInCode() {
+            const inputField = document.getElementById('user-input');
+            const currentText = inputField.value;
+            inputField.value = currentText + (currentText ? "\n```\n\n```" : "```\n\n```");
+            inputField.focus(); // Bring focus back to the input field
+        }
+    
+        function displayDiv(inputField) {
+            const divElement1 = document.getElementById("myDiv1");
+            const divElement2 = document.getElementById("myDiv2");
+            if (inputField.value !== "") {
+                divElement1.style.display = "none";
+                divElement2.style.display = "block";
+            } else {
+                divElement1.style.display = "block";
+                divElement2.style.display = "none";
+            }
+        }
+    
+        function formatCode(text) {
+            // This function is used for formatting code snippets in the message container
+            return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
+        }
+    </script> -->
+    
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+    <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+    
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            document.getElementById("myDiv1").style.display = "block";
+            document.getElementById("myDiv2").style.display = "none";
+            addLoadingMessage();
+    
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let completeResponse = '';
+    
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+    
+                    const newText = decoder.decode(value, { stream: true });
+                    completeResponse += newText;
+    
+                    // Process the new text to handle code formatting
+                    const formattedText = formatCode(newText);
+                    addMessage(formattedText, 'bot');
+                }
+    
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+    
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+    
+            messageDiv.innerHTML = text; // Use innerHTML to allow formatted code
+    
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+    
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    
+        function formatCode(text) {
+            // Replace code blocks with <pre><code> tags
+            return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
+        }
+    </script> -->
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+    
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            document.getElementById("myDiv1").style.display = "block";
+            document.getElementById("myDiv2").style.display = "none";
+            addLoadingMessage();
+    
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let completeResponse = '';
+    
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+    
+                    const newText = decoder.decode(value, { stream: true });
+                    completeResponse += newText;
+    
+                    // Format the text for code snippets
+                    const formattedText = formatCode(newText);
+                    addMessage(formattedText, 'bot');
+                }
+    
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+    
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+    
+            // Insert formatted text (HTML)
+            messageDiv.innerHTML = text; 
+    
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+    
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    
+        function formatCode(text) {
+            // Replace code blocks with <pre><code> tags, escaping HTML to avoid XSS
+            return text.replace(/```([\s\S]*?)```/g, (match, p1) => {
+                return `<pre><code>${escapeHtml(p1.trim())}</code></pre>`;
+            });
+        }
+    
+        function escapeHtml(html) {
+            // Escape HTML characters to prevent XSS attacks
+            const div = document.createElement('div');
+            div.innerText = html;
+            return div.innerHTML;
+        }
+    </script> -->
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+    
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            document.getElementById("myDiv1").style.display = "block";
+            document.getElementById("myDiv2").style.display = "none";
+            addLoadingMessage();
+    
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+    
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+    
+                    const newText = decoder.decode(value, { stream: true });
+                    const formattedText = formatCode(newText);
+    
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(formattedText);
+                    } else {
+                        addMessage(formattedText, 'bot');
+                    }
+                }
+    
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+    
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+    
+            // Use innerHTML to allow formatted code
+            messageDiv.innerHTML = text; 
+    
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerHTML += ' ' + text; // Append text to the last bot message using innerHTML for formatting
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            }
+        }
+    
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+    
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+    
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    
+        function formatCode(text) {
+            // Replace code blocks with <pre><code> tags, escaping HTML to avoid XSS
+            return text.replace(/```([\s\S]*?)```/g, (match, p1) => {
+                return `<pre><code>${escapeHtml(p1.trim())}</code></pre>`;
+            });
+        }
+    
+        function escapeHtml(html) {
+            // Escape HTML characters to prevent XSS attacks
+            const div = document.createElement('div');
+            div.innerText = html;
+            return div.innerHTML;
+        }
+    </script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+    
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return; // Prevent empty messages
+            
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = ''; // Clear input field
+            document.getElementById("myDiv1").style.display = "block";
+            document.getElementById("myDiv2").style.display = "none";
+            addLoadingMessage();
+    
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+    
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+    
+                    var fio ="";  
+                    const newText = decoder.decode(value, { stream: true });
+                    // const formattedText = formatCode(newText);
+                    // fio += newText;
+                    if (isLastMessageBot()) {
+                        appendToLastBotMessage(newText);
+                    } else {
+                        addMessage(formatCode(newText), 'bot');
+                    }
+                }
+
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+    
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+    
+            // Use innerHTML to allow formatted code and handle new lines with CSS
+            messageDiv.innerHTML = text; 
+    
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+    
+        function appendToLastBotMessage(text) {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            if (lastMessage && lastMessage.classList.contains('bot-message')) {
+                lastMessage.innerHTML += '' + text.replace(/\n/g, '<br>'); // Append text to the last bot message with new lines
+                lastMessage.innerHTML = formatCode(lastMessage.innerHTML);
+                // document.querySelectorAll('pre code').forEach(el => {hljs.highlightElement(el);});
+                hljs.highlightAll();
+                messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+                // lastMessage.innerHTML = lastMessage.innerHTML.replace(/<br>/g, '\n'); // Replace <br> with new lines
+            }
+        }
+    
+        function isLastMessageBot() {
+            const messageContainer = document.getElementById('message-container');
+            const lastMessage = messageContainer.lastElementChild;
+            return lastMessage && lastMessage.classList.contains('bot-message');
+        }
+    
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+    
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+    
+
+
+
+
+
+
+
+
+
+        // function escapeHtml(unsafe) {
+        //     return unsafe
+        //         .replace(/&/g, "&amp;")
+        //         .replace(/</g, "&lt;")
+        //         .replace(/>/g, "&gt;")
+        //         .replace(/"/g, "&quot;")
+        //         .replace(/'/g, "&#039;");
+        // }
+
+        // function formatCode(text) {
+        //     // Regular expressions for different patterns
+        //     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+        //     const headingPattern = /^(#+)\s*(.*)$/gm; // Headings (e.g., #, ##, ###)
+        //     const bulletPointPattern = /^\s*\*\s+(.*)$/gm; // Bullet points (e.g., * item)
+        //     const subBulletPointPattern = /^\s*\*\*\s+(.*)$/gm; // Subpoints (e.g., ** sub-item)
+        //     const numberedPointPattern = /^\s*\d+\.\s+(.*)$/gm; // Numbered points (e.g., 1. item)
+        //     const italicPattern = /_(.*?)_/g; // Italics (e.g., _text_)
+        //     const boldPattern = /\*\*(.*?)\*\*/g; // Bold (e.g., **text**)
+        //     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough (e.g., ~~text~~)
+        //     const blockquotePattern = /^>\s*(.*)$/gm; // Blockquotes (e.g., > quote)
+        //     const horizontalRulePattern = /^(---|___|\*\*\*)$/gm; // Horizontal rules (e.g., ---)
+        //     const imagePattern = /!\[([^[]+)\]\(([^)]+)\)/g; // Images (e.g., ![alt text](url))
+        //     const linkPattern = /\[([^[]+)\]\(([^)]+)\)/g; // Links (e.g., [text](url))
+        //     const tablePattern = /\|([^\n]+)\|\n\|[-:|]+\|\n((\|[^\n]+\|)+)/g; // Tables
+        //     const taskListPattern = /^\s*\[([ x])\]\s+(.*)$/gm; // Task lists (e.g., [x] item)
+        //     const definitionListPattern = /^(.*?)\n:(.*)$/gm; // Definition lists
+        //     const footnotePattern = /\[\^([^\]]+)\]:\s*(.*)/g; // Footnotes
+        
+        //     // Replace block code with <pre><code> tags
+        //     text = text.replace(blockCodePattern, (match, p1) => {
+        //         return `<pre><code>${escapeHtml((p1.replace(/<br>/g, '')).trim())}</code></pre>`;
+        //     });
+        
+        //     // Replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         return `<code>${escapeHtml((p1.replace(/<br>/g, '')).trim())}</code>`;
+        //     });
+        
+        //     // Replace headings
+        //     text = text.replace(headingPattern, (match, hashes, content) => {
+        //         const level = hashes.length; // Number of '#' determines heading level
+        //         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+        //     });
+        
+        //     // Replace bold text
+        //     text = text.replace(boldPattern, (match, content) => {
+        //         return `<strong>${escapeHtml(content.trim())}</strong>`;
+        //     });
+        
+        //     // Replace italic text
+        //     text = text.replace(italicPattern, (match, content) => {
+        //         return `<em>${escapeHtml(content.trim())}</em>`;
+        //     });
+        
+        //     // Replace strikethrough text
+        //     text = text.replace(strikethroughPattern, (match, content) => {
+        //         return `<del>${escapeHtml(content.trim())}</del>`;
+        //     });
+        
+        //     // Handle bullet points
+        //     const bulletList = [];
+        //     text = text.replace(bulletPointPattern, (match, content) => {
+        //         bulletList.push(`<li>${escapeHtml(content.trim())}</li>`);
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Wrap bullet points in unordered list
+        //     if (bulletList.length) {
+        //         text += `<ul>${bulletList.join("")}</ul>`;
+        //     }
+        
+        //     // Handle numbered points
+        //     const numberedList = [];
+        //     text = text.replace(numberedPointPattern, (match, content) => {
+        //         numberedList.push(`<li>${escapeHtml(content.trim())}</li>`);
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Wrap numbered points in ordered list
+        //     if (numberedList.length) {
+        //         text += `<ol>${numberedList.join("")}</ol>`;
+        //     }
+        
+        //     // Handle subpoints
+        //     const subBulletList = [];
+        //     text = text.replace(subBulletPointPattern, (match, content) => {
+        //         subBulletList.push(`<li>${escapeHtml(content.trim())}</li>`);
+        //         return ""; // Remove from original text
+        //     });
+        
+        //     // Wrap subpoints in unordered list if there are any
+        //     if (subBulletList.length) {
+        //         text += `<ul style="list-style-type:circle;">${subBulletList.join("")}</ul>`;
+        //     }
+        
+        //     // Handle blockquotes
+        //     text = text.replace(blockquotePattern, (match, content) => {
+        //         return `<blockquote>${escapeHtml(content.trim())}</blockquote>`;
+        //     });
+        
+        //     // Handle horizontal rules
+        //     text = text.replace(horizontalRulePattern, () => {
+        //         return `<hr>`;
+        //     });
+        
+        //     // Handle images
+        //     text = text.replace(imagePattern, (match, altText, url) => {
+        //         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}">`;
+        //     });
+        
+        //     // Handle links
+        //     text = text.replace(linkPattern, (match, linkText, url) => {
+        //         return `<a href="${escapeHtml(url)}">${escapeHtml(linkText)}</a>`;
+        //     });
+        
+        //     // Handle tables
+        //     text = text.replace(tablePattern, (match, headerRow, _, rowData) => {
+        //         const headerCells = headerRow.split('|').filter(cell => cell.trim() !== '');
+        //         const rows = rowData.split('\n').map(row => {
+        //             const cells = row.split('|').filter(cell => cell.trim() !== '');
+        //             return `<tr>${cells.map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('')}</tr>`;
+        //         });
+        //         return `<table><thead><tr>${headerCells.map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('')}</tr></thead><tbody>$       {rows.join('')}</tbody></table>`;
+        //     });
+        
+        //     // Handle task lists
+        //     const taskList = [];
+        //     text = text.replace(taskListPattern, (match, checked, content) => {
+        //         taskList.push(`<li><input type="checkbox" ${checked === 'x' ? 'checked' : ''}> ${escapeHtml(content.trim())}</li>`);
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Wrap task list in unordered list
+        //     if (taskList.length) {
+        //         text += `<ul>${taskList.join("")}</ul>`;
+        //     }
+        
+        //     // Handle definition lists
+        //     const definitionList = [];
+        //     text = text.replace(definitionListPattern, (match, term, definition) => {
+        //         definitionList.push(`<dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd>`);
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Wrap definition list in a definition list tag
+        //     if (definitionList.length) {
+        //         text += `<dl>${definitionList.join("")}</dl>`;
+        //     }
+        
+        //     // Handle footnotes
+        //     const footnotes = {};
+        //     text = text.replace(footnotePattern, (match, id, content) => {
+        //         footnotes[id] = escapeHtml(content.trim());
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Add footnotes at the end
+        //     let footnoteHtml = '';
+        //     for (const [id, content] of Object.entries(footnotes)) {
+        //         footnoteHtml += `<div class="footnote" id="fn-${id}">[^${id}]: ${content}</div>`;
+        //     }
+
+        //     text += footnoteHtml;
+        
+        //     // Add paragraph tags around text sections
+        //     const paragraphs = text.split('\n\n').map(paragraph => {
+        //         return `<p>${paragraph.trim()}</p>`;
+        //     }).join('\n');
+        
+        //     return paragraphs.trim(); // Return the final processed text
+        // }
+
+        // // Example usage
+        // const inputText = `
+        // # Main Heading
+        // This is a **bold** statement, and this is _italicized_. 
+        // Here is a strikethrough ~~this text~~.
+
+        // > This is a blockquote.
+
+        // ---
+
+        // ![Alt text](https://example.com/image.jpg)
+
+        // [Link to example](https://example.com)
+
+        // | Header 1 | Header 2 |
+        // |----------|----------|
+        // | Row 1 Col 1 | Row 1 Col 2 |
+        // | Row 2 Col 1 | Row 2 Col 2 |
+
+        // * [x] Completed task
+        // * [ ] Incomplete task
+
+        // Term 1
+        // : Definition for term 1
+
+        // Term 2
+        // : Definition for term 2
+
+        // Here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function escapeHtml(unsafe) {
+            return unsafe;
+                // .replace(/&/g, "&amp;")
+                // .replace(/</g, "&lt;")
+                // .replace(/>/g, "&gt;")
+                // .replace(/"/g, "&quot;")
+                // .replace(/'/g, "&#039;");
+        }
+        
+    //     function formatCode(text) {
+    //         // Replace code blocks with <pre><code> tags
+    //         const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+    //         const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+    //         // Function to normalize whitespace while preserving new lines
+    //         const normalizeWhitespace = (str) => {
+    //             return str
+    //                 .split('\n') // Split into lines
+    //                 .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+    //                 .join('\n'); // Join lines back together
+    //         };
+    //         // Replace block code first
+    //         text = text.replace(blockCodePattern, (match, p1) => {
+    //             // Replace a specific word in the block code
+    //             const modifiedBlock = p1.replace(/<br>/g, '\n');
+    //             return `<pre id="codesnap" class="all-pre"><code class="hljs">${escapeHtml(normalizeWhitespace(modifiedBlock.trim()))}</code></pre>`;
+    //         });
+        
+    //         // Then replace inline code
+    //         text = text.replace(inlineCodePattern, (match, p1) => {
+    //             // Replace a specific word in the inline code
+    //             const modifiedInline = p1.replace(/<br>/g, '\n');
+    //             return `<code>${escapeHtml(normalizeWhitespace(modifiedBlock.trim()))}</code>`;
+    //         });
+
+    //         return text;
+    //     }
+
+    //     function displayDiv(inputField) {
+    //   const divElement1 = document.getElementById("myDiv1");
+    //   const divElement2 = document.getElementById("myDiv2");
+    //   if (inputField.value != "") {
+    //    divElement1.style.display = "none";
+    //    divElement2.style.display = "block";
+    //   } else {
+    //    divElement1.style.display = "block";
+    //    divElement2.style.display = "none";
+    //   }}
+
+
+
+        // function formatCode(text) {
+        //     // Replace code blocks with <pre><code> tags
+        //     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+            
+        //     // Function to normalize whitespace
+        //     const normalizeWhitespace = (str) => {
+        //         return str.replace(/\s+/g, ' ').trim(); // Replace multiple spaces with a single space and trim
+        //     };
+        
+        //     // Replace block code first
+        //     text = text.replace(blockCodePattern, (match, p1) => {
+        //         // Remove <br> tags and normalize whitespace in block code
+        //         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+        //         const formattedBlock = escapeHtml(modifiedBlock);
+        //         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+        //     });
+        
+        //     // Then replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         // Remove <br> tags and normalize whitespace in inline code
+        //         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+        //         const formattedInline = escapeHtml(modifiedInline);
+        //         return `<code class="inline-code">${formattedInline}</code>`;
+        //     });
+        
+        //     return text;
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------- currect it--------------------
+
+        // function formatCode(text) {
+        //    // Replace code blocks with <pre><code> tags
+        //    const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+        //    const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+        
+        //    // Function to normalize whitespace while preserving new lines
+        //    const normalizeWhitespace = (str) => {
+        //        return str
+        //            .split('\n') // Split into lines
+        //            .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+        //            .join('\n'); // Join lines back together
+        //    };
+       
+        //    // Replace block code first
+        //    text = text.replace(blockCodePattern, (match, p1) => {
+        //        // Remove <br> tags and normalize whitespace in block code
+        //        const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+        //        const formattedBlock = escapeHtml(modifiedBlock);
+        //        return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+        //    });
+       
+        //    // Then replace inline code
+        //    text = text.replace(inlineCodePattern, (match, p1) => {
+        //        // Remove <br> tags and normalize whitespace in inline code
+        //        const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+        //        const formattedInline = escapeHtml(modifiedInline);
+        //        return `<code class="inline-code">${formattedInline}</code>`;
+        //    });
+       
+        //    return text;
+        // }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function formatCode(text) {
+        //     // Replace code blocks with <pre><code> tags
+        //     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+        //     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+        //     const listPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+        //     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+        //     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+        //     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+            
+        //     // Function to normalize whitespace while preserving new lines
+        //     const normalizeWhitespace = (str) => {
+        //         return str
+        //             .split('\n') // Split into lines
+        //             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+        //             .join('\n'); // Join lines back together
+        //     };
+        
+        //     // Replace block code first
+        //     text = text.replace(blockCodePattern, (match, p1) => {
+        //         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+        //         const formattedBlock = escapeHtml(modifiedBlock);
+        //         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+        //     });
+        
+        //     // Then replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+        //         const formattedInline = escapeHtml(modifiedInline);
+        //         return `<code class="inline-code">${formattedInline}</code>`;
+        //     });
+        
+        //     // Replace headings
+        //     text = text.replace(headingPattern, (match, hashes, content) => {
+        //         const level = hashes.length; // Heading level
+        //         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+        //     });
+        
+        //     // Replace unordered lists
+        //     text = text.replace(listPattern, (match) => {
+        //         return `<li>${escapeHtml(match.trim())}</li>`;
+        //     });
+        
+        //     // Wrap unordered list items in <ul>
+        //     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+            
+        //     // Replace blockquotes
+        //     text = text.replace(blockquotePattern, (match, p1) => {
+        //         const content = escapeHtml(p1.replace(/^> /, '').trim());
+        //         return `<blockquote>${content}</blockquote>`;
+        //     });
+        
+        //     // Replace bold text
+        //     text = text.replace(emphasisPattern, (match, p1, p2) => {
+        //         return `<strong>${escapeHtml(p2)}</strong>`;
+        //     });
+        
+        //     // Replace italics text
+        //     text = text.replace(italicsPattern, (match, p1, p2) => {
+        //         return `<em>${escapeHtml(p2)}</em>`;
+        //     });
+        
+        //     return text;
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//         function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+)$/gm; // Ordered lists
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+//     });
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace ordered lists
+//     text = text.replace(orderedListPattern, (match, content) => {
+//         return `<li>${escapeHtml(content.trim())}</li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+)$/gm; // Ordered lists
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+//     });
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace ordered lists
+//     text = text.replace(orderedListPattern, (match, content) => {
+//         return `<li>${escapeHtml(content.trim())}</li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+
+//     // Wrap task list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+)$/gm; // Ordered lists
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings with bold text
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Replace unordered lists with nesting support
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace ordered lists with nesting support
+//     text = text.replace(orderedListPattern, (match, content) => {
+//         return `<li>${escapeHtml(content.trim())}</li>`;
+//     });
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*(\d+)\.\s+(.+?):/gm; // Ordered lists with colon
+//     const nestedListPattern = /^\s*(\d+)\.\s+(.+)$/gm; // Nested lists
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold or Underline
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const highlightPattern = /==(.+?)==/g; // Highlight
+//     const definitionListPattern = /^([^\n:]+):\s*(.*)$/gm; // Definition lists
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]: (.+)/g; // Footnotes with definitions
+//     const footnoteReferencePattern = /\[\^(\d+)\]/g; // Footnote references
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+//     const escapedCharPattern = /\\([`*_{}[\]()#+\-!.>])/g; // Escaped characters
+//     const superscriptPattern = /\^(\w+)/g; // Superscript
+//     const subscriptPattern = /_(\w+)/g; // Subscript
+//     const inlineHtmlPattern = /<([^>]+)>/g; // Inline HTML
+//     const coloredTextPattern = /\{color:(.+?)\}(.+?)\{\/color\}/g; // Colored text
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Replace ordered lists with bold and larger points
+//     text = text.replace(orderedListPattern, (match, number, content) => {
+//         return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+//     });
+
+//     // Handle nested lists
+//     text = text.replace(nestedListPattern, (match, number, content) => {
+//         return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold or underlined text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace underlined text
+//     text = text.replace(/__(.*?)__/g, (match, p1) => {
+//         return `<u>${escapeHtml(p1)}</u>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace highlighted text
+//     text = text.replace(highlightPattern, (match, p1) => {
+//         return `<mark>${escapeHtml(p1)}</mark>`;
+//     });
+
+//     // Replace colored text
+//     text = text.replace(coloredTextPattern, (match, color, content) => {
+//         return `<span style="color:${escapeHtml(color)};">${escapeHtml(content)}</span>`;
+//     });
+
+//     // Replace definition lists
+//     text = text.replace(definitionListPattern, (match, term, definition) => {
+//         return `<dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+
+//     // Wrap task list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (with definitions)
+//     text = text.replace(footnotePattern, (match, footnoteId, definition) => {
+//         return `<sup id="footnote-${footnoteId}">[${escapeHtml(footnoteId)}]</sup><span class="footnote-definition">${escapeHtml(definition.trim())}</span>`;
+//     });
+
+//     // Replace footnote references
+//     text = text.replace(footnoteReferencePattern, (match, footnoteId) => {
+//         return `<a href="#footnote-${footnoteId}">${escapeHtml(match)}</a>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     // Handle escaped characters
+//     text = text.replace(escapedCharPattern, '$1');
+
+//     // Handle superscripts
+//     text = text.replace(superscriptPattern, (match, content) => {
+//         return `<sup>${escapeHtml(content)}</sup>`;
+//     });
+
+//     // Handle subscripts
+//     text = text.replace(subscriptPattern, (match, content) => {
+//         return `<sub>${escapeHtml(content)}</sub>`;
+//     });
+
+//     // Handle inline HTML
+//     text = text.replace(inlineHtmlPattern, (match, content) => {
+//         return `<span>${content}</span>`; // Allow inline HTML
+//     });
+
+//     return text;
+// }
+
+// // Dummy escapeHtml function to sanitize HTML input
+// function escapeHtml(unsafe) {
+//     return unsafe
+//         .replace(/&/g, "&amp;")
+//         .replace(/</g, "&lt;")
+//         .replace(/>/g, "&gt;")
+//         .replace(/"/g, "&quot;")
+//         .replace(/'/g, "&#039;");
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function formatCode(text) {
+    // Patterns for various markdown elements
+    const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+    const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+    const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+    const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+    const orderedListPattern = /^\s*(\d+)\.\s+(.+?):/gm; // Ordered lists with colon
+    const nestedListPattern = /^\s*(\d+)\.\s+(.+)$/gm; // Nested lists
+    const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+    const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+    const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+    const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+    const highlightPattern = /==(.+?)==/g; // Highlight
+    const definitionListPattern = /^([^\n:]+):\s*(.*)$/gm; // Definition lists
+    const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+    const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+    const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+    const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+    const footnotePattern = /\[\^(\d+)\]: (.+)/g; // Footnotes with definitions
+    const footnoteReferencePattern = /\[\^(\d+)\]/g; // Footnote references
+    const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+    const escapedCharPattern = /\\([`*_{}[\]()#+\-!.>])/g; // Escaped characters
+    const superscriptPattern = /\^(\w+)/g; // Superscript
+    const subscriptPattern = /_(\w+)/g; // Subscript
+    const inlineHtmlPattern = /<([^>]+)>/g; // Inline HTML
+
+    // Function to normalize whitespace while preserving new lines
+    const normalizeWhitespace = (str) => {
+        return str
+            .split('\n') // Split into lines
+            .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+            .join('\n'); // Join lines back together
+    };
+
+    // Replace block code first
+    text = text.replace(blockCodePattern, (match, p1) => {
+        const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+        const formattedBlock = escapeHtml(modifiedBlock);
+        return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+    });
+
+    // Replace inline code
+    text = text.replace(inlineCodePattern, (match, p1) => {
+        const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+        const formattedInline = escapeHtml(modifiedInline);
+        return `<code class="inline-code">${formattedInline}</code>`;
+    });
+
+    // Replace headings
+    text = text.replace(headingPattern, (match, hashes, content) => {
+        const level = hashes.length; // Heading level
+        return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+    });
+
+    // Replace ordered lists with bold and larger points
+    text = text.replace(orderedListPattern, (match, number, content) => {
+        return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+    });
+
+    // Handle nested lists
+    text = text.replace(nestedListPattern, (match, number, content) => {
+        return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+    });
+
+    // Wrap ordered list items in <ol>
+    text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+    // Replace unordered lists
+    text = text.replace(unorderedListPattern, (match) => {
+        return `<li>${escapeHtml(match.trim())}</li>`;
+    });
+
+    // Wrap unordered list items in <ul>
+    text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+    // Replace blockquotes
+    text = text.replace(blockquotePattern, (match, p1) => {
+        const content = escapeHtml(p1.replace(/^> /, '').trim());
+        return `<blockquote>${content}</blockquote>`;
+    });
+
+    // Replace bold text
+    text = text.replace(emphasisPattern, (match, p1, p2) => {
+        return `<strong>${escapeHtml(p2)}</strong>`;
+    });
+
+    // Replace italics text
+    text = text.replace(italicsPattern, (match, p1, p2) => {
+        return `<em>${escapeHtml(p2)}</em>`;
+    });
+
+    // Replace strikethrough text
+    text = text.replace(strikethroughPattern, (match, p1) => {
+        return `<del>${escapeHtml(p1)}</del>`;
+    });
+
+    // Replace highlighted text
+    text = text.replace(highlightPattern, (match, p1) => {
+        return `<mark>${escapeHtml(p1)}</mark>`;
+    });
+
+    // Replace definition lists
+    text = text.replace(definitionListPattern, (match, term, definition) => {
+        return `<dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd>`;
+    });
+
+    // Replace links
+    text = text.replace(linkPattern, (match, text, url) => {
+        return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+    });
+
+    // Replace images
+    text = text.replace(imagePattern, (match, altText, url) => {
+        return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+    });
+
+    // Replace horizontal rules
+    text = text.replace(horizontalRulePattern, '<hr />');
+
+    // Replace task lists
+    text = text.replace(taskListPattern, (match, listItem, checked) => {
+        const status = checked === 'x' ? 'checked' : '';
+        return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+    });
+
+    // Wrap task list items in <ul>
+    text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+    // Replace footnotes (with definitions)
+    text = text.replace(footnotePattern, (match, footnoteId, definition) => {
+        return `<sup id="footnote-${footnoteId}">[${escapeHtml(footnoteId)}]</sup><span class="footnote-definition">${escapeHtml(definition.trim())}</span>`;
+    });
+
+    // Replace footnote references
+    text = text.replace(footnoteReferencePattern, (match, footnoteId) => {
+        return `<a href="#footnote-${footnoteId}">${escapeHtml(match)}</a>`;
+    });
+
+    // Replace tables
+    text = text.replace(tablePattern, (match) => {
+        const rows = match.split('\n').filter(row => row.trim());
+        const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+        const body = rows.slice(2).map(row => {
+            const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+            return `<tr>${cells}</tr>`;
+        }).join('');
+        return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+    });
+
+    // Handle escaped characters
+    text = text.replace(escapedCharPattern, (match, char) => {
+        return escapeHtml(char);
+    });
+
+    // Handle superscript
+    text = text.replace(superscriptPattern, (match, text) => {
+        return `<sup>${escapeHtml(text)}</sup>`;
+    });
+
+    // Handle subscript
+    text = text.replace(subscriptPattern, (match, text) => {
+        return `<sub>${escapeHtml(text)}</sub>`;
+    });
+
+    // Allow inline HTML
+    text = text.replace(inlineHtmlPattern, (match) => {
+        return match; // Directly include inline HTML
+    });
+
+    return text;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*(\d+)\.\s+(.+?):/gm; // Ordered lists with colon
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Replace ordered lists with bold and larger points
+//     text = text.replace(orderedListPattern, (match, number, content) => {
+//         return `<li style="font-size: 1.2em;"><strong>${escapeHtml(content.trim())}</strong></li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+
+//     // Wrap task list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*(\d+)\.\s+(.+?):/gm; // Ordered lists with colon
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Replace ordered lists with bold points
+//     text = text.replace(orderedListPattern, (match, number, content) => {
+//         return `<li><strong>${escapeHtml(content.trim())}</strong></li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+
+//     // Wrap task list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+):/gm; // Ordered lists with bold pattern
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Helper function to handle nested lists
+//     const handleLists = (text) => {
+//         let listStack = [];
+//         let currentListType = null;
+
+//         return text.split('\n').map(line => {
+//             const matchOrdered = line.match(/^\s*\d+\.\s+/);
+//             const matchUnordered = line.match(/^\s*[-*+]\s+/);
+//             const isListItem = matchOrdered || matchUnordered;
+
+//             if (isListItem) {
+//                 const listItem = escapeHtml(line.trim());
+//                 if (matchOrdered) {
+//                     if (currentListType !== 'ol') {
+//                         currentListType = 'ol';
+//                         listStack.push(`<ol>`);
+//                     }
+//                     return `<li><strong>${listItem.replace(/^\d+\.\s+/, '')}</strong></li>`;
+//                 } else if (matchUnordered) {
+//                     if (currentListType !== 'ul') {
+//                         currentListType = 'ul';
+//                         listStack.push(`<ul>`);
+//                     }
+//                     return `<li>${listItem}</li>`;
+//                 }
+//             } else {
+//                 if (currentListType) {
+//                     listStack.push(`</${currentListType}>`);
+//                     currentListType = null;
+//                 }
+//                 return line; // Non-list line
+//             }
+//         }).concat(listStack.reverse()).join('\n');
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings with bold text
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Handle lists (unordered and ordered) with bold points
+//     text = handleLists(text);
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*(\d+)\.\s+(.+):/gm; // Ordered lists with colon
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Helper function to handle nested lists
+//     const handleLists = (text) => {
+//         let listStack = [];
+//         let currentListType = null;
+
+//         return text.split('\n').map(line => {
+//             const matchOrdered = line.match(/^\s*\d+\.\s+/);
+//             const matchUnordered = line.match(/^\s*[-*+]\s+/);
+//             const isListItem = matchOrdered || matchUnordered;
+
+//             if (isListItem) {
+//                 const listItem = escapeHtml(line.trim());
+//                 if (matchOrdered) {
+//                     if (currentListType !== 'ol') {
+//                         currentListType = 'ol';
+//                         listStack.push(`<ol>`);
+//                     }
+//                     // Bold the content after the number
+//                     return `<li><strong>${listItem.replace(/^\d+\.\s+/, '')}</strong></li>`;
+//                 } else if (matchUnordered) {
+//                     if (currentListType !== 'ul') {
+//                         currentListType = 'ul';
+//                         listStack.push(`<ul>`);
+//                     }
+//                     return `<li>${listItem}</li>`;
+//                 }
+//             } else {
+//                 if (currentListType) {
+//                     listStack.push(`</${currentListType}>`);
+//                     currentListType = null;
+//                 }
+//                 return line; // Non-list line
+//             }
+//         }).concat(listStack.reverse()).join('\n');
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings with bold text
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Handle lists (unordered and ordered) with bold points
+//     text = handleLists(text);
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+):/gm; // Ordered lists with bold pattern
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     // Helper function to handle nested lists
+//     const handleLists = (text) => {
+//         let listStack = [];
+//         let currentListType = null;
+
+//         return text.split('\n').map(line => {
+//             const matchOrdered = line.match(/^\s*\d+\.\s+/);
+//             const matchUnordered = line.match(/^\s*[-*+]\s+/);
+//             const isListItem = matchOrdered || matchUnordered;
+
+//             if (isListItem) {
+//                 const listItem = escapeHtml(line.trim());
+//                 if (matchOrdered) {
+//                     if (currentListType !== 'ol') {
+//                         currentListType = 'ol';
+//                         listStack.push(`<ol>`);
+//                     }
+//                     return `<li><strong>${listItem.replace(/^\d+\.\s+/, '')}</strong></li>`;
+//                 } else if (matchUnordered) {
+//                     if (currentListType !== 'ul') {
+//                         currentListType = 'ul';
+//                         listStack.push(`<ul>`);
+//                     }
+//                     return `<li>${listItem}</li>`;
+//                 }
+//             } else {
+//                 if (currentListType) {
+//                     listStack.push(`</${currentListType}>`);
+//                     currentListType = null;
+//                 }
+//                 return line; // Non-list line
+//             }
+//         }).concat(listStack.reverse()).join('\n');
+//     };
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings with bold text
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}><strong>${escapeHtml(content.trim())}</strong></h${level}>`;
+//     });
+
+//     // Handle lists (unordered and ordered) with bold points
+//     text = handleLists(text);
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+// function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+)$/gm; // Ordered lists
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const linkWithTitlePattern = /\[([^\]]+)\]\(([^)]+) "([^"]+)"\)/g; // Links with title
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+//     const htmlBlockPattern = /(<[a-z][\s\S]*?>[\s\S]*?<\/[a-z]>)/gi; // HTML block elements
+//     const definitionListPattern = /^(.+?)\s*:\s*(.+)$/gm; // Definition lists
+//     const abbreviationPattern = /\*\[([^\]]+)\]:\s*(.+)$/gm; // Abbreviations
+//     const commentPattern = /<!--(.*?)-->/g; // HTML comments
+
+
+
+
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+//     });
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace ordered lists
+//     text = text.replace(orderedListPattern, (match, content) => {
+//         return `<li>${escapeHtml(content.trim())}</li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace links with title
+//     text = text.replace(linkWithTitlePattern, (match, text, url, title) => {
+//         return `<a href="${escapeHtml(url)}" title="${escapeHtml(title)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+
+//     // Wrap task list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     // Replace HTML block elements
+//     text = text.replace(htmlBlockPattern, (match) => {
+//         return match; // Allow raw HTML elements
+//     });
+
+//     // Replace definition lists
+//     text = text.replace(definitionListPattern, (match, term, definition) => {
+//         return `<dl><dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd></dl>`;
+//     });
+
+//     // Replace abbreviations
+//     text = text.replace(abbreviationPattern, (match, term, definition) => {
+//         return `<abbr title="${escapeHtml(definition.trim())}">${escapeHtml(term.trim())}</abbr>`;
+//     });
+
+//     // Remove comments (optional)
+//     text = text.replace(commentPattern, '');
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     // Function to normalize whitespace while preserving new lines
+//     const normalizeWhitespace = (str) => {
+//         return str
+//             .split('\n') // Split into lines
+//             .map(line => line.replace(/\s+/g, ' ').trim()) // Normalize each line
+//             .join('\n'); // Join lines back together
+//     };
+
+//     function formatCode(text) {
+//     // Patterns for various markdown elements
+//     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+//     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+//     const headingPattern = /^(#{1,6})\s*(.+)$/gm; // Headings
+//     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+//     const orderedListPattern = /^\s*\d+\.\s+(.+)$/gm; // Ordered lists
+//     const blockquotePattern = /^(> .+)$/gm; // Blockquotes
+//     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+//     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+//     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough
+//     const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g; // Links
+//     const linkWithTitlePattern = /\[([^\]]+)\]\(([^)]+) "([^"]+)"\)/g; // Links with title
+//     const imagePattern = /!\[([^\]]*)\]\(([^)]+)\)/g; // Images
+//     const horizontalRulePattern = /(^[-*]{3,}|^_{3,}|^\*{3,})/gm; // Horizontal rules
+//     const taskListPattern = /^\s*([-*+]\s+\[([ x])\]\s+.+)$/gm; // Task lists
+//     const footnotePattern = /\[\^(\d+)\]/g; // Footnotes
+//     const tablePattern = /(\|.*?\|(\n|$))/g; // Tables
+//     const htmlBlockPattern = /(<[a-z][\s\S]*?>[\s\S]*?<\/[a-z]>)/gi; // HTML block elements
+//     const definitionListPattern = /^(.+?)\s*:\s*(.+)$/gm; // Definition lists
+//     const abbreviationPattern = /\*\[([^\]]+)\]:\s*(.+)$/gm; // Abbreviations
+//     const commentPattern = /<!--(.*?)-->/g; // HTML comments
+
+
+
+//     // Replace block code first
+//     text = text.replace(blockCodePattern, (match, p1) => {
+//         const modifiedBlock = normalizeWhitespace(p1.replace(/<br>/g, '\n'));
+//         const formattedBlock = escapeHtml(modifiedBlock);
+//         return `<pre><code class="formatted-code">${formattedBlock}</code></pre>`;
+//     });
+
+//     // Replace inline code
+//     text = text.replace(inlineCodePattern, (match, p1) => {
+//         const modifiedInline = normalizeWhitespace(p1.replace(/<br>/g, ''));
+//         const formattedInline = escapeHtml(modifiedInline);
+//         return `<code class="inline-code">${formattedInline}</code>`;
+//     });
+
+//     // Replace headings
+//     text = text.replace(headingPattern, (match, hashes, content) => {
+//         const level = hashes.length; // Heading level
+//         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+//     });
+
+//     // Replace unordered lists
+//     text = text.replace(unorderedListPattern, (match) => {
+//         return `<li>${escapeHtml(match.trim())}</li>`;
+//     });
+
+//     // Wrap unordered list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace ordered lists
+//     text = text.replace(orderedListPattern, (match, content) => {
+//         return `<li>${escapeHtml(content.trim())}</li>`;
+//     });
+
+//     // Wrap ordered list items in <ol>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ol>$1</ol>');
+
+//     // Replace blockquotes
+//     text = text.replace(blockquotePattern, (match, p1) => {
+//         const content = escapeHtml(p1.replace(/^> /, '').trim());
+//         return `<blockquote>${content}</blockquote>`;
+//     });
+
+//     // Replace bold text
+//     text = text.replace(emphasisPattern, (match, p1, p2) => {
+//         return `<strong>${escapeHtml(p2)}</strong>`;
+//     });
+
+//     // Replace italics text
+//     text = text.replace(italicsPattern, (match, p1, p2) => {
+//         return `<em>${escapeHtml(p2)}</em>`;
+//     });
+
+//     // Replace strikethrough text
+//     text = text.replace(strikethroughPattern, (match, p1) => {
+//         return `<del>${escapeHtml(p1)}</del>`;
+//     });
+
+//     // Replace links
+//     text = text.replace(linkPattern, (match, text, url) => {
+//         return `<a href="${escapeHtml(url)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace links with title
+//     text = text.replace(linkWithTitlePattern, (match, text, url, title) => {
+//         return `<a href="${escapeHtml(url)}" title="${escapeHtml(title)}">${escapeHtml(text)}</a>`;
+//     });
+
+//     // Replace images
+//     text = text.replace(imagePattern, (match, altText, url) => {
+//         return `<img src="${escapeHtml(url)}" alt="${escapeHtml(altText)}" />`;
+//     });
+
+//     // Replace horizontal rules
+//     text = text.replace(horizontalRulePattern, '<hr />');
+
+//     // Replace task lists
+//     text = text.replace(taskListPattern, (match, listItem, checked) => {
+//         const status = checked === 'x' ? 'checked' : '';
+//         return `<li><input type="checkbox" ${status} /> ${escapeHtml(listItem.trim())}</li>`;
+//     });
+
+//     // Wrap task list items in <ul>
+//     text = text.replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>');
+
+//     // Replace footnotes (basic)
+//     text = text.replace(footnotePattern, (match, footnoteId) => {
+//         return `<sup>[${escapeHtml(footnoteId)}]</sup>`;
+//     });
+
+//     // Replace tables
+//     text = text.replace(tablePattern, (match) => {
+//         const rows = match.split('\n').filter(row => row.trim());
+//         const header = rows[0].split('|').slice(1, -1).map(cell => `<th>${escapeHtml(cell.trim())}</th>`).join('');
+//         const body = rows.slice(2).map(row => {
+//             const cells = row.split('|').slice(1, -1).map(cell => `<td>${escapeHtml(cell.trim())}</td>`).join('');
+//             return `<tr>${cells}</tr>`;
+//         }).join('');
+//         return `<table><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+//     });
+
+//     // Replace HTML block elements
+//     text = text.replace(htmlBlockPattern, (match) => {
+//         return match; // Allow raw HTML elements
+//     });
+
+//     // Replace definition lists
+//     text = text.replace(definitionListPattern, (match, term, definition) => {
+//         return `<dl><dt>${escapeHtml(term.trim())}</dt><dd>${escapeHtml(definition.trim())}</dd></dl>`;
+//     });
+
+//     // Replace abbreviations
+//     text = text.replace(abbreviationPattern, (match, term, definition) => {
+//         return `<abbr title="${escapeHtml(definition.trim())}">${escapeHtml(term.trim())}</abbr>`;
+//     });
+
+//     // Remove comments (optional)
+//     text = text.replace(commentPattern, '');
+
+//     return text;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function formatCode(text) {
+        //     // Replace code blocks with <pre><code> tags
+        //     const blockCodePattern = /```([\s\S]*?)```/g; // Triple backticks
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks
+            
+        //     // Replace block code first
+        //     text = text.replace(blockCodePattern, (match, p1) => {
+        //         // Escape and trim block code first
+        //         const escapedBlock = escapeHtml(p1.trim());
+        //         // Replace a specific word in the escaped block code
+        //         const modifiedBlock = escapedBlock.replace(/<br>/g, '\n');
+        //         return `<pre><code>${modifiedBlock}</code></pre>`;
+        //     });
+        
+        //     // Then replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         // Escape and trim inline code first
+        //         const escapedInline = escapeHtml(p1.trim());
+        //         // Replace a specific word in the escaped inline code
+        //         const modifiedInline = escapedInline.replace(/<br>/g, '\n');
+        //         return `<code>${modifiedInline}</code>`;
+        //     });
+            
+        //     return text;
+        // }
+
+
+
+
+
+        
+        // // Example usage
+        // const inputText = `
+        // Here is some inline code: \`const x = 10;\`
+        
+        // And here is a code block:
+        
+        // \`\`\`
+        // function test() {
+        //     console.log("Hello, World!");
+        // }
+        // \`\`\`
+        // `;
+        
+        // console.log(formatCode(inputText));
+
+
+
+
+
+
+
+
+
+
+// -------------- currect it--------------------
+
+        // function escapeHtml(unsafe) {
+        //     return unsafe
+        //         .replace(/&/g, "&amp;")
+        //         .replace(/</g, "&lt;")
+        //         .replace(/>/g, "&gt;")
+        //         .replace(/"/g, "&quot;")
+        //         .replace(/'/g, "&#039;");
+        // }
+
+        // function formatCode(text) {
+        //     // Regular expressions for different patterns
+        //     const blockCodePattern = /```(\w+)?\s*([\s\S]*?)```/g; // Triple backticks with optional language
+        //     const tildeBlockCodePattern = /~~~(\w+)?\s*([\s\S]*?)~~~/g; // Tilde for code block with optional language
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks for inline code
+        //     const headingPattern = /^(#+)\s*(.*)$/gm; // Headings (e.g., #, ##, ###)
+        //     const bulletPointPattern = /^\s*\*\s+(.*)$/gm; // Bullet points (e.g., * item)
+        //     const numberedPointPattern = /^\s*\d+\.\s+(.*)$/gm; // Numbered points (e.g., 1. item)
+        
+        //     // Replace headings
+        //     text = text.replace(headingPattern, (match, hashes, content) => {
+        //         const level = hashes.length; // Number of '#' determines heading level
+        //         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+        //     });
+        
+        //     // Wrap bullet points in an unordered list
+        //     const bulletList = [];
+        //     text = text.replace(bulletPointPattern, (match, content) => {
+        //         bulletList.push(`<li>${escapeHtml(content.trim())}</li>`);
+        //         return ""; // Remove from original text
+        //     });
+        //     if (bulletList.length) {
+        //         text += `<ul>${bulletList.join("")}</ul>`;
+        //     }
+        
+        //     // Wrap numbered points in an ordered list
+        //     const numberedList = [];
+        //     text = text.replace(numberedPointPattern, (match, content) => {
+        //         numberedList.push(`<li>${escapeHtml(content.trim())}</li>`);
+        //         return ""; // Remove from original text
+        //     });
+        //     if (numberedList.length) {
+        //         text += `<ol>${numberedList.join("")}</ol>`;
+        //     }
+        
+        //     // Replace block code first (supporting both backticks and tildes)
+        //     text = text.replace(blockCodePattern, (match, lang, p1) => {
+        //         const languageClass = lang ? ` class="${lang}"` : '';
+        //         return `<pre${languageClass}><code>${escapeHtml(p1.trim())}</code></pre>`;
+        //     });
+        
+        //     text = text.replace(tildeBlockCodePattern, (match, lang, p1) => {
+        //         const languageClass = lang ? ` class="${lang}"` : '';
+        //         return `<pre${languageClass}><code>${escapeHtml(p1.trim())}</code></pre>`;
+        //     });
+        
+        //     // Then replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         return `<code>${escapeHtml(p1.trim())}</code>`;
+        //     });
+        
+        //     return text;
+        // }
+
+        // // Example usage
+        // const inputText = `
+        // # Heading Level 1
+        // Here is some inline code: \`const x = 10;\`
+
+        // ## Heading Level 2
+        // And here is a JavaScript code block:
+
+        // \`\`\`javascript
+        // function test() {
+        //     console.log("Hello, World!");
+        // }
+        // \`\`\`
+
+        // ### Heading Level 3
+        // Here is a bullet list:
+        // * Item 1
+        //     * Sub-item 1.1
+        //     * Sub-item 1.2
+        // * Item 2
+
+        // Here is a numbered list:
+        // 1. First item
+        // 2. Second item
+        //    1. Sub-item 2.1
+        //    2. Sub-item 2.2
+
+        // Here is a Python code block:
+
+        // ~~~python
+        // def greet():
+        //     print("Hello, World!")
+        // ~~~
+        // `;
+
+        // console.log(formatCode(inputText));
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function escapeHtml(unsafe) {
+        //     return unsafe
+        //         .replace(/&/g, "&amp;")
+        //         .replace(/</g, "&lt;")
+        //         .replace(/>/g, "&gt;")
+        //         .replace(/"/g, "&quot;")
+        //         .replace(/'/g, "&#039;");
+        // }
+
+        // function formatCode(text) {
+        //     // Regular expressions for different patterns
+        //     const blockCodePattern = /```(\w+)?\s*([\s\S]*?)```/g; // Triple backticks with optional language
+        //     const tildeBlockCodePattern = /~~~(\w+)?\s*([\s\S]*?)~~~/g; // Tilde for code block with optional language
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks for inline code
+        //     const headingPattern = /^(#+)\s*(.*)$/gm; // Headings (e.g., #, ##, ###)
+        //     const bulletPointPattern = /^\s*\*\s+(.*)$/gm; // Bullet points (e.g., * item)
+        //     const numberedPointPattern = /^\s*\d+\.\s+(.*)$/gm; // Numbered points (e.g., 1. item)
+        //     const subBulletPointPattern = /^\s*\*\*\s+(.*)$/gm; // Subpoints (e.g., ** sub-item)
+        
+        //     // Replace headings
+        //     text = text.replace(headingPattern, (match, hashes, content) => {
+        //         const level = hashes.length; // Number of '#' determines heading level
+        //         return `\n<h${level}>${escapeHtml(content.trim())}</h${level}>\n`;
+        //     });
+        
+        //     // Replace bullet points
+        //     const bulletList = [];
+        //     text = text.replace(bulletPointPattern, (match, content) => {
+        //         bulletList.push(`${escapeHtml(content.trim())}`);
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Wrap bullet points in an unordered list
+        //     if (bulletList.length) {
+        //         text += `<ul>\n<li>${bulletList.join("</li>\n<li>")}</li>\n</ul>\n`;
+        //     }
+        
+        //     // Replace numbered points
+        //     const numberedList = [];
+        //     text = text.replace(numberedPointPattern, (match, content) => {
+        //         numberedList.push(`${escapeHtml(content.trim())}`);
+        //         return ""; // Remove from original text
+        //     });
+        
+        //     // Wrap numbered points in an ordered list
+        //     if (numberedList.length) {
+        //         text += `<ol>\n<li>${numberedList.join("</li>\n<li>")}</li>\n</ol>\n`;
+        //     }
+        
+        //     // Replace block code first (supporting both backticks and tildes)
+        //     text = text.replace(blockCodePattern, (match, lang, p1) => {
+        //         const languageClass = lang ? ` class="${lang}"` : '';
+        //         return `\n<pre${languageClass}>\n${escapeHtml((p1.replace(/<br>/g, '\n')).trim())}\n</pre>\n`;
+        //     });
+        
+        //     text = text.replace(tildeBlockCodePattern, (match, lang, p1) => {
+        //         const languageClass = lang ? ` class="${lang}"` : '';
+        //         return `\n<pre${languageClass}>\n${escapeHtml((p1.replace(/<br>/g, '\n')).trim())}\n</pre>\n`;
+        //     });
+        
+        //     // Then replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         return `<code>${escapeHtml((p1.replace(/<br>/g, '\n')).trim())}</code>`;
+        //     });
+        
+        //     return text.trim(); // Return the final processed text
+        // }
+
+        // // Example usage
+        // const inputText = `
+        // # Heading Level 1
+        // Here is some inline code: \`const x = 10;\`
+
+        // ## Heading Level 2
+        // And here is a JavaScript code block:
+
+        // \`\`\`javascript
+        // function test() {
+        //     console.log("Hello, World!");
+        // }
+        // \`\`\`
+
+        // ### Heading Level 3
+        // Here is a bullet list:
+        // * Item 1
+        //     * Sub-item 1.1
+        //     * Sub-item 1.2
+        // * Item 2
+
+        // Here is a numbered list:
+        // 1. First item
+        // 2. Second item
+        //    1. Sub-item 2.1
+        //    2. Sub-item 2.2
+
+        // Here is a Python code block:
+
+        // ~~~python
+        // def greet():
+        //     print("Hello, World!")
+        // ~~~
+        // `;
+
+        // console.log(formatCode(inputText));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function escapeHtml(unsafe) {
+        //     return unsafe
+        //         .replace(/&/g, "&amp;")
+        //         .replace(/</g, "&lt;")
+        //         .replace(/>/g, "&gt;")
+        //         .replace(/"/g, "&quot;")
+        //         .replace(/'/g, "&#039;");
+        // }
+
+        // function formatCode(text) {
+        //     // Regular expressions for different patterns
+        //     const blockCodePattern = /```(\w+)?\s*([\s\S]*?)```/g; // Triple backticks with optional language
+        //     const tildeBlockCodePattern = /~~~(\w+)?\s*([\s\S]*?)~~~/g; // Tilde for code block with optional language
+        //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks for inline code
+        //     const headingPattern = /^(#+)\s*(.*)$/gm; // Headings (e.g., #, ##, ###)
+        //     const bulletPointPattern = /^\s*\*\s+(.*)$/gm; // Bullet points (e.g., * item)
+        //     const numberedPointPattern = /^\s*\d+\.\s+(.*)$/gm; // Numbered points (e.g., 1. item)
+        
+        //     // Replace headings
+        //     text = text.replace(headingPattern, (match, hashes, content) => {
+        //         const level = hashes.length; // Number of '#' determines heading level
+        //         return `\n<h${level}>${escapeHtml(content.trim())}</h${level}>\n`;
+        //     });
+        
+        //     // Replace bullet points
+        //     const bulletList = [];
+        //     text = text.replace(bulletPointPattern, (match, content) => {
+        //         bulletList.push(`${escapeHtml(content.trim())}`);
+        //         return ""; // Remove from original text
+        //     });
+
+        //     // Wrap bullet points in an unordered list
+        //     if (bulletList.length) {
+        //         text += `<ul>\n<li>${bulletList.join("</li>\n<li>")}</li>\n</ul>\n`;
+        //     }
+        
+        //     // Replace numbered points
+        //     const numberedList = [];
+        //     text = text.replace(numberedPointPattern, (match, content) => {
+        //         numberedList.push(`${escapeHtml(content.trim())}`);
+        //         return ""; // Remove from original text
+        //     });
+        
+        //     // Wrap numbered points in an ordered list
+        //     if (numberedList.length) {
+        //         text += `<ol>\n<li>${numberedList.join("</li>\n<li>")}</li>\n</ol>\n`;
+        //     }
+        
+        //     // Replace block code first (supporting both backticks and tildes)
+        //     text = text.replace(blockCodePattern, (match, lang, p1) => {
+        //         const languageClass = lang ? ` class="${lang}"` : '';
+        //         return `\n<pre${languageClass}>\n${escapeHtml(p1.trim())}\n</pre>\n`;
+        //     });
+        
+        //     text = text.replace(tildeBlockCodePattern, (match, lang, p1) => {
+        //         const languageClass = lang ? ` class="${lang}"` : '';
+        //         return `\n<pre${languageClass}>\n${escapeHtml(p1.trim())}\n</pre>\n`;
+        //     });
+        
+        //     // Then replace inline code
+        //     text = text.replace(inlineCodePattern, (match, p1) => {
+        //         return `<code>${escapeHtml(p1.trim())}</code>`;
+        //     });
+        
+        //     // Replace double newlines with paragraph breaks
+        //     text = text.replace(/\n{2,}/g, '\n\n');
+        
+        //     // Add <p> tags around paragraphs
+        //     text = text.split('\n\n').map(paragraph => {
+        //         return `<p>${paragraph.trim()}</p>`;
+        //     }).join('\n');
+        
+        //     return text.trim(); // Return the final processed text
+        // }
+
+        // // Example usage
+        // const inputText = `
+        // # Heading Level 1
+        // Here is some inline code: \`const x = 10;\`
+
+        // ## Heading Level 2
+        // And here is a JavaScript code block:
+
+        // \`\`\`javascript
+        // function test() {
+        //     console.log("Hello, World!");
+        // }
+        // \`\`\`
+
+        // ### Heading Level 3
+        // Here is a bullet list:
+        // * Item 1
+        //     * Sub-item 1.1
+        //     * Sub-item 1.2
+        // * Item 2
+
+        // Here is a numbered list:
+        // 1. First item
+        // 2. Second item
+        //    1. Sub-item 2.1
+        //    2. Sub-item 2.2
+
+        // Here is a Python code block:
+
+        // ~~~python
+        // def greet():
+        //     print("Hello, World!")
+        // ~~~
+        // `;
+
+        // console.log(formatCode(inputText));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        // function escapeHtml(html) {
+        //     // Escape HTML characters to prevent XSS attacks
+        //     const div = document.createElement('div');
+        //     div.innerText = html;
+        //     return div.innerHTML;
+        // }
+    </script>
+    
+    
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="..\script.js"></script>
+    <link rel="stylesheet" href="..\style.css">
+    <title>DIGANTA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            position: initial;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #0765a136;
+        }
+        .loading {
+            color: gray;
+            font-style: italic;
+        }
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 85vh;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 40px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="message-container" class="message-container"></div>
+    <div class="chat-container">
+        <textarea id="user-input" placeholder="Type your message..."></textarea><br>
+        <button id="myDiv1" style="width: 120px; display: none;" type="button" onclick="clearChatHistory()">Clear</button>
+        <button id="myDiv2" style="width: 120px;" type="button" onclick="fetchStream()">Send</button>
+        <button type="button" onclick="wrapInCode()">Code</button>
+    </div>
+    <script>
+        async function clearChatHistory() {
+            const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            if (response.ok) {
+                document.getElementById('message-container').innerHTML = '';
+            }
+        }
+
+        async function fetchStream() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return;
+
+            addMessage(userInput, 'user');
+            document.getElementById('user-input').value = '';
+            addLoadingMessage();
+
+            try {
+                const response = await fetch('/stream', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ 'user_input': userInput })
+                });
+            
+                if (!response.ok) throw new Error('Network response was not ok');
+            
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+            
+                let completeText = ''; // Initialize a variable to accumulate messages
+            
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                
+                    const newText = decoder.decode(value, { stream: true });
+                    completeText += newText; // Append new text to completeText
+                }
+            
+                // After reading all text, add the complete message as a single bot-message
+                addMessage(completeText, 'bot');
+            
+            } catch (error) {
+                addMessage('Error: ' + error.message, 'bot');
+            } finally {
+                removeLoadingMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messageContainer = document.getElementById('message-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+        
+            // Check if the text should be displayed as code
+            if (text.startsWith("```") && text.endsWith("```")) {
+                const codeContent = text.slice(3, -3).trim(); // Remove the ``` markers
+                messageDiv.innerHTML = `<pre><code>${codeContent}</code></pre>`;
+            } else {
+                messageDiv.innerText = text;
+            }
+        
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
+
+
+        function addLoadingMessage() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message loading';
+            loadingDiv.innerText = 'Bot is typing...';
+            document.getElementById('message-container').appendChild(loadingDiv);
+        }
+
+        function removeLoadingMessage() {
+            const loadingMessages = document.getElementsByClassName('loading');
+            while (loadingMessages.length > 0) {
+                loadingMessages[0].remove();
+            }
+        }
+
+        function wrapInCode() {
+            const inputField = document.getElementById('user-input');
+            const currentText = inputField.value;
+            inputField.value = currentText + (currentText ? "\n```\n\n```" : "```\n\n```");
+            inputField.focus(); // Bring focus back to the input field
+        }
+    </script>
+</body>
+</html> -->
+
 
 
 
