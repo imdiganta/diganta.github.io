@@ -44,12 +44,12 @@ def get_stream_response():
     data = {
         "messages": history,
         "mode": "instruct",
-        "character": "sudi",
-        "instruction_template": "Alpaca",
+        # "character": "sudi",
+        # "instruction_template": "Alpaca",
         "max_tokens": 1100,
-        "temperature": 1,
-        "top_p": 0.9,
-        "seed": 10,
+        # "temperature": 1,
+        # "top_p": 0.9,
+        # "seed": 10,
         "stream": True,
     }
 
