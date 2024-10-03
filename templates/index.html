@@ -301,7 +301,7 @@ pre code.hljs {
                         appendTosnapistx(newText)
                     } else {
                         addMessage(newText, 'snapist');
-                        addMessage(newText, 'bot');
+                        addMessage(formatCode(newText), 'bot');
                     }
                     // if (isLastelementsnapist()) {
                     //     // appendToLastBotMessage(newText);
@@ -311,7 +311,7 @@ pre code.hljs {
                     //     addMessage(newText, 'snapist');
                     // }
                 }
-
+                hljs.highlightAll();
             } catch (error) {
                 addMessage('Error: ' + formatCode(error.message), 'system');
             } finally {
