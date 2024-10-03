@@ -13,13 +13,14 @@
     background-attachment: fixed;
 }
 
-/*
+
 *{
-    font-family: 'Quicksand', sans-serif;
+    /* font-family: 'Quicksand', sans-serif;
     font-family: 'Roboto', sans-serif;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', sans-serif; */
+    font-size: medium;
 }
-*/
+
 body>section>.profile {
     display: flex;
     flex-direction: column;

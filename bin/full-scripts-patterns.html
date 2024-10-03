@@ -1,4 +1,524 @@
 <!-- <script>
+    async function clearChatHistory() {
+        const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+        if (response.ok) {
+            document.getElementById('message-container').innerHTML = '';
+        }
+    }
+
+    async function fetchStream() {
+        const userInput = document.getElementById('user-input').value;
+        if (!userInput.trim()) return; // Prevent empty messages
+        
+        addMessage(userInput, 'user');
+        document.getElementById('user-input').value = ''; // Clear input field
+        document.getElementById("myDiv1").style.display = "block";
+        document.getElementById("myDiv2").style.display = "none";
+        addLoadingMessage();
+
+        try {
+            const response = await fetch('/stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                var fio ="";  
+                const newText = decoder.decode(value, { stream: true });
+                // const formattedText = formatCode(newText);
+                fio += newText;
+                if (isLastMessageBot() && isLastSnapistText()) {
+                    appendToLastBotMessage(fio);
+                    appendTosnapistx(newText)
+                } else {
+                    addMessage(newText, 'snapist');
+                    addMessage(newText, 'bot');
+                }
+                // if (isLastelementsnapist()) {
+                //     // appendToLastBotMessage(newText);
+                //     appendTosnapistx(newText);
+                // } else {
+                //     // addMessage(newText, 'bot');
+                //     addMessage(newText, 'snapist');
+                // }
+            }
+
+        } catch (error) {
+            addMessage('Error: ' + formatCode(error.message), 'system');
+        } finally {
+            removeLoadingMessage();
+        }
+    }
+
+    function addMessage(text, sender) {
+        const messageContainer = document.getElementById('message-container');
+        const messageDiv = document.createElement('div');
+        // messageDiv.className = 'message ' + (sender === 'user' ? 'user-message' : 'bot-message');
+        messageDiv.className = 'message ' + 
+        (sender === 'user' ? 'user-message' : 
+        (sender === 'bot' ? 'bot-message' : 
+        (sender === 'system' ? 'system-message' :
+        (sender === 'alert' ? 'alert alert-danger' :
+        (sender === 'snapist' ? 'element-snapist' : 'unknown-message')))));
+
+        // Use innerHTML to allow formatted code and handle new lines with CSS
+        messageDiv.innerHTML = text; 
+
+        messageContainer.appendChild(messageDiv);
+        messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+    }
+
+    function appendToLastBotMessage(text) {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        // Check if the messageContainer has at least two children
+        if (messageContainer.children.length < 2) return;
+
+        // Get the second-last child element
+        const secondlastMessage = messageContainer.children[messageContainer.children.length - 2];
+        if (lastMessage && lastMessage.classList.contains('bot-message') && secondlastMessage && secondlastMessage.classList.contains('element-snapist')) {
+            // lastMessage.innerHTML += '' + text.replace(/\n/g, '<br>'); // Append text to the last bot message with new lines
+            const uul = secondlastMessage.innerHTML; // Append text to the last bot message with new lines
+            const iii = uul + text;
+            lastMessage.innerHTML = formatCode(iii);
+            // document.querySelectorAll('pre code').forEach(el => {hljs.highlightElement(el);});
+            hljs.highlightAll();
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            // lastMessage.innerHTML = lastMessage.innerHTML.replace(/<br>/g, '\n'); // Replace <br> with new lines
+        }
+    }
+    function appendToSnapistText(text)  {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        if (lastMessage && lastMessage.classList.contains('element-snapist')) {
+            lastMessage.innerHTML += text; // Append text to the last bot message with new lines
+        }
+    }
+    function appendTosnapistx(text) {
+        const messageContainer = document.getElementById('message-container');
+            
+        // Check if the messageContainer has at least two children
+        if (messageContainer.children.length < 2) return;
+            
+        // Get the second-last child element
+        const lastMessage = messageContainer.children[messageContainer.children.length - 2];
+            
+        // Check if lastMessage has the class 'element-snapist'
+        if (lastMessage.classList.contains('element-snapist')) {
+            lastMessage.innerHTML += '' + text; // Append the text
+        }
+    }
+
+    function isLastMessageBot() {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        return lastMessage && lastMessage.classList.contains('bot-message');
+    }
+
+    function isLastelementsnapist() {
+        const messageContainer = document.getElementById('message-container');
+        const lastMessage = messageContainer.lastElementChild;
+        return lastMessage && lastMessage.classList.contains('element-snapist');
+    }
+    function isLastSnapistText() {
+        const messageContainer = document.getElementById('message-container');
+            
+        // Check if there are at least two children
+        if (messageContainer.children.length < 2) return false;
+            
+        // Get the second-last child element
+        const lastMessage = messageContainer.children[messageContainer.children.length - 2];
+            
+        // Check if lastMessage has the class 'element-snapist'
+        return lastMessage && lastMessage.classList.contains('element-snapist');
+    }
+
+    function addLoadingMessage() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'message loading';
+        loadingDiv.innerText = 'Bot is typing...';
+        document.getElementById('message-container').appendChild(loadingDiv);
+    }
+
+    function removeLoadingMessage() {
+        const loadingMessages = document.getElementsByClassName('loading');
+        while (loadingMessages.length > 0) {
+            loadingMessages[0].remove();
+        }
+    }
+
+    function escapeHtml(str) {
+        const element = document.createElement('div');
+        element.innerText = str;
+        return element.innerHTML;
+    }
+    // Dummy escapeHtml function to sanitize HTML input
+    function escapeHtml(unsafe) {
+        return unsafe;
+    }
+    // function formatCode(text) {
+    //     // Regular expressions for different patterns
+    //     const blockCodePattern = /```(\w+)?\s*([\s\S]*?)```/g; // Triple backticks with optional language
+    //     const tildeBlockCodePattern = /~~~(\w+)?\s*([\s\S]*?)~~~/g; // Tilde for code block with optional language
+    //     const inlineCodePattern = /`([^`]+)`/g; // Single backticks for inline code
+    //     const headingPattern = /^(#+)\s*(.*)$/gm; // Headings (e.g., #, ##, ###)
+    //     const bulletPointPattern = /^\s*\*\s+(.*)$/gm; // Bullet points (e.g., * item)
+    //     const numberedPointPattern = /^\s*\d+\.\s+(.*)$/gm; // Numbered points (e.g., 1. item)
+    //     const subBulletPointPattern = /^\s*\*\*\s+(.*)$/gm; // Subpoints (e.g., ** sub-item)
+    //     const italicPattern = /_(.*?)_/g; // Italics (e.g., _text_)
+    //     const boldPattern = /\*\*(.*?)\*\*/g; // Bold (e.g., **text**)
+    //     const strikethroughPattern = /~~(.*?)~~/g; // Strikethrough (e.g., ~~text~~)
+    //     const blockquotePattern = /^>\s*(.*)$/gm; // Blockquotes (e.g., > quote)
+    //     const horizontalRulePattern = /^(---|___|\*\*\*)$/gm; // Horizontal rules (e.g., ---)
+    //     const imagePattern = /!\[([^[]+)\]\(([^)]+)\)/g; // Images (e.g., ![alt text](url))
+    //     const linkPattern = /\[([^[]+)\]\(([^)]+)\)/g; // Links (e.g., [text](url))
+    //     const tablePattern = /\|([^\n]+)\|\n\|[-:|]+\|\n((\|[^\n]+\|)+)/g; // Tables
+    //     const taskListPattern = /^\s*\[([ x])\]\s+(.*)$/gm; // Task lists (e.g., [x] item)
+    //     const definitionListPattern = /^(.*?)\n:(.*)$/gm; // Definition lists
+    //     const footnotePattern = /\[\^([^\]]+)\]:\s*(.*)/g; // Footnotes
+    //     const unorderedListPattern = /^\s*([-*+]\s+.+)$/gm; // Unordered lists
+    //     const orderedListPattern = /^\s*\d+\.\s+(.+)$/gm; // Ordered lists
+    //     const emphasisPattern = /(\*\*|__)(.*?)\1/g; // Bold
+    //     const italicsPattern = /(\*|_)(.*?)\1/g; // Italics
+    //     const nestedListPattern = /^\s*(\d+)\.\s+(.+)$/gm; // Nested lists
+    //     const highlightPattern = /==(.+?)==/g; // Highlight
+    //     const footnoteReferencePattern = /\[\^(\d+)\]/g; // Footnote references
+    //     const escapedCharPattern = /\\([`*_{}[\]()#+\-!.>])/g; // Escaped characters
+    //     const superscriptPattern = /\^(\w+)/g; // Superscript
+    //     const subscriptPattern = /_(\w+)/g; // Subscript
+    //     const inlineHtmlPattern = /<([^>]+)>/g; // Inline HTML
+    //     const coloredTextPattern = /\{color:(.+?)\}(.+?)\{\/color\}/g; // Colored text      
+    //     const customListPattern = /^\s*=>\s+(.+)$/gm; // Custom lists
+    //     const inlineBlockPattern = /\{block:([^\}]+)\}(.*?)\{\/block\}/g; // Inline block elements
+    //     const paragraphBreakPattern = /(\n\s*\n)/g; // Paragraph breaks
+    //     const mathExpressionPattern = /\$(.+?)\$/g; // Math expressions
+
+
+
+    
+    //     // Replace headings
+    //     text = text.replace(headingPattern, (match, hashes, content) => {
+    //         const level = hashes.length; // Number of '#' determines heading level
+    //         return `<h${level}>${escapeHtml(content.trim())}</h${level}>`;
+    //     });
+    
+    //     // Wrap bullet points in an unordered list
+    //     const bulletList = [];
+    //     text = text.replace(bulletPointPattern, (match, content) => {
+    //         bulletList.push(`<li>${escapeHtml(content.trim())}</li>`);
+    //         return ""; // Remove from original text
+    //     });
+    //     if (bulletList.length) {
+    //         text += `<ul>${bulletList.join("")}</ul>`;
+    //     }
+    
+    //     // Wrap numbered points in an ordered list
+    //     const numberedList = [];
+    //     text = text.replace(numberedPointPattern, (match, content) => {
+    //         numberedList.push(`<li>${escapeHtml(content.trim())}</li>`);
+    //         return ""; // Remove from original text
+    //     });
+    //     if (numberedList.length) {
+    //         text += `<ol>${numberedList.join("")}</ol>`;
+    //     }
+    
+    //     // Replace block code first (supporting both backticks and tildes)
+    //     text = text.replace(blockCodePattern, (match, lang, p1) => {
+    //         const languageClass = lang ? ` class="${lang}"` : '';
+    //         return `<pre${languageClass}><code>${escapeHtml(p1.trim())}</code></pre>`;
+    //     });
+    
+    //     text = text.replace(tildeBlockCodePattern, (match, lang, p1) => {
+    //         const languageClass = lang ? ` class="${lang}"` : '';
+    //         return `<pre${languageClass}><code>${escapeHtml(p1.trim())}</code></pre>`;
+    //     });
+    
+    //     // Then replace inline code
+    //     text = text.replace(inlineCodePattern, (match, p1) => {
+    //         return `<code>${escapeHtml(p1.trim())}</code>`;
+    //     });
+    
+    //     return text;
+    // }
+    function formatCode(text) {
+    // Define a dynamic dictionary for Markdown patterns
+    const markdownDictionary = {
+        blockCode: {
+            pattern: /```(\w+)?\s*([\s\S]*?)```/g,
+            replacement: '<pre><code>$2</code></pre>'
+        },
+        inlineCode: {
+            pattern: /`([^`]+)`/g,
+            replacement: '<code>$1</code>'
+        },
+        heading: {
+            pattern: /^(##+)\s*(.*)$/gm,
+            replacement: (match, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`
+        },
+        horizontalRule: {
+            pattern: /^(---|___|\*\*\*)$/gm,
+            replacement: '<hr/>'
+        },
+        bulletPoint: {
+            pattern: /^\s*\*\s+(.*)$/gm,
+            replacement: '<li>$1</li>'
+        },
+        numberedPoint: {
+            pattern: /^\s*\d+\.\s+(.*)$/gm,
+            replacement: '<li>$1</li>'
+        },
+        taskList: {
+            pattern: /^\s*([-*]|\d+\.)\s+\[(x| )\]\s+(.*)$/gm,
+            replacement: (match, marker, checked, content) => 
+                `<li><input type="checkbox" ${checked === 'x' ? 'checked' : ''}> ${content}</li>`
+        },
+        definitionList: {
+            pattern: /^(\S+)\s+:\s+(.*)$/gm,
+            replacement: (match, term, definition) => 
+                `<dl><dt>${term}</dt><dd>${definition}</dd></dl>`
+        },
+        image: {
+            pattern: /!\[([^\]]*)\]\(([^)]+)(?: "([^"]*)")?\)/g,
+            replacement: '<img src="$2" alt="$1" title="$3" />'
+        },
+        link: {
+            pattern: /\[([^\]]+)\]\(([^)]+)\)/g,
+            replacement: '<a href="$2">$1</a>'
+        },
+        strikethrough: {
+            pattern: /~~(.*?)~~/g,
+            replacement: '<del>$1</del>'
+        },
+        bold: {
+            pattern: /\*\*(.*?)\*\*/g,
+            replacement: '<strong>$1</strong>'
+        },
+        italic: {
+            pattern: /_(.*?)_/g,
+            replacement: '<em>$1</em>'
+        },
+        emphasis: {
+            pattern: /(\*\*|__)(.*?)\1/g,
+            replacement: '<strong>$2</strong>'
+        },
+        blockquote: {
+            pattern: /^>\s*(.*?)(?:\s+-\s+(.*))?$/gm,
+            replacement: (match, quote, attribution) => {
+                return `<blockquote>${quote}${attribution ? `<footer>${attribution}</footer>` : ''}</blockquote>`;
+            }
+        },
+        nestedList: {
+            pattern: /^( {2,})([-*]|\d+\.)\s+(.*)$/gm,
+            replacement: (match, indent, marker, content) => `<ul>${indent}<li>${content}</li></ul>`
+        },
+        footnote: {
+            pattern: /\[\^(\d+)\]:\s*(.*)/g,
+            replacement: (match, id, content) => `<span class="footnote" id="footnote-${id}">${content}</span>`
+        },
+        footnoteReference: {
+            pattern: /\[\^(\d+)\]/g,
+            replacement: (match, id) => `<a href="#footnote-${id}">[${id}]</a>`
+        },
+        inlineHtml: {
+            pattern: /<([^>]+)>/g,
+            replacement: (match) => match // Allow inline HTML
+        },
+        customBlock: {
+            pattern: /\{block:([^\}]+)\}(.*?)\{\/block\}/g,
+            replacement: '<div class="$1">$2</div>'
+        },
+        superscript: {
+            pattern: /\^(\w+)/g,
+            replacement: '<sup>$1</sup>'
+        },
+        subscript: {
+            pattern: /_(\w+)/g,
+            replacement: '<sub>$1</sub>'
+        },
+        coloredText: {
+            pattern: /\{color:(.+?)\}(.+?)\{\/color\}/g,
+            replacement: '<span style="color:$1;">$2</span>'
+        },
+        highlight: {
+            pattern: /\{highlight:(.+?)\}(.+?)\{\/highlight\}/g,
+            replacement: '<mark style="background-color:$1;">$2</mark>'
+        },
+        mathExpression: {
+            pattern: /\$(.+?)\$/g,
+            replacement: '<span class="math">$1</span>'
+        },
+        // Additional patterns can be added here
+    };
+
+    // Process each pattern in the dictionary
+    for (const key in markdownDictionary) {
+        const { pattern, replacement } = markdownDictionary[key];
+        if (typeof replacement === 'function') {
+            text = text.replace(pattern, replacement);
+        } else {
+            text = text.replace(pattern, replacement);
+        }
+    }
+
+    // Handle lists: wrap list items in <ul> or <ol> tags
+    text = text.replace(/(<li>.*?<\/li>)/gm, '<ul>$1</ul>');
+
+    // Handle tables
+    const tablePattern = /\|([^|]+)\|(\n\|[-:|]+\|)+\n((\|[^\n]+\|)+)/g; // Tables
+    text = text.replace(tablePattern, (match, headerRow, separatorRow, body) => {
+        const rows = body.split('\n').filter(row => row.trim());
+        const header = headerRow.split('|').slice(1, -1).map(cell => `<th>${cell.trim()}</th>`).join('');
+        const bodyRows = rows.map(row => {
+            const cells = row.split('|').slice(1, -1).map(cell => `<td>${cell.trim()}</td>`).join('');
+            return `<tr>${cells}</tr>`;
+        }).join('');
+        return `<table><thead><tr>${header}</tr></thead><tbody>${bodyRows}</tbody></table>`;
+    });
+
+    return text;
+}
+    function displayDiv(inputField) {
+        const divElement1 = document.getElementById("myDiv1");
+        const divElement2 = document.getElementById("myDiv2");
+        if (inputField.value != "") {
+         divElement1.style.display = "none";
+         divElement2.style.display = "block";
+        } else {
+         divElement1.style.display = "block";
+         divElement2.style.display = "none";
+        }
+    }
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
 async function clearChatHistory() {
     const response = await fetch('/clear', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
     if (response.ok) {

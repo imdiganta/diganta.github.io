@@ -46,7 +46,7 @@ def get_stream_response():
         "mode": "instruct",
         "character": "sudi",
         "instruction_template": "Alpaca",
-        "max_tokens": 400,
+        "max_tokens": 1000,
         "temperature": 1,
         "top_p": 0.9,
         "seed": 10,

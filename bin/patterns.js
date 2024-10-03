@@ -1236,6 +1236,279 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+// function parseMarkdown(text) {
+//         // Define a dynamic dictionary for Markdown patterns
+//         const markdownDictionary = {
+//             blockCode: {
+//                 pattern: /```(\w+)?\s*([\s\S]*?)```/g,
+//                 replacement: '<pre><code>$2</code></pre>'
+//             },
+//             inlineCode: {
+//                 pattern: /`([^`]+)`/g,
+//                 replacement: '<code>$1</code>'
+//             },
+//             heading: {
+//                 pattern: /^(#+)\s*(.*)$/gm,
+//                 replacement: (match, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`
+//             },
+//             horizontalRule: {
+//                 pattern: /^(---|___|\*\*\*)$/gm,
+//                 replacement: '<hr/>'
+//             },
+//             bulletPoint: {
+//                 pattern: /^\s*\*\s+(.*)$/gm,
+//                 replacement: '<li>$1</li>'
+//             },
+//             numberedPoint: {
+//                 pattern: /^\s*\d+\.\s+(.*)$/gm,
+//                 replacement: '<li>$1</li>'
+//             },
+//             taskList: {
+//                 pattern: /^\s*([-*]|\d+\.)\s+\[(x| )\]\s+(.*)$/gm,
+//                 replacement: (match, marker, checked, content) => 
+//                     `<li><input type="checkbox" ${checked === 'x' ? 'checked' : ''}> ${content}</li>`
+//             },
+//             definitionList: {
+//                 pattern: /^(\S+)\s+:\s+(.*)$/gm,
+//                 replacement: (match, term, definition) => 
+//                     `<dl><dt>${term}</dt><dd>${definition}</dd></dl>`
+//             },
+//             image: {
+//                 pattern: /!\[([^\]]*)\]\(([^)]+)(?: "([^"]*)")?\)/g,
+//                 replacement: '<img src="$2" alt="$1" title="$3" />'
+//             },
+//             link: {
+//                 pattern: /\[([^\]]+)\]\(([^)]+)\)/g,
+//                 replacement: '<a href="$2">$1</a>'
+//             },
+//             strikethrough: {
+//                 pattern: /~~(.*?)~~/g,
+//                 replacement: '<del>$1</del>'
+//             },
+//             bold: {
+//                 pattern: /\*\*(.*?)\*\*/g,
+//                 replacement: '<strong>$1</strong>'
+//             },
+//             italic: {
+//                 pattern: /_(.*?)_/g,
+//                 replacement: '<em>$1</em>'
+//             },
+//             emphasis: {
+//                 pattern: /(\*\*|__)(.*?)\1/g,
+//                 replacement: '<strong>$2</strong>'
+//             },
+//             blockquote: {
+//                 pattern: /^>\s*(.*?)(?:\s+-\s+(.*))?$/gm,
+//                 replacement: (match, quote, attribution) => {
+//                     return `<blockquote>${quote}${attribution ? `<footer>${attribution}</footer>` : ''}</blockquote>`;
+//                 }
+//             },
+//             nestedList: {
+//                 pattern: /^( {2,})([-*]|\d+\.)\s+(.*)$/gm,
+//                 replacement: (match, indent, marker, content) => `<ul>${indent}<li>${content}</li></ul>`
+//             },
+//             footnote: {
+//                 pattern: /\[\^(\d+)\]:\s*(.*)/g,
+//                 replacement: (match, id, content) => `<span class="footnote" id="footnote-${id}">${content}</span>`
+//             },
+//             footnoteReference: {
+//                 pattern: /\[\^(\d+)\]/g,
+//                 replacement: (match, id) => `<a href="#footnote-${id}">[${id}]</a>`
+//             },
+//             inlineHtml: {
+//                 pattern: /<([^>]+)>/g,
+//                 replacement: (match) => match // Allow inline HTML
+//             },
+//             customBlock: {
+//                 pattern: /\{block:([^\}]+)\}(.*?)\{\/block\}/g,
+//                 replacement: '<div class="$1">$2</div>'
+//             },
+//             superscript: {
+//                 pattern: /\^(\w+)/g,
+//                 replacement: '<sup>$1</sup>'
+//             },
+//             subscript: {
+//                 pattern: /_(\w+)/g,
+//                 replacement: '<sub>$1</sub>'
+//             },
+//             coloredText: {
+//                 pattern: /\{color:(.+?)\}(.+?)\{\/color\}/g,
+//                 replacement: '<span style="color:$1;">$2</span>'
+//             },
+//             highlight: {
+//                 pattern: /\{highlight:(.+?)\}(.+?)\{\/highlight\}/g,
+//                 replacement: '<mark style="background-color:$1;">$2</mark>'
+//             },
+//             mathExpression: {
+//                 pattern: /\$(.+?)\$/g,
+//                 replacement: '<span class="math">$1</span>'
+//             },
+//             // Additional patterns can be added here
+//         };
+    
+//         // Process each pattern in the dictionary
+//         for (const key in markdownDictionary) {
+//             const { pattern, replacement } = markdownDictionary[key];
+//             if (typeof replacement === 'function') {
+//                 text = text.replace(pattern, replacement);
+//             } else {
+//                 text = text.replace(pattern, replacement);
+//             }
+//         }
+    
+//         // Handle lists: wrap list items in <ul> or <ol> tags
+//         text = text.replace(/(<li>.*?<\/li>)/gm, '<ul>$1</ul>');
+    
+//         // Handle tables
+//         const tablePattern = /\|([^|]+)\|(\n\|[-:|]+\|)+\n((\|[^\n]+\|)+)/g; // Tables
+//         text = text.replace(tablePattern, (match, headerRow, separatorRow, body) => {
+//             const rows = body.split('\n').filter(row => row.trim());
+//             const header = headerRow.split('|').slice(1, -1).map(cell => `<th>${cell.trim()}</th>`).join('');
+//             const bodyRows = rows.map(row => {
+//                 const cells = row.split('|').slice(1, -1).map(cell => `<td>${cell.trim()}</td>`).join('');
+//                 return `<tr>${cells}</tr>`;
+//             }).join('');
+//             return `<table><thead><tr>${header}</tr></thead><tbody>${bodyRows}</tbody></table>`;
+//         });
+    
+//         return text;
+//     }
+    
+//     // Example usage
+//     const markdownInput = `
+//     # Heading 1
+//     ## Heading 2
+    
+//     - [x] Task 1
+//     - [ ] Task 2
+//         - [ ] Subtask 1
+//         - [x] Subtask 2
+    
+//     1. Numbered Item 1
+//     2. Numbered Item 2
+    
+//     > This is a quote. - Attribution
+    
+//     **Bold Text** and _Italic Text_.
+    
+//     ![Image Alt Text](https://example.com/image.jpg "Image Title")
+    
+//     [Link Text](https://example.com)
+    
+//     ~~Strikethrough Text~~
+    
+//     ---
+//     | Header 1 | Header 2 |
+//     |----------|----------|
+//     | Row 1    | Row 1.2  |
+//     | Row 2    | Row 2.2  |
+    
+//     This is a footnote reference[^1]: The footnote content.
+    
+//     This is a superscript^2 and subscript_text.
+    
+//     This is colored text: {color:red}Red Text{/color}.
+    
+//     This is highlighted text: {highlight:yellow}Highlighted Text{/highlight}.
+    
+//     Here is some inline HTML: <div>Custom HTML</div>
+    
+//     This is a math expression: $E = mc^2$.
+    
+//     \`\`\`javascript
+//     console.log('Hello, World!');
+//     \`\`\`
+//     `;
+    
+//     const htmlOutput = parseMarkdown(markdownInput);
+//     console.log(htmlOutput);
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // function escapeHtml(unsafe) {
 //     const element = document.createElement('div');
 //     element.innerText = unsafe;
