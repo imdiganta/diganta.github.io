@@ -520,10 +520,45 @@ pre code.hljs {
                         return `<pre${langClass}><code class="formatted-code">${formattedBlock}</code></pre>`;
                     }
             },
-            inlineCode: {
-                pattern: /`([^`]+)`/g,
-                replacement: '<code>$1</code>'
+            HaffblockCode: {
+                pattern: /```([\s\S]*?)`/g,
+                replacement: (match, language, codeBlock) => {
+                        const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+                        return `<pre${langClass}"><code class="formatted-code">${codeBlock}</code></pre>`;
+                    }
             },
+            HaffblockCode: {
+                pattern: /```([\s\S]*?)/g,
+                replacement: (match, language, codeBlock) => {
+                        const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+                        return `<pre${langClass}"><code class="formatted-code">${codeBlock}</code></pre>`;
+                    }
+            },
+            HaffblockCode: {
+                pattern: /``([\s\S]*?)/g,
+                replacement: (match, language, codeBlock) => {
+                        const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+                        return `<pre${langClass}"><code class="formatted-code">${codeBlock}</code></pre>`;
+                    }
+            },
+            HaffblockCode: {
+                pattern: /`([\s\S]*?)/g,
+                replacement: (match, language, codeBlock) => {
+                        const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+                        return `<pre${langClass}"><code class="formatted-code">${codeBlock}</code></pre>`;
+                    }
+            },
+            decatedHaffblockCode: {
+                pattern: /<pre class="language-(\w+)?\s*"><code class="formatted-code">([\s\S]*?)<\/code><\/pre>/g,
+                replacement: (match, language, codeBlock) => {
+                        const langClass = language ? ` class="language-${escapeHtml(language)}"` : '';
+                        return `<pre${langClass}><code class="formatted-code">${codeBlock}</code></pre>`;
+                    }
+            },
+            // inlineCode: {
+            //     pattern: /`([^`]+)`/g,
+            //     replacement: '<code>$1</code>'
+            // },
             heading: {
                 pattern: /^(##+)\s*(.*)$/gm,
                 replacement: (match, hashes, content) => `<h${hashes.length}>${content}</h${hashes.length}>`

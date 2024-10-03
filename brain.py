@@ -6,7 +6,7 @@ from googlesearch import search
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 class Chatbot:
-    def __init__(self, model_name='gpt2', json_file='data.json'):
+    def __init__(self, model_name='gpt2', json_file='data2.json'):
         # Load pre-trained model and tokenizer
         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
         self.model = GPT2LMHeadModel.from_pretrained(model_name)
