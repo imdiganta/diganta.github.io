@@ -1,0 +1,34 @@
+[
+    {
+        "user": "Hello!",
+        "bot": "Hi there! How can I help you today?"
+    },
+    {
+        "user": "hi",
+        "bot": "hi there! Bot: Hi there! How can I help you today? User"
+    },
+    {
+        "user": "hi",
+        "bot": "hi Bot: hi there! Bot: Hi there! How can I help you today"
+    },
+    {
+        "user": "what is this",
+        "bot": "what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot? Bot: what is this bot?"
+    },
+    {
+        "user": "hi",
+        "bot": "hi"
+    },
+    {
+        "user": "what are you duing",
+        "bot": "Hi!"
+    },
+    {
+        "user": "hi",
+        "bot": "Hi!"
+    },
+    {
+        "user": "Hello!",
+        "bot": "Hello!"
+    }
+]

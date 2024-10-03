@@ -1,135 +1,3723 @@
-import pandas as pd
+import json
+import os
 import torch
-import torch.nn as nn
-from torch.utils.data import Dataset, DataLoader
-import torch.optim as optim
-from torch.nn.utils.rnn import pad_sequence
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import warnings
 
-# Custom Dataset Class
-class TextDataset(Dataset):
-    def __init__(self, txt_file, csv_file):
-        self.txt_data = open(txt_file, 'r').readlines()
-        self.csv_data = pd.read_csv(csv_file)
-        
-        # Create a vocabulary mapping
-        self.vocab = self.build_vocab(self.txt_data)
-        
-        # Debugging: print the vocabulary size
-        print(f"Vocabulary Size: {len(self.vocab)}")
+# Suppress the FutureWarning
+warnings.filterwarnings("ignore", category=FutureWarning)
 
-    def build_vocab(self, texts):
-        # Create a vocabulary mapping from word to index
-        vocab = {}
-        for text in texts:
-            for word in text.strip().split():
-                if word not in vocab:
-                    vocab[word] = len(vocab) + 1  # Start indexing from 1
-        return vocab
+class Chatbot:
+    def __init__(self, model_name='gpt2', json_file='data.json'):
+        # Load pre-trained model and tokenizer
+        self.tokenizer = GPT2Tokenizer.from_pretrained(model_name, clean_up_tokenization_spaces=True)
+        self.model = GPT2LMHeadModel.from_pretrained(model_name)
+        self.model.eval()  # Set the model to evaluation mode
 
-    def __len__(self):
-        return len(self.txt_data)
+        # Set the pad token id
+        self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
 
-    def __getitem__(self, idx):
-        text = self.txt_data[idx].strip()
-        
-        # Tokenize the text
-        tokenized_text = torch.tensor([self.vocab[word] for word in text.split() if word in self.vocab], dtype=torch.long)
-        
-        return tokenized_text  # Return only the tokenized input
+        # Load previous conversations from JSON file
+        self.json_file = json_file
+        self.conversations = self.load_conversations()
 
-# Custom collate function for padding
-def collate_fn(batch):
-    # Pad sequences to the same length
-    padded_batch = pad_sequence(batch, batch_first=True, padding_value=0)  # Using 0 as padding index
-    return padded_batch
+    def load_conversations(self):
+        # Load previous conversations from the JSON file
+        if os.path.exists(self.json_file):
+            with open(self.json_file, 'r') as f:
+                return json.load(f)
+        return []
 
-# Transformer Model Class
-class TransformerModel(nn.Module):
-    def __init__(self, vocab_size, d_model, nhead, num_encoder_layers, num_decoder_layers):
-        super(TransformerModel, self).__init__()
-        self.embedding = nn.Embedding(vocab_size, d_model)
-        self.transformer = nn.Transformer(d_model, nhead, num_encoder_layers, num_decoder_layers, batch_first=True)
-        self.fc_out = nn.Linear(d_model, vocab_size)
+    def save_conversation(self, user_input, bot_response):
+        # Save the conversation to the JSON file
+        self.conversations.append({'user': user_input, 'bot': bot_response})
+        with open(self.json_file, 'w') as f:
+            json.dump(self.conversations, f, indent=4)
 
-    def forward(self, src, tgt):
-        src = self.embedding(src)
-        tgt = self.embedding(tgt)
-        output = self.transformer(src, tgt)
-        return self.fc_out(output)
+    def generate_response(self, user_input, max_length=100):
+        # Build the context from past conversations
+        context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+        context += f" User: {user_input}"
 
-# Training Function
-def train(model, dataset, epochs, learning_rate):
-    dataloader = DataLoader(dataset, batch_size=2, shuffle=True, collate_fn=collate_fn)
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-    loss_fn = nn.CrossEntropyLoss()
+        # Encode the input
+        input_ids = self.tokenizer.encode(context, return_tensors='pt')
 
-    model.train()
-    for epoch in range(epochs):
-        total_loss = 0
-        for batch in dataloader:
-            src = batch.to(device)
-            tgt = batch.to(device)
+        # Truncate context if it exceeds model input size
+        max_input_length = self.model.config.n_positions
+        if input_ids.shape[1] > max_input_length:
+            input_ids = input_ids[:, -max_input_length:]
 
-            optimizer.zero_grad()
-            output = model(src, tgt)
-            loss = loss_fn(output.view(-1, output.size(-1)), tgt.view(-1))
+        # Create attention mask
+        attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
 
-            # Check for NaN values in the loss
-            if torch.isnan(loss):
-                print("NaN loss encountered! Skipping this batch.")
-                continue
-
-            loss.backward()
-            # Gradient clipping
-            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-            optimizer.step()
-
-            total_loss += loss.item()
-        print(f"Epoch {epoch + 1}/{epochs}, Loss: {total_loss / len(dataloader):.4f}")
-
-# Text Generation Function
-def generate_text(model, input_text, max_length=20):
-    model.eval()
-    input_tensor = torch.tensor([dataset.vocab[word] for word in input_text.split() if word in dataset.vocab], dtype=torch.long).unsqueeze(0).to(device)
-
-    generated = input_text
-
-    for _ in range(max_length):
+        # Generate a response from the model
         with torch.no_grad():
-            output = model(input_tensor, input_tensor)
-            next_word_idx = output.argmax(-1)[-1, -1].item()  # Get the most probable next word
+            output = self.model.generate(
+                input_ids,
+                max_length=max_length + input_ids.shape[1],
+                num_return_sequences=1,
+                pad_token_id=self.tokenizer.eos_token_id,
+                attention_mask=attention_mask,
+                do_sample=True,  # Enable sampling
+                temperature=0.7,
+                top_k=50,
+                top_p=0.95,
+            )
 
-            # Check if next_word_idx is valid
-            if next_word_idx == 0:  # 0 is the padding index
-                break
-            
-            generated += ' ' + list(dataset.vocab.keys())[next_word_idx - 1]  # Append the predicted word
-            input_tensor = torch.cat((input_tensor, torch.tensor([[next_word_idx]]).to(device)), dim=1)
+        # Decode the output
+        response = self.tokenizer.decode(output[0], skip_special_tokens=True)
 
-    return generated
+        # Extract only the chatbot's response
+        response_parts = response.split("User:")
+        if len(response_parts) > 1:
+            bot_response = response_parts[-1].strip()
+            # Remove any leading "Bot:" labels
+            bot_response = bot_response.split("Bot:")[-1].strip()
+        else:
+            bot_response = response.strip()  # Fallback if no "User:" was found
 
-# Main Execution
+        return bot_response
+
+def chat():
+    print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+    bot = Chatbot()
+
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'quit':
+            print("Chatbot: Goodbye!")
+            break
+
+        response = bot.generate_response(user_input)
+        print(f"Chatbot: {response}")
+
+        # Save the conversation
+        bot.save_conversation(user_input, response)
+
 if __name__ == "__main__":
-    # Load the dataset
-    dataset = TextDataset('data.txt', 'data.csv')
+    chat()
 
-    # Define model parameters
-    vocab_size = len(dataset.vocab) + 1  # Include a padding index
-    d_model = 512
-    nhead = 8
-    num_encoder_layers = 6
-    num_decoder_layers = 6
 
-    # Create model instance and move to device
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = TransformerModel(vocab_size, d_model, nhead, num_encoder_layers, num_decoder_layers).to(device)
 
-    # Train the model
-    train(model, dataset, epochs=10, learning_rate=0.001)
 
-    # Generate text
-    output = generate_text(model, "Hello", max_length=20)
-    print("Generated Text:", output)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+# import warnings
+
+# # Suppress the FutureWarning
+# warnings.filterwarnings("ignore", category=FutureWarning)
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name, clean_up_tokenization_spaces=True)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+
+#         # Truncate context if it exceeds model input size
+#         max_input_length = self.model.config.n_positions
+#         if input_ids.shape[1] > max_input_length:
+#             input_ids = input_ids[:, -max_input_length:]
+
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask,
+#                 do_sample=True,  # Enable sampling
+#                 temperature=0.7,
+#                 top_k=50,
+#                 top_p=0.95,
+#             )
+
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+
+#         # Extract only the chatbot's response
+#         response_parts = response.split("User:")
+#         if len(response_parts) > 1:
+#             bot_response = response_parts[-1].strip()
+#             # Remove any leading "Bot:" labels
+#             bot_response = bot_response.split("Bot:")[-1].strip()
+#         else:
+#             bot_response = response.strip()  # Fallback if no "User:" was found
+
+#         return bot_response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import wikipediaapi
+
+# def get_wikipedia_summary(page_title, language='en'):
+#     """
+#     Retrieves the summary of a Wikipedia page.
+
+#     Parameters:
+#     - page_title (str): The title of the Wikipedia page.
+#     - language (str): The language code for the Wikipedia version (default is 'en' for English).
+
+#     Returns:
+#     - str: A summary of the page or a message if the page doesn't exist.
+#     """
+#     user_agent = "My Wikipedia API Client (https://github.com/yourusername/yourrepo)"  # Replace with your info
+#     wiki_wiki = wikipediaapi.Wikipedia(
+#         language=language,
+#         user_agent=user_agent
+#     )
+
+#     page = wiki_wiki.page(page_title)
+
+#     if page.exists():
+#         return page.summary
+#     else:
+#         return f"The page '{page_title}' does not exist."
+
+# # Example usage
+# if __name__ == "__main__":
+#     title = input("Enter a Wikipedia page title: ")
+#     summary = get_wikipedia_summary(title)
+#     print(summary)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+# import warnings
+
+# # Suppress the FutureWarning
+# warnings.filterwarnings("ignore", category=FutureWarning)
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name, clean_up_tokenization_spaces=True)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+
+#         # Truncate context if it exceeds model input size
+#         max_input_length = self.model.config.n_positions
+#         if input_ids.shape[1] > max_input_length:
+#             input_ids = input_ids[:, -max_input_length:]
+
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask,
+#                 do_sample=True,  # Enable sampling
+#                 temperature=0.7,
+#                 top_k=50,
+#                 top_p=0.95,
+#             )
+
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+
+#         # Extract only the chatbot's response
+#         response_parts = response.split("User:")
+#         if len(response_parts) > 1:
+#             bot_response = response_parts[-1].strip()
+#             # Remove any leading "Bot:" labels
+#             bot_response = bot_response.split("Bot:")[-1].strip()
+#         else:
+#             bot_response = response.strip()  # Fallback if no "User:" was found
+
+#         return bot_response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+# import warnings
+
+# # Suppress the FutureWarning
+# warnings.filterwarnings("ignore", category=FutureWarning)
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name, clean_up_tokenization_spaces=True)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+
+#         # Truncate context if it exceeds model input size
+#         max_input_length = self.model.config.n_positions
+#         if input_ids.shape[1] > max_input_length:
+#             input_ids = input_ids[:, -max_input_length:]
+
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask,
+#                 do_sample=True,  # Enable sampling
+#                 temperature=0.7,
+#                 top_k=50,
+#                 top_p=0.95,
+#             )
+
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+
+#         # Extract only the chatbot's response
+#         response_parts = response.split("User:")
+#         if len(response_parts) > 1:
+#             bot_response = response_parts[-1].strip()
+#             # Remove any leading "Bot:" labels
+#             bot_response = bot_response.split("Bot:")[-1].strip()
+#         else:
+#             bot_response = response.strip()  # Fallback if no "User:" was found
+
+#         return bot_response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+# import warnings
+
+# # Suppress the FutureWarning
+# warnings.filterwarnings("ignore", category=FutureWarning)
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name, clean_up_tokenization_spaces=True)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+
+#         # Truncate context if it exceeds model input size
+#         max_input_length = self.model.config.n_positions
+#         if input_ids.shape[1] > max_input_length:
+#             input_ids = input_ids[:, -max_input_length:]
+
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask,
+#                 temperature=0.7,
+#                 top_k=50,
+#                 top_p=0.95,
+#             )
+
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+
+#         # Extract only the chatbot's response
+#         response_parts = response.split("User:")
+#         if len(response_parts) > 1:
+#             bot_response = response_parts[-1].strip()
+#         else:
+#             bot_response = response.strip()  # Fallback if no "User:" was found
+
+#         return bot_response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+        
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],  # Ensure the total length does not exceed the limit
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask
+#             )
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+        
+#         # Extract only the chatbot's response
+#         bot_response = response.split("User:")[-1].strip()  # Get the last response after User
+#         return bot_response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# import wikipediaapi
+# from googlesearch import search
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()
+#         self.tokenizer.pad_token = self.tokenizer.eos_token
+
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#         # Initialize Wikipedia API with a user agent
+#         self.wiki_wiki = wikipediaapi.Wikipedia(
+#             language='en',
+#             extract_format=wikipediaapi.ExtractFormat.WIKI,
+#             user_agent='MyChatbot/1.0 (https://mychatbot.example.com)'
+#         )
+
+#     def load_conversations(self):
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_new_tokens=50):
+#         if user_input.lower().startswith('wiki:'):
+#             return self.get_wikipedia_summary(user_input[5:].strip())
+#         elif user_input.lower().startswith('google:'):
+#             return self.get_google_results(user_input[7:].strip())
+
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+
+#         # Limit the context to prevent exceeding the token limit
+#         full_input = f"{context} User: {user_input}"
+#         input_ids = self.tokenizer.encode(full_input, return_tensors='pt')
+
+#         # Truncate if necessary
+#         if input_ids.shape[1] > 1024:
+#             input_ids = input_ids[:, -1024:]
+
+#         # Generate a response from the model
+#         try:
+#             with torch.no_grad():
+#                 output = self.model.generate(
+#                     input_ids,
+#                     max_new_tokens=max_new_tokens,
+#                     pad_token_id=self.tokenizer.eos_token_id
+#                 )
+
+#             # Decode the output
+#             response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+
+#             # Extract only the chatbot's response
+#             bot_response = response.split("User:")[-1].strip()  # Get the last response after User
+#             return bot_response
+#         except Exception as e:
+#             return f"An error occurred while generating a response: {str(e)}"
+
+#     def get_wikipedia_summary(self, query):
+#         page = self.wiki_wiki.page(query)
+#         if page.exists():
+#             return page.summary
+#         else:
+#             return f"Sorry, I couldn't find any information on '{query}'. Please try another query or check the spelling."
+
+#     def get_google_results(self, query):
+#         results = search(query, num_results=3)
+#         return "\n".join(results) if results else "Sorry, I couldn't find any information on that."
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# import wikipediaapi
+# from googlesearch import search
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#         # Initialize Wikipedia API with a user agent
+#         self.wiki_wiki = wikipediaapi.Wikipedia(
+#             language='en',
+#             extract_format=wikipediaapi.ExtractFormat.WIKI,
+#             user_agent='MyChatbot/1.0 (https://mychatbot.example.com)'
+#         )
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Check for Wikipedia or Google commands
+#         if user_input.lower().startswith('wiki:'):
+#             return self.get_wikipedia_summary(user_input[5:].strip())
+#         elif user_input.lower().startswith('google:'):
+#             return self.get_google_results(user_input[7:].strip())
+
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+        
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask
+#             )
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+        
+#         # Extract only the chatbot's response
+#         bot_response = response.split("User:")[-1].strip()  # Get the last response after User
+#         return bot_response
+
+#     def get_wikipedia_summary(self, query):
+#         # Fetch the Wikipedia page
+#         page = self.wiki_wiki.page(query)
+        
+#         # Check if the page exists and is valid
+#         if page.exists():
+#             return page.summary
+#         else:
+#             return f"Sorry, I couldn't find any information on '{query}'. Please try another query or check the spelling."
+
+#     def get_google_results(self, query):
+#         results = search(query, num_results=3)
+#         return "\n".join(results) if results else "Sorry, I couldn't find any information on that."
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# import wikipediaapi
+# from googlesearch import search
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#         # Initialize Wikipedia API with a user agent
+#         self.wiki_wiki = wikipediaapi.Wikipedia(
+#             language='en',
+#             extract_format=wikipediaapi.ExtractFormat.WIKI,
+#             user_agent='MyChatbot/1.0 (https://mychatbot.example.com)'
+#         )
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Check for Wikipedia or Google commands
+#         if user_input.lower().startswith('wiki:'):
+#             return self.get_wikipedia_summary(user_input[5:].strip())
+#         elif user_input.lower().startswith('google:'):
+#             return self.get_google_results(user_input[7:].strip())
+
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+        
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask
+#             )
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+        
+#         # Extract only the chatbot's response
+#         bot_response = response.split("User:")[-1].strip()  # Get the last response after User
+#         return bot_response
+
+#     def get_wikipedia_summary(self, query):
+#         page = self.wiki_wiki.page(query)
+#         if page.exists():
+#             return page.summary
+#         else:
+#             return "Sorry, I couldn't find any information on that topic."
+
+#     def get_google_results(self, query):
+#         results = search(query, num_results=3)
+#         return "\n".join(results) if results else "Sorry, I couldn't find any information on that."
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# import wikipediaapi
+# from googlesearch import search
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#         # Initialize Wikipedia API
+#         self.wiki_wiki = wikipediaapi.Wikipedia('en')
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Check for Wikipedia or Google commands
+#         if user_input.lower().startswith('wiki:'):
+#             return self.get_wikipedia_summary(user_input[5:].strip())
+#         elif user_input.lower().startswith('google:'):
+#             return self.get_google_results(user_input[7:].strip())
+
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+        
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask
+#             )
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+        
+#         # Extract only the chatbot's response
+#         bot_response = response.split("User:")[-1].strip()  # Get the last response after User
+#         return bot_response
+
+#     def get_wikipedia_summary(self, query):
+#         page = self.wiki_wiki.page(query)
+#         if page.exists():
+#             return page.summary
+#         else:
+#             return "Sorry, I couldn't find any information on that topic."
+
+#     def get_google_results(self, query):
+#         results = search(query, num_results=3)
+#         return "\n".join(results) if results else "Sorry, I couldn't find any information on that."
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import json
+# import os
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2', json_file='data.json'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#         # Load previous conversations from JSON file
+#         self.json_file = json_file
+#         self.conversations = self.load_conversations()
+
+#     def load_conversations(self):
+#         # Load previous conversations from the JSON file
+#         if os.path.exists(self.json_file):
+#             with open(self.json_file, 'r') as f:
+#                 return json.load(f)
+#         return []
+
+#     def save_conversation(self, user_input, bot_response):
+#         # Save the conversation to the JSON file
+#         self.conversations.append({'user': user_input, 'bot': bot_response})
+#         with open(self.json_file, 'w') as f:
+#             json.dump(self.conversations, f, indent=4)
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Build the context from past conversations
+#         context = " ".join([f"User: {conv['user']} Bot: {conv['bot']}" for conv in self.conversations])
+#         context += f" User: {user_input}"
+
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(context, return_tensors='pt')
+        
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids,
+#                 max_length=max_length + input_ids.shape[1],  # Ensure the total length does not exceed the limit
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,
+#                 attention_mask=attention_mask
+#             )
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+        
+#         # Extract only the chatbot's response
+#         bot_response = response.split("User:")[-1].strip()  # Get the last response after User
+#         return bot_response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+#         # Save the conversation
+#         bot.save_conversation(user_input, response)
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#         # Set the pad token id
+#         self.tokenizer.pad_token = self.tokenizer.eos_token  # Use EOS token as padding
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(user_input, return_tensors='pt')
+        
+#         # Create attention mask
+#         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(
+#                 input_ids, 
+#                 max_length=max_length, 
+#                 num_return_sequences=1,
+#                 pad_token_id=self.tokenizer.eos_token_id,  # Set pad token id
+#                 attention_mask=attention_mask
+#             )
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+#         return response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import torch
+# from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# class Chatbot:
+#     def __init__(self, model_name='gpt2'):
+#         # Load pre-trained model and tokenizer
+#         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+#         self.model = GPT2LMHeadModel.from_pretrained(model_name)
+#         self.model.eval()  # Set the model to evaluation mode
+
+#     def generate_response(self, user_input, max_length=100):
+#         # Encode the input
+#         input_ids = self.tokenizer.encode(user_input, return_tensors='pt')
+
+#         # Generate a response from the model
+#         with torch.no_grad():
+#             output = self.model.generate(input_ids, max_length=max_length, num_return_sequences=1)
+        
+#         # Decode the output
+#         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
+#         return response
+
+# def chat():
+#     print("Chatbot: Hello! I am a chatbot. Type 'quit' to exit.")
+#     bot = Chatbot()
+
+#     while True:
+#         user_input = input("You: ")
+#         if user_input.lower() == 'quit':
+#             print("Chatbot: Goodbye!")
+#             break
+
+#         response = bot.generate_response(user_input)
+#         print(f"Chatbot: {response}")
+
+# if __name__ == "__main__":
+#     chat()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import pandas as pd
+# import torch
+# import torch.nn as nn
+# from torch.utils.data import Dataset, DataLoader
+# import torch.optim as optim
+# from torch.nn.utils.rnn import pad_sequence
+
+# # Custom Dataset Class
+# class TextDataset(Dataset):
+#     def __init__(self, txt_file, csv_file):
+#         self.txt_data = open(txt_file, 'r').readlines()
+#         self.csv_data = pd.read_csv(csv_file)
+        
+#         # Create a vocabulary mapping
+#         self.vocab = self.build_vocab(self.txt_data)
+        
+#         # Debugging: print the vocabulary size
+#         print(f"Vocabulary Size: {len(self.vocab)}")
+
+#     def build_vocab(self, texts):
+#         # Create a vocabulary mapping from word to index
+#         vocab = {}
+#         for text in texts:
+#             for word in text.strip().split():
+#                 if word not in vocab:
+#                     vocab[word] = len(vocab) + 1  # Start indexing from 1
+#         return vocab
+
+#     def __len__(self):
+#         return len(self.txt_data)
+
+#     def __getitem__(self, idx):
+#         text = self.txt_data[idx].strip()
+        
+#         # Tokenize the text
+#         tokenized_text = torch.tensor([self.vocab[word] for word in text.split() if word in self.vocab], dtype=torch.long)
+        
+#         return tokenized_text  # Return only the tokenized input
+
+# # Custom collate function for padding
+# def collate_fn(batch):
+#     # Pad sequences to the same length
+#     padded_batch = pad_sequence(batch, batch_first=True, padding_value=0)  # Using 0 as padding index
+#     return padded_batch
+
+# # Transformer Model Class
+# class TransformerModel(nn.Module):
+#     def __init__(self, vocab_size, d_model, nhead, num_encoder_layers, num_decoder_layers):
+#         super(TransformerModel, self).__init__()
+#         self.embedding = nn.Embedding(vocab_size, d_model)
+#         self.transformer = nn.Transformer(d_model, nhead, num_encoder_layers, num_decoder_layers, batch_first=True)
+#         self.fc_out = nn.Linear(d_model, vocab_size)
+
+#     def forward(self, src, tgt):
+#         src = self.embedding(src)
+#         tgt = self.embedding(tgt)
+#         output = self.transformer(src, tgt)
+#         return self.fc_out(output)
+
+# # Training Function
+# def train(model, dataset, epochs, learning_rate):
+#     dataloader = DataLoader(dataset, batch_size=2, shuffle=True, collate_fn=collate_fn)
+#     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+#     loss_fn = nn.CrossEntropyLoss()
+
+#     model.train()
+#     for epoch in range(epochs):
+#         total_loss = 0
+#         for batch in dataloader:
+#             src = batch.to(device)
+#             tgt = batch.to(device)
+
+#             optimizer.zero_grad()
+#             output = model(src, tgt)
+
+#             # Log outputs for debugging
+#             print(f"Output Shape: {output.shape}")
+#             print(f"Tgt Shape: {tgt.shape}")
+
+#             loss = loss_fn(output.view(-1, output.size(-1)), tgt.view(-1))
+
+#             # Check for NaN values in the loss
+#             if torch.isnan(loss):
+#                 print("NaN loss encountered! Skipping this batch.")
+#                 continue
+
+#             loss.backward()
+#             # Gradient clipping
+#             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+#             optimizer.step()
+
+#             total_loss += loss.item()
+#         print(f"Epoch {epoch + 1}/{epochs}, Loss: {total_loss / len(dataloader):.4f}")
+
+# # Text Generation Function
+# def generate_text(model, input_text, max_length=20):
+#     model.eval()
+#     input_tensor = torch.tensor([dataset.vocab[word] for word in input_text.split() if word in dataset.vocab], dtype=torch.long).unsqueeze(0).to(device)
+
+#     generated = input_text
+
+#     for _ in range(max_length):
+#         with torch.no_grad():
+#             output = model(input_tensor, input_tensor)
+
+#             # Check if output is empty
+#             if output.size(1) == 0:
+#                 print("Output tensor is empty, breaking the generation loop.")
+#                 break
+
+#             next_word_idx = output.argmax(-1)[-1, -1].item()  # Get the most probable next word
+
+#             # Check if next_word_idx is valid
+#             if next_word_idx == 0:  # 0 is the padding index
+#                 break
+            
+#             generated += ' ' + list(dataset.vocab.keys())[next_word_idx - 1]  # Append the predicted word
+#             input_tensor = torch.cat((input_tensor, torch.tensor([[next_word_idx]]).to(device)), dim=1)
+
+#     return generated
+
+# # Main Execution
+# if __name__ == "__main__":
+#     # Load the dataset
+#     dataset = TextDataset('data.txt', 'data.csv')
+
+#     # Define model parameters
+#     vocab_size = len(dataset.vocab) + 1  # Include a padding index
+#     d_model = 512
+#     nhead = 8
+#     num_encoder_layers = 6
+#     num_decoder_layers = 6
+
+#     # Create model instance and move to device
+#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#     model = TransformerModel(vocab_size, d_model, nhead, num_encoder_layers, num_decoder_layers).to(device)
+
+#     # Train the model
+#     train(model, dataset, epochs=10, learning_rate=0.0001)  # Lower learning rate
+
+#     # Generate text
+#     output = generate_text(model, "Hello", max_length=20)
+#     print("Generated Text:", output)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import pandas as pd
+# import torch
+# import torch.nn as nn
+# from torch.utils.data import Dataset, DataLoader
+# import torch.optim as optim
+# from torch.nn.utils.rnn import pad_sequence
+
+# # Custom Dataset Class
+# class TextDataset(Dataset):
+#     def __init__(self, txt_file, csv_file):
+#         self.txt_data = open(txt_file, 'r').readlines()
+#         self.csv_data = pd.read_csv(csv_file)
+        
+#         # Create a vocabulary mapping
+#         self.vocab = self.build_vocab(self.txt_data)
+        
+#         # Debugging: print the vocabulary size
+#         print(f"Vocabulary Size: {len(self.vocab)}")
+
+#     def build_vocab(self, texts):
+#         # Create a vocabulary mapping from word to index
+#         vocab = {}
+#         for text in texts:
+#             for word in text.strip().split():
+#                 if word not in vocab:
+#                     vocab[word] = len(vocab) + 1  # Start indexing from 1
+#         return vocab
+
+#     def __len__(self):
+#         return len(self.txt_data)
+
+#     def __getitem__(self, idx):
+#         text = self.txt_data[idx].strip()
+        
+#         # Tokenize the text
+#         tokenized_text = torch.tensor([self.vocab[word] for word in text.split() if word in self.vocab], dtype=torch.long)
+        
+#         return tokenized_text  # Return only the tokenized input
+
+# # Custom collate function for padding
+# def collate_fn(batch):
+#     # Pad sequences to the same length
+#     padded_batch = pad_sequence(batch, batch_first=True, padding_value=0)  # Using 0 as padding index
+#     return padded_batch
+
+# # Transformer Model Class
+# class TransformerModel(nn.Module):
+#     def __init__(self, vocab_size, d_model, nhead, num_encoder_layers, num_decoder_layers):
+#         super(TransformerModel, self).__init__()
+#         self.embedding = nn.Embedding(vocab_size, d_model)
+#         self.transformer = nn.Transformer(d_model, nhead, num_encoder_layers, num_decoder_layers, batch_first=True)
+#         self.fc_out = nn.Linear(d_model, vocab_size)
+
+#     def forward(self, src, tgt):
+#         src = self.embedding(src)
+#         tgt = self.embedding(tgt)
+#         output = self.transformer(src, tgt)
+#         return self.fc_out(output)
+
+# # Training Function
+# def train(model, dataset, epochs, learning_rate):
+#     dataloader = DataLoader(dataset, batch_size=2, shuffle=True, collate_fn=collate_fn)
+#     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+#     loss_fn = nn.CrossEntropyLoss()
+
+#     model.train()
+#     for epoch in range(epochs):
+#         total_loss = 0
+#         for batch in dataloader:
+#             src = batch.to(device)
+#             tgt = batch.to(device)
+
+#             optimizer.zero_grad()
+#             output = model(src, tgt)
+#             loss = loss_fn(output.view(-1, output.size(-1)), tgt.view(-1))
+
+#             # Check for NaN values in the loss
+#             if torch.isnan(loss):
+#                 print("NaN loss encountered! Skipping this batch.")
+#                 continue
+
+#             loss.backward()
+#             # Gradient clipping
+#             torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+#             optimizer.step()
+
+#             total_loss += loss.item()
+#         print(f"Epoch {epoch + 1}/{epochs}, Loss: {total_loss / len(dataloader):.4f}")
+
+# # Text Generation Function
+# def generate_text(model, input_text, max_length=20):
+#     model.eval()
+#     input_tensor = torch.tensor([dataset.vocab[word] for word in input_text.split() if word in dataset.vocab], dtype=torch.long).unsqueeze(0).to(device)
+
+#     generated = input_text
+
+#     for _ in range(max_length):
+#         with torch.no_grad():
+#             output = model(input_tensor, input_tensor)
+#             next_word_idx = output.argmax(-1)[-1, -1].item()  # Get the most probable next word
+
+#             # Check if next_word_idx is valid
+#             if next_word_idx == 0:  # 0 is the padding index
+#                 break
+            
+#             generated += ' ' + list(dataset.vocab.keys())[next_word_idx - 1]  # Append the predicted word
+#             input_tensor = torch.cat((input_tensor, torch.tensor([[next_word_idx]]).to(device)), dim=1)
+
+#     return generated
+
+# # Main Execution
+# if __name__ == "__main__":
+#     # Load the dataset
+#     dataset = TextDataset('data.txt', 'data.csv')
+
+#     # Define model parameters
+#     vocab_size = len(dataset.vocab) + 1  # Include a padding index
+#     d_model = 512
+#     nhead = 8
+#     num_encoder_layers = 6
+#     num_decoder_layers = 6
+
+#     # Create model instance and move to device
+#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#     model = TransformerModel(vocab_size, d_model, nhead, num_encoder_layers, num_decoder_layers).to(device)
+
+#     # Train the model
+#     train(model, dataset, epochs=10, learning_rate=0.001)
+
+#     # Generate text
+#     output = generate_text(model, "Hello", max_length=20)
+#     print("Generated Text:", output)
 
 
 
