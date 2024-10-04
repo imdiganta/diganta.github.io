@@ -1,4 +1,5 @@
 from flask import Flask, render_template, Response, request
+from concurrent.futures import ThreadPoolExecutor
 import json
 import requests
 import sseclient  # pip install sseclient-py
@@ -47,7 +48,7 @@ def load_history():
 def save_history():
     """Save current conversation history to data.json."""
     with open('data2.json', 'w') as f:
-        json.dump(history, f)
+        json.dump(history, f, indent=4)
 
 def format_code_start(text, count):
     if count == 1:
@@ -114,17 +115,16 @@ def stream():
                 response_text = history[i + 1]["content"]
                 # Append this interaction to history
                 # history.append({"role": "user", "content": user_input})
-                history.append({"role": "assistant", "content": response_text})
+                # history.append({"role": "assistant", "content": response_text})
                 history2.append({"role": "assistant", "content": response_text})
-                # save_history()  # Save updated history to file
                 # save_history()  # Save updated history to file
                 return Response(response_text, mimetype='text/event-stream')
 
     # If no match found, generate a new response
     if user_input.lower() in ["hi", "hallow"]:
         response_text = "Hallow, how can I assist today?"
-        history.append({"role": "user", "content": user_input})
-        history.append({"role": "assistant", "content": response_text})
+        # history.append({"role": "user", "content": user_input})
+        # history.append({"role": "assistant", "content": response_text})
         # save_history()  # Save updated history to file
         return Response(response_text, mimetype='text/event-stream')
     else:

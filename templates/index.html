@@ -199,14 +199,13 @@
             display: block;
             margin-top: 10px 0px;
             /* overflow: auto; */
-            font-size: .875em;
+            font-size: 10px;
             background-color: black;
             border-radius: 5px;
             color: white;
-            font-size: 12px;
             padding: 10px;
             overflow: hidden;
-            overflow-x: scroll;
+            /* overflow-x: scroll; */
         }
         pre code.hljs {
     display: block;
@@ -244,6 +243,9 @@ pre code.hljs {
 .form-control{
     font-size: medium;
 }
+code{
+    font-size: 10px !important;
+}
     </style>
 </head>
 <body class="xvb4b4 x6n32m9 x1ehdrup x1nr1p0w">
@@ -252,6 +254,7 @@ pre code.hljs {
         <textarea oninput="displayDiv(this)" class="form-control" id="user-input" placeholder="Type your message..."></textarea><br>
         <button id="myDiv1" style="width: 120px; background-color: #2f6af3;font-size: 12px;border-radius: 10px;border: 0;display: none;" type="button" class="btn btn-primary" onclick="clearChatHistory()">Clear</button>
         <button id="myDiv2" style="width: 120px; background-color: #22af58;font-size: 12px;border-radius: 10px;border: 0;" type="button" class="btn btn-success" onclick="fetchStream()">Send</button>
+        <input type="button" value="Say hello" onClick="showAndroidToast('Hello Android!')" />
     </div>
 
     <script>
@@ -695,6 +698,13 @@ pre code.hljs {
              divElement1.style.display = "block";
              divElement2.style.display = "none";
             }
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        function showAndroidToast(toast) {
+            Android.showToast(toast);
         }
     </script>
 </body>
