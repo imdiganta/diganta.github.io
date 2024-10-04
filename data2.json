@@ -1,62 +1,77 @@
 [
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Tell me about cat"
     },
     {
         "role": "assistant",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Cats are domesticated mammals that are typically furry and have four legs. They are known for their agility and playful personalities. Cats are also known for their grooming habits, which involve cleaning themselves thoroughly and regularly. Many people keep cats as pets because of their affectionate and loyal nature. Did you know that cats have over 1,000 vocalizations? They use these vocalizations to communicate with their owners and other cats. Some common cat vocalizations include meows, purrs, hisses, and growls."
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "What is blockchain"
     },
     {
         "role": "assistant",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Blockchain is a decentralized digital ledger that records transactions across many computers in a secure and transparent manner. It is most commonly associated with the cryptocurrency Bitcoin, but it has many other potential uses as well. Blockchain technology allows for the creation of a digital ledger that is tamper-proof and transparent, making it ideal for applications such as supply chain management, land registration, and voting systems. It is also useful for securing financial transactions and tracking the ownership of assets. Did you know that the first blockchain was created in 2008 by an individual or group of individuals using the pseudonym Satoshi Nakamoto?"
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Thank you for your lovely wishes"
     },
     {
         "role": "assistant",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "You're welcome! *smiling face* I'm glad I could help. If you have any other questions or requests, feel free to ask!"
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "What is resistance"
     },
     {
         "role": "assistant",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Resistance is the opposition or difficulty faced when trying to change something. It can come from internal factors, such as fear or habits, or external factors, such as social norms or systems. *thinking face* Do you have any specific context in mind where you're trying to understand resistance?"
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Create a random python code example in python language code example"
     },
     {
         "role": "assistant",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Here is a random Python code example:\n```\ndef greet(name):\n  print(\"Hello, \" + name + \"!\")\n\ngreet(\"Alice\")\n```\nThis code defines a function called `greet` that takes a single argument, `name`. When the function is called, it prints a greeting message to the console with the name provided as an argument. In this case, the function is called with the argument `Alice`, which prints the message \"Hello, Alice!\"."
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Create a python code example that perform linear regression using  numpy and others library with convert into a transformer model create a transformer modal example in python code\n\nDetail explain with add some key point and e features and point with subpoint full explanation"
     },
     {
         "role": "assistant",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Sure, I'd be happy to help you with that! Here's an example of how to perform linear regression using NumPy and scikit-learn library in Python:\n```\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.datasets import load_boston\nboston_data = load_boston().data\nX = boston_data.chemical_compose\ny = boston_data.prices\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n# Perform linear regression on the training data\nX_train_n = X_train.reshape(-1, X_train.shape[1])\ncoef = LinearRegression().fit(X_train_n, y_train)\ny_pred = coef.predict(X_test_n)\nr2 = np.corrcoef(y_test, y_pred)\nprint(\"R-squared value:\", r2)\n```\nThis code splits the Boston housing dataset into training and testing sets, performs linear regression on the training data using the `LinearRegression` class from scikit-learn, and then uses the trained model to predict the prices of the test data. The `corrcoef` function from scikit-learn is used to calculate the R-squared value, which measures the goodness of fit of the linear regression model.\nNow, to convert this code into a transformer model, we can use the `Transformers` library, which provides a simple and efficient way to work with transformer models in Python. Here's an example of how to modify the previous code to create a transformer model:\n```\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.datasets import load_boston\nboston_data = load_boston().data\nX = boston_data.chemical_compose\ny = boston_data.prices\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n# Define the transformer model\nclass Transformer(Transformer):\n   def __init__(self, d_model, nhead, num_layers, dropout):\n       super().__init__(d_model, nhead, num_layers, dropout)\n   def forward(self, input_ids, attention_mask):\n       output = self.encoder(input_ids)\n       return output\n\n# Create the transformer model\nmodel = Transformer(d_model=512, nhead=8, num_layers=6, dropout=0.1)\n# Fit the model to the training data\nmodel.fit(X_train, y_train)\n\n# Use the model to make predictions on the test data\ny_pred = model.predict(X_test)\n```\nIn this example, we define a `Transformer` class that inherits from the `Transformer` class in the `Transformers` library. The `Transformer` class takes several parameters in its constructor, including the dimension of the model (`d_model`), the number of attention heads (`nhead`), the number of layers in the transformer (`num_layers`), and the dropout rate (`dropout`).\nWe then define a `forward` method that takes the input IDs and attention mask as input, and returns the output of the transformer encoder.\nFinally, we create a transformer model object and fit it to the training data using the `fit` method. We then use the `predict` method to make predictions on the test data.\nNote that this is just a simple example, and there are many other features and options that can be added to a transformer model, such as additional layers, attention mechanisms, and pre-training techniques."
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n    <uses-permission android:name=\"android.permission.INTERNET\"\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>"
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n    <uses-permission android:name=\"android.permission.INTERNET\"\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\n    <uses-permission android:name=\"android.permission.READ_<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n    <uses-permission android:name=\"android.permission.INTERNET\"\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>EXTERNAL_STORAGE\"/>"
     },
     {
         "role": "user",
+        "image-url": "https://picsum.photos/200/300.jpg",
         "content": "Create a random python code example "
     }
 ]
