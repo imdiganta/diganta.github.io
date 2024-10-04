@@ -54,5 +54,9 @@
     {
         "role": "user",
         "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n    <uses-permission android:name=\"android.permission.INTERNET\"\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\n    <uses-permission android:name=\"android.permission.READ_<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n    <uses-permission android:name=\"android.permission.INTERNET\"\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>EXTERNAL_STORAGE\"/>"
+    },
+    {
+        "role": "user",
+        "content": "Create a random python code example "
     }
 ]
